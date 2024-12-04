@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net9.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
@@ -60,6 +60,28 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Resources\Raw\ExceptionHandler.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiAsset Remove="Resources\Raw\AppSettings.Development.json" />
+	  <MauiAsset Remove="Resources\Raw\appSettings.json" />
+	  <MauiAsset Remove="Resources\Raw\AppSettings.Production.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\Raw\appSettings.Development.json" />
+	  <EmbeddedResource Include="Resources\Raw\appSettings.json">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\Raw\appSettings.Production.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiAsset Include="ExceptionHandler.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Common" Version="8.3.2" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
 		<PackageReference Include="CommunityToolkit.Maui.Markup" Version="5.0.0" />
@@ -86,7 +108,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Solution.Database\Solution.Database.csproj" />
+	  <ProjectReference Include="..\Solution.Core\Solution.Core.csproj" />
+	  <ProjectReference Include="..\Solution.Databse\Solution.Databse.csproj" />
+	  <ProjectReference Include="..\Solution.Services\Solution.Services.csproj" />
 	  <ProjectReference Include="..\Solution.ValidationLibrary\Solution.ValidationLibrary.csproj" />
 	</ItemGroup>
 

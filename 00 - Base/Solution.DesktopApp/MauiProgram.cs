@@ -10,8 +10,8 @@ public static class MauiProgram
                .UseMauiCommunityToolkit()
                .UseMauiCommunityToolkitMarkup()
                .UseFontConfiguration()
-               .UseMsSqlServer()
                .UseAppConfigurations()
+               .UseMsSqlServer()
                .UseDIConfiguration();
 
 #if DEBUG

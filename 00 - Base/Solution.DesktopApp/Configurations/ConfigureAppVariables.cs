@@ -4,7 +4,11 @@ public static class ConfigureAppVariables
 {
     public static MauiAppBuilder UseAppConfigurations(this MauiAppBuilder builder)
     {
-        var file = "Resources.Raw.appSettings.json";
+#if DEBUG
+        var file = "Resources.Raw.appSettings.Development.json";
+#else
+        var file = "Resources.Raw.appSettings.Production.json";
+#endif
 
         var assembly = typeof(App).GetTypeInfo().Assembly;
         var assemblyName = assembly.GetName().Name.Replace(" ", "_");

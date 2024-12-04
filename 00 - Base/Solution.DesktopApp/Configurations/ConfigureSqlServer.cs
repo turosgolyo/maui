@@ -4,7 +4,7 @@ public static class ConfigureSqlServer
 {
     public static MauiAppBuilder UseMsSqlServer(this MauiAppBuilder builder)
     {
-        string connectionString = builder.Configuration.GetConnectionString("MvcMovieContext");
+        string connectionString = builder.Configuration.GetRequiredSection("SqlConnectionString").Get<string>();
         
         ArgumentNullException.ThrowIfNull(connectionString);
         
