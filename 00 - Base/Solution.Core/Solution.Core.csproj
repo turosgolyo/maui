@@ -26,6 +26,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Solution.Databse\Solution.Databse.csproj" />
+	  <ProjectReference Include="..\Solution.Databse\Solution.Database.csproj" />
 	</ItemGroup>
 </Project>
