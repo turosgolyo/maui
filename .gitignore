@@ -12,3 +12,14 @@
 00 - Base/Solution.Services/bin
 00 - Base/Solution.Services/obj
 00 - Base/Solution.Database/bin
+01 - SimpleMovieApp/.vs
+01 - SimpleMovieApp/Solution.Core/bin
+01 - SimpleMovieApp/Solution.Core/obj
+01 - SimpleMovieApp/Solution.Database/obj
+01 - SimpleMovieApp/Solution.DesktopApp/bin
+01 - SimpleMovieApp/Solution.Database/bin
+01 - SimpleMovieApp/Solution.DesktopApp/obj
+01 - SimpleMovieApp/Solution.Services/bin
+01 - SimpleMovieApp/Solution.ValidationLibrary/bin
+01 - SimpleMovieApp/Solution.Services/obj
+01 - SimpleMovieApp/Solution.ValidationLibrary/obj
