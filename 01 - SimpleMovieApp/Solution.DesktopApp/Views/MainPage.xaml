@@ -8,19 +8,24 @@
     <FlexLayout Direction="Column"
                 HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
                 Margin="50, 0, 50, 0">
-        <Label Text="Movie data" HorizontalOptions="Center" />
+        <Label Text="Movie data" HorizontalOptions="Center" 
+               Style="{x:StaticResource PageLabel}"/>
         <StackLayout>
-            <Label Text="Movie title" />
+            <Label Text="Movie title"
+                   Style="{x:StaticResource InputLabel}"/>
             <Entry Text="{Binding Title}" />
         </StackLayout>
         <StackLayout>
-            <Label Text="Movie length" />
+            <Label Text="Movie length"
+                   Style="{x:StaticResource InputLabel}"/>
             <Entry Text="{Binding Length}" />
         </StackLayout>
         <StackLayout>
-            <Label Text="Movie release date" />
+            <Label Text="Movie release date"
+                   Style="{x:StaticResource InputLabel}"/>
             <DatePicker Date="{Binding Release}" 
-                        MaximumDate="{Binding MaxDateTime}" />
+                        MaximumDate="{Binding MaxDateTime}" 
+                        WidthRequest="{Binding DatePickerWidth}"/>
         </StackLayout>
         <Button Text="Submit" Command="{Binding OnSubmitCommand}" />
     </FlexLayout>
