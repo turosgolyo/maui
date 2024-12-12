@@ -25,6 +25,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\00 - Base\Solution.ValidationLibrary\Solution.ValidationLibrary.csproj" />
 	  <ProjectReference Include="..\Solution.Database\Solution.Database.csproj" />
 	</ItemGroup>
 

@@ -1,20 +1,18 @@
-﻿using Solution.Database.Entities;
-
-namespace Solution.Core.Models;
+﻿namespace Solution.Core.Models;
 
 public partial class MovieModel : ObservableObject
 {
     [ObservableProperty]
-    private string id;
+    private ValidatableObject<string> id;
 
     [ObservableProperty]
-    private string title;
+    private ValidatableObject<string> title;
 
     [ObservableProperty]
-    private uint length;
+    private ValidatableObject<uint?> length;
 
     [ObservableProperty]
-    private DateTime release;
+    private ValidatableObject<DateTime> release;
      
     public MovieModel()
     {
@@ -35,7 +33,7 @@ public partial class MovieModel : ObservableObject
         {
             PublicId = Id,
             Title = Title,
-            Length = Length,
+            Length = Length.HasValue ? Length.Value : 0,
             Release = Release
         };
     }
@@ -44,7 +42,7 @@ public partial class MovieModel : ObservableObject
     {
         entity.PublicId = Id;
         entity.Title = Title;
-        entity.Length = Length;
+        entity.Length = Length.HasValue ? Length.Value : 0;
         entity.Release = Release;
     }
 }
