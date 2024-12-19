@@ -9,5 +9,6 @@ global using System.Reflection;
 global using Solution.Core.Models;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Mvvm.ComponentModel;
-global using Solution.Services;
 global using Solution.Core.Interfaces;
+global using Solution.Services;
+global using ErrorOr;

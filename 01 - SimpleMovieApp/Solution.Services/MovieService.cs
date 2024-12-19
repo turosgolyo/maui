@@ -1,13 +1,26 @@
 ﻿namespace Solution.Services;
 
-public class MovieService(AppDbContext dbContext) : IMovieInterface
+public class MovieService(AppDbContext dbContext) : IMovieService
 {
-    public async Task CreateAsync(MovieModel movie)
-    {
-        MovieEntity entity = movie.ToEntity();
-        entity.PublicId = Guid.NewGuid().ToString();
+	public async Task<ErrorOr<MovieModel>> CreateAsync(MovieModel movie)
+	{
+		var isMovieExists = await dbContext.Movies.AnyAsync(x => 
+			x.Title.ToLower() == movie.Title.Value.ToLower() &&
+			x.Length == movie.Length.Value &&
+			x.Release.Date == movie.Release.Value.Date
+		);
 
-        await dbContext.AddAsync(entity);
-        await dbContext.SaveChangesAsync();
-    }
+		if(isMovieExists)
+		{
+			return Error.Conflict(description: $"Movie withe the same data already exists");
+		}
+
+    movie.Id = Guid.NewGuid().ToString();
+    MovieEntity entity = movie.ToEntity();
+
+		await dbContext.Movies.AddAsync(entity);
+		await dbContext.SaveChangesAsync();
+
+		return new MovieModel(entity);
+	}
 }

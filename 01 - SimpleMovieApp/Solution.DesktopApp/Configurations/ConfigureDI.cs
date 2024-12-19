@@ -5,8 +5,9 @@ public static class ConfigureDI
 	public static MauiAppBuilder UseDIConfiguration(this MauiAppBuilder builder)
 	{
 		builder.Services.AddTransient<MainPageViewModel>();
-		builder.Services.AddTransient<MovieService, MovieService>();
 
-        return builder;
+		builder.Services.AddTransient<IMovieService, MovieService>();
+
+		return builder;
 	}
 }
