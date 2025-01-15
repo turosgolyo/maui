@@ -1,7 +1,11 @@
-﻿namespace Solution.DataBase;
+﻿using Solution.Database.Entities;
+
+namespace Solution.DataBase;
 
 public class AppDbContext() : DbContext
 {
+	public DbSet<RunningEntity> RunningEntities { get; set; }
+
 	private static string connectionString = string.Empty;
 
 	static AppDbContext()
@@ -31,7 +35,7 @@ public class AppDbContext() : DbContext
 					.AddJsonStream(stream)
 					.Build();
 
-		var connectionStirng = config.GetValue<string>("SqlConnectionString");
-		return connectionStirng;
+		var connectionString = config.GetValue<string>("SqlConnectionString");
+		return connectionString;
 	}
 }

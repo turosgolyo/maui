@@ -1,0 +1,189 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{542885BE-10AA-472C-AECC-AF68FFD90A2D}|Solution.DesktopApp\\Solution.DesktopApp.csproj|c:\\users\\b1papdan\\desktop\\maui\\03 - running\\solution.desktopapp\\views\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{542885BE-10AA-472C-AECC-AF68FFD90A2D}|Solution.DesktopApp\\Solution.DesktopApp.csproj|solutionrelative:solution.desktopapp\\views\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{542885BE-10AA-472C-AECC-AF68FFD90A2D}|Solution.DesktopApp\\Solution.DesktopApp.csproj|c:\\users\\b1papdan\\desktop\\maui\\03 - running\\solution.desktopapp\\behaviors\\entryintegerbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{542885BE-10AA-472C-AECC-AF68FFD90A2D}|Solution.DesktopApp\\Solution.DesktopApp.csproj|solutionrelative:solution.desktopapp\\behaviors\\entryintegerbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DataBase\\Migrations\\20250115082250_jav1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Solution.DataBase\\Migrations\\20250115082250_jav1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{256048E6-59B0-4F60-9263-51C605A5DB61}|Solution.Services\\Solution.Services.csproj|c:\\users\\b1papdan\\desktop\\maui\\03 - running\\solution.services\\runningservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{256048E6-59B0-4F60-9263-51C605A5DB61}|Solution.Services\\Solution.Services.csproj|solutionrelative:solution.services\\runningservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{542885BE-10AA-472C-AECC-AF68FFD90A2D}|Solution.DesktopApp\\Solution.DesktopApp.csproj|c:\\users\\b1papdan\\desktop\\maui\\03 - running\\solution.desktopapp\\configurations\\configuredi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{542885BE-10AA-472C-AECC-AF68FFD90A2D}|Solution.DesktopApp\\Solution.DesktopApp.csproj|solutionrelative:solution.desktopapp\\configurations\\configuredi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{542885BE-10AA-472C-AECC-AF68FFD90A2D}|Solution.DesktopApp\\Solution.DesktopApp.csproj|c:\\users\\b1papdan\\desktop\\maui\\03 - running\\solution.desktopapp\\viewmodels\\mainpageviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{542885BE-10AA-472C-AECC-AF68FFD90A2D}|Solution.DesktopApp\\Solution.DesktopApp.csproj|solutionrelative:solution.desktopapp\\viewmodels\\mainpageviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{542885BE-10AA-472C-AECC-AF68FFD90A2D}|Solution.DesktopApp\\Solution.DesktopApp.csproj|c:\\users\\b1papdan\\desktop\\maui\\03 - running\\solution.desktopapp\\views\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{542885BE-10AA-472C-AECC-AF68FFD90A2D}|Solution.DesktopApp\\Solution.DesktopApp.csproj|solutionrelative:solution.desktopapp\\views\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88013A1C-1958-47CF-86F3-57996343D1B0}|Solution.Core\\Solution.Core.csproj|c:\\users\\b1papdan\\desktop\\maui\\03 - running\\solution.core\\models\\runningmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88013A1C-1958-47CF-86F3-57996343D1B0}|Solution.Core\\Solution.Core.csproj|solutionrelative:solution.core\\models\\runningmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\b1papdan\\AppData\\Local\\Temp\\.vsdbgsrc\\1f80a6bb71d8303a036c73a79114d8654f316b44\\Views_MainPage.xaml.sg.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{542885BE-10AA-472C-AECC-AF68FFD90A2D}|Solution.DesktopApp\\Solution.DesktopApp.csproj|c:\\users\\b1papdan\\desktop\\maui\\03 - running\\solution.desktopapp\\resources\\raw\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{542885BE-10AA-472C-AECC-AF68FFD90A2D}|Solution.DesktopApp\\Solution.DesktopApp.csproj|solutionrelative:solution.desktopapp\\resources\\raw\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EntryIntegerBehavior.cs",
+              "DocumentMoniker": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DesktopApp\\Behaviors\\EntryIntegerBehavior.cs",
+              "RelativeDocumentMoniker": "Solution.DesktopApp\\Behaviors\\EntryIntegerBehavior.cs",
+              "ToolTip": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DesktopApp\\Behaviors\\EntryIntegerBehavior.cs",
+              "RelativeToolTip": "Solution.DesktopApp\\Behaviors\\EntryIntegerBehavior.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAA1wBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T08:23:17.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "20250115082250_jav1.cs",
+              "DocumentMoniker": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DataBase\\Migrations\\20250115082250_jav1.cs",
+              "RelativeDocumentMoniker": "Solution.DataBase\\Migrations\\20250115082250_jav1.cs",
+              "ToolTip": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DataBase\\Migrations\\20250115082250_jav1.cs",
+              "RelativeToolTip": "Solution.DataBase\\Migrations\\20250115082250_jav1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T08:22:50.793Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RunningService.cs",
+              "DocumentMoniker": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.Services\\RunningService.cs",
+              "RelativeDocumentMoniker": "Solution.Services\\RunningService.cs",
+              "ToolTip": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.Services\\RunningService.cs",
+              "RelativeToolTip": "Solution.Services\\RunningService.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAiwB4AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T08:11:52.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RunningModel.cs",
+              "DocumentMoniker": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.Core\\Models\\RunningModel.cs",
+              "RelativeDocumentMoniker": "Solution.Core\\Models\\RunningModel.cs",
+              "ToolTip": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.Core\\Models\\RunningModel.cs",
+              "RelativeToolTip": "Solution.Core\\Models\\RunningModel.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAAwDsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T08:00:48.936Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainPage.xaml",
+              "DocumentMoniker": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DesktopApp\\Views\\MainPage.xaml",
+              "RelativeDocumentMoniker": "Solution.DesktopApp\\Views\\MainPage.xaml",
+              "ToolTip": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DesktopApp\\Views\\MainPage.xaml",
+              "RelativeToolTip": "Solution.DesktopApp\\Views\\MainPage.xaml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABgAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-15T07:44:02.717Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ConfigureDI.cs",
+              "DocumentMoniker": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DesktopApp\\Configurations\\ConfigureDI.cs",
+              "RelativeDocumentMoniker": "Solution.DesktopApp\\Configurations\\ConfigureDI.cs",
+              "ToolTip": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DesktopApp\\Configurations\\ConfigureDI.cs",
+              "RelativeToolTip": "Solution.DesktopApp\\Configurations\\ConfigureDI.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T08:17:54.082Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MainPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DesktopApp\\Views\\MainPage.xaml.cs",
+              "RelativeDocumentMoniker": "Solution.DesktopApp\\Views\\MainPage.xaml.cs",
+              "ToolTip": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DesktopApp\\Views\\MainPage.xaml.cs",
+              "RelativeToolTip": "Solution.DesktopApp\\Views\\MainPage.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T07:46:34.313Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainPageViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DesktopApp\\ViewModels\\MainPageViewModel.cs",
+              "RelativeDocumentMoniker": "Solution.DesktopApp\\ViewModels\\MainPageViewModel.cs",
+              "ToolTip": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DesktopApp\\ViewModels\\MainPageViewModel.cs",
+              "RelativeToolTip": "Solution.DesktopApp\\ViewModels\\MainPageViewModel.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAYwBUAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T07:43:59.714Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Views_MainPage.xaml.sg.cs",
+              "DocumentMoniker": "C:\\Users\\b1papdan\\AppData\\Local\\Temp\\.vsdbgsrc\\1f80a6bb71d8303a036c73a79114d8654f316b44\\Views_MainPage.xaml.sg.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\1f80a6bb71d8303a036c73a79114d8654f316b44\\Views_MainPage.xaml.sg.cs",
+              "ToolTip": "C:\\Users\\b1papdan\\AppData\\Local\\Temp\\.vsdbgsrc\\1f80a6bb71d8303a036c73a79114d8654f316b44\\Views_MainPage.xaml.sg.cs [Read Only]",
+              "RelativeToolTip": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\1f80a6bb71d8303a036c73a79114d8654f316b44\\Views_MainPage.xaml.sg.cs [Read Only]",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAiwBYAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T07:48:59.574Z",
+              "EditorCaption": " [Read Only]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "appSettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DesktopApp\\Resources\\Raw\\appSettings.Development.json",
+              "RelativeDocumentMoniker": "Solution.DesktopApp\\Resources\\Raw\\appSettings.Development.json",
+              "ToolTip": "C:\\Users\\b1papdan\\Desktop\\maui\\03 - Running\\Solution.DesktopApp\\Resources\\Raw\\appSettings.Development.json",
+              "RelativeToolTip": "Solution.DesktopApp\\Resources\\Raw\\appSettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-15T07:43:01.917Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

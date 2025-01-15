@@ -23,3 +23,16 @@
 01 - SimpleMovieApp/Solution.ValidationLibrary/bin
 01 - SimpleMovieApp/Solution.Services/obj
 01 - SimpleMovieApp/Solution.ValidationLibrary/obj
+00 - Base/Solution.PdfGenerator/obj
+03 - Running/Solution.Core/bin
+03 - Running/Solution.DataBase/bin
+03 - Running/Solution.DesktopApp/bin
+03 - Running/Solution.PdfGenerator/bin
+03 - Running/Solution.Services/bin
+03 - Running/Solution.ValidationLibrary/bin
+03 - Running/Solution.Services/obj
+03 - Running/Solution.ValidationLibrary/obj
+03 - Running/Solution.Core/obj
+03 - Running/Solution.DataBase/obj
+03 - Running/Solution.DesktopApp/obj
+03 - Running/Solution.PdfGenerator/obj
