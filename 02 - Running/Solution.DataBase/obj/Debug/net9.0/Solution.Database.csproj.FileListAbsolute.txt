@@ -1,0 +1,14 @@
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\bin\Debug\net9.0\Solution.Database.deps.json
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\bin\Debug\net9.0\Solution.Database.runtimeconfig.json
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\bin\Debug\net9.0\Solution.Database.dll
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\bin\Debug\net9.0\Solution.Database.pdb
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\obj\Debug\net9.0\Solution.Database.csproj.AssemblyReference.cache
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\obj\Debug\net9.0\Solution.Database.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\obj\Debug\net9.0\Solution.Database.AssemblyInfoInputs.cache
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\obj\Debug\net9.0\Solution.Database.AssemblyInfo.cs
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\obj\Debug\net9.0\Solution.Database.csproj.CoreCompileInputs.cache
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\obj\Debug\net9.0\Solution.Database.dll
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\obj\Debug\net9.0\refint\Solution.Database.dll
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\obj\Debug\net9.0\Solution.Database.pdb
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\obj\Debug\net9.0\Solution.Database.genruntimeconfig.cache
+C:\Users\b1papdan\Desktop\maui\03 - Running\Solution.Database\obj\Debug\net9.0\ref\Solution.Database.dll
