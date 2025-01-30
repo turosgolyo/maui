@@ -1,15 +1,15 @@
 ﻿namespace Solution.ValidationLibrary.ValidationRules;
 
-public class PickerValidationRule<T> : IValidationRule<T> where T : IObjectValidator<uint>
+public class PickerValidationRule<T> : IValidationRule<T> where T: IObjectValidator<uint>
 {
-    public string ValidationMessage { get; set; } = "Manufacturer must be selected!";
+    public string ValidationMessage { get; set; } = "Manufacturer must be selected";
 
     public bool Check(object value)
     {
-        var isTypeOf = value is T;
-        var isNull = value is T;
+        var isTypeOfT = value is T;
+        var isNull = value is null;
 
-        if(!isTypeOf || isNull)
+        if(!isTypeOfT || isNull)
         {
             return false;
         }
@@ -17,10 +17,10 @@ public class PickerValidationRule<T> : IValidationRule<T> where T : IObjectValid
         if(value is IObjectValidator<uint> objectValidator)
         {
             return objectValidator.Id != 0 &&
-                   isTypeOf && 
+                   isTypeOfT &&
                    !isNull;
         }
-
+      
         return false;
     }
 }

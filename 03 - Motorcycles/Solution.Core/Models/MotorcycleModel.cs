@@ -1,6 +1,4 @@
-﻿using Solution.Database.Migrations;
-
-namespace Solution.Core.Models;
+﻿namespace Solution.Core.Models;
 
 public partial class MotorcycleModel
 {
@@ -92,13 +90,13 @@ public partial class MotorcycleModel
             },
             new MaxValueRule<uint?>(DateTime.Now.Year)
             {
-                ValidationMessage = "Cubic field cant be greater then the currnet year"
+                ValidationMessage = "Release Year can't be greater then the currnet year"
             }
         ]);
 
         this.NumberOfCylinders.Validations.AddRange(new IsNotNullOrEmptyRule<uint?>
         {
-            ValidationMessage = "Cylinder field is required"
+            ValidationMessage = "Number of cylinders must be selected"
         });
     }
 }

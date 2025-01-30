@@ -27,19 +27,19 @@ public class ValidatableObject<T> : ObservableObject
     {
         isValid = true;
         errors = [];
-        
+
         if(typeof(T) == typeof(string))
         {
             value = default;
         }
-        else if (typeof(T).IsValueType)
+        else if(typeof(T).IsValueType)
         {
             value = default;
         }
         else
         {
             value = Activator.CreateInstance<T>();
-        }
+        }                    
     }
     public bool Validate()
     {
