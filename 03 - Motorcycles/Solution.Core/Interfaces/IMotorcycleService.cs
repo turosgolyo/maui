@@ -8,5 +8,5 @@ public interface IMotorcycleService
     Task<ErrorOr<List<MotorcycleModel>>> GetAllAsync();
     Task<ErrorOr<MotorcycleModel>> GetByIdAsync(string motorcycleId);
     Task<ErrorOr<List<MotorcycleModel>>> GetPagedAsync(int page = 0);
-    Task<ErrorOr<MotorcycleModel>> UpdateAsync(MotorcycleModel model);
+    Task<ErrorOr<Success>> UpdateAsync(MotorcycleModel model);
 }

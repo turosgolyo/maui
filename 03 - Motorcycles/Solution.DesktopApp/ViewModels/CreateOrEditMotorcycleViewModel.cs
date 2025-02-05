@@ -9,7 +9,7 @@ public partial class CreateOrEditMotorcycleViewModel(
     IMotorcycleService motorcycleService) : MotorcycleModel()
 {
     #region life cycle commands
-    public IAsyncRelayCommand AppearingCommand => new AsyncRelayCommand(OnAppearingkAsync);
+    public IAsyncRelayCommand AppearingCommand => new AsyncRelayCommand(OnAppearingAsync);
     public IAsyncRelayCommand DisappearingCommand => new AsyncRelayCommand(OnDisappearingAsync);
     #endregion
 
@@ -30,7 +30,7 @@ public partial class CreateOrEditMotorcycleViewModel(
     [ObservableProperty]
     private IList<uint> cylinders = [1, 2, 3, 4, 6, 8];
 
-    private async Task OnAppearingkAsync()
+    private async Task OnAppearingAsync()
     {
         Manufacturers = await dbContext.Manufacturers.AsNoTracking()
                                                      .OrderBy(x => x.Name)
