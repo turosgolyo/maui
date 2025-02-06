@@ -6,7 +6,7 @@ namespace Solution.DesktopApp.ViewModels;
 public partial class CreateOrEditMotorcycleViewModel(
     AppDbContext dbContext, 
     IGoogleDriveService googleDriveService,
-    IMotorcycleService motorcycleService) : MotorcycleModel()
+    IMotorcycleService motorcycleService) : MotorcycleModel(), IQueryAttributable
 {
     #region life cycle commands
     public IAsyncRelayCommand AppearingCommand => new AsyncRelayCommand(OnAppearingAsync);
@@ -20,27 +20,39 @@ public partial class CreateOrEditMotorcycleViewModel(
     public IRelayCommand CubicValidationCommand => new RelayCommand(() => this.Cubic.Validate());
     public IRelayCommand ReleaseYearValidationCommand => new RelayCommand(() => this.ReleaseYear.Validate());
     public IAsyncRelayCommand SaveCommand => new AsyncRelayCommand(OnSaveAsync);
-    #endregion
+#endregion
 
+
+    public async void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        bool hasValue = query.TryGetValue("Motorcycle", out MotorcycleModel motorcycle);
+        
+        if (!hasValue)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "Motorcycle can't be edited!", "OK");
+            return;
+        }
+
+        this.Manufacturer.Value = motorcycle.Manufacturer.Value;
+        this.Model.Value = motorcycle.Model.Value;
+        this.ReleaseYear.Value = motorcycle.ReleaseYear.Value;
+        this.Cubic.Value = motorcycle.Cubic.Value;
+        this.NumberOfCylinders.Value = motorcycle.NumberOfCylinders.Value;
+    }
 
 
     [ObservableProperty]
     private IList<ManufacturerModel> manufacturers = [];
-
     [ObservableProperty]
     private IList<uint> cylinders = [1, 2, 3, 4, 6, 8];
 
+
     private async Task OnAppearingAsync()
     {
-        Manufacturers = await dbContext.Manufacturers.AsNoTracking()
-                                                     .OrderBy(x => x.Name)
-                                                     .Select(x => new ManufacturerModel(x))
-                                                     .ToListAsync();
+        await LoadManufacturers();
     }
-
     private async Task OnDisappearingAsync()
     { }
-
     private async Task OnSaveAsync()
     {
         if (!IsFormValid())
@@ -60,7 +72,16 @@ public partial class CreateOrEditMotorcycleViewModel(
 
         await Application.Current.MainPage.DisplayAlert(title, message, "OK");
     }
-
+    private async Task LoadManufacturers()
+    {
+        if (!Manufacturers.Any())
+        {
+            Manufacturers = await dbContext.Manufacturers.AsNoTracking()
+                                                         .OrderBy(x => x.Name)
+                                                         .Select(x => new ManufacturerModel(x))
+                                                         .ToListAsync();
+        }
+    }
     private void ClearForm()
     {
         this.Manufacturer.Value = null;
@@ -69,6 +90,7 @@ public partial class CreateOrEditMotorcycleViewModel(
         this.ReleaseYear.Value = null;
         this.NumberOfCylinders.Value = null;
     }
+
 
     private bool IsFormValid()
     {

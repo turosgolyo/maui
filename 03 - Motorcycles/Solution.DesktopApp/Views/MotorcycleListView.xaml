@@ -13,10 +13,9 @@
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
 
-    <Grid>
+    <Grid BackgroundColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}">
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
-            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
@@ -24,44 +23,38 @@
                Text="MOTORCYCLES"
                Style="{x:StaticResource PageTitle}" />
         
-        <StackLayout Grid.Row="1">
-            <Button Text="Update"
-                    HorizontalOptions="End" />
-        </StackLayout>
 
-        <ScrollView Grid.Row="2">
+        <ScrollView Grid.Row="1">
             <CollectionView ItemsSource ="{Binding Motorcycles}"
-                            Margin="50">
+                            Margin="150">
                 <CollectionView.Header>
-                    <Grid>
+                    <Grid Margin="50,0,50,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="100" />
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Column="0" 
                                Text="Manufacturer"
-                               FontAttributes="Bold"
-                               HorizontalTextAlignment="Center" />
+                               Style="{x:StaticResource TableHeader}"/>
                         <Label Grid.Column="1" 
                                Text="Model" 
-                               FontAttributes="Bold"
-                               HorizontalTextAlignment="Center" />
+                               Style="{x:StaticResource TableHeader}"/>
                         <Label Grid.Column="2" 
                                Text="Release year" 
-                               FontAttributes="Bold"
-                               HorizontalTextAlignment="Center" />
+                               Style="{x:StaticResource TableHeader}"/>
                         <Label Grid.Column="3" 
                                Text="Cylinders" 
-                               FontAttributes="Bold"
-                               HorizontalTextAlignment="Center" />
+                               Style="{x:StaticResource TableHeader}" />
                         <Label Grid.Column="4"
-                               FontAttributes="Bold"
                                Text="Cubic" 
-                               HorizontalTextAlignment="Center" />
+                               Style="{x:StaticResource TableHeader}" />
+                        <Label Grid.Column="5" 
+                               Style="{x:StaticResource TableHeader}" />
                     </Grid>
                 </CollectionView.Header>
                 <CollectionView.ItemsLayout>

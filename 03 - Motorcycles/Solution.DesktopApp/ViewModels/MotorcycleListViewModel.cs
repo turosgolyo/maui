@@ -9,7 +9,8 @@ public partial class MotorcycleListViewModel(IMotorcycleService motorcycleServic
     public IAsyncRelayCommand AppearingCommand => new AsyncRelayCommand(OnAppearingAsync);
     public IAsyncRelayCommand DisappearingCommand => new AsyncRelayCommand(OnDisappearingAsync);
     #endregion
-
+    
+    
     [ObservableProperty]
     private ObservableCollection<MotorcycleModel> motorcycles = [];
 
