@@ -2,7 +2,7 @@
 
 public class MotorcycleService(AppDbContext dbContext) : IMotorcycleService
 {
-    private const int ROW_COUNT = 25;
+    private const int ROW_COUNT = 5;
     public async Task<ErrorOr<MotorcycleModel>> CreateAsync(MotorcycleModel model)
     {
         bool exists = await dbContext.Motorcycles.AnyAsync(x => x.ManufacturerId == model.Manufacturer.Value.Id &&

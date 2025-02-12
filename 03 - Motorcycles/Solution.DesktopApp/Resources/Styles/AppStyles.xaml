@@ -12,6 +12,7 @@
 
     <Style x:Key="InputLabel" TargetType="Label">
         <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=WhiteSmoke}" />
     </Style>
 
     <Style x:Key="FormLineContainer" TargetType="VerticalStackLayout">
@@ -28,7 +29,7 @@
 
     <Style x:Key="PageTitle" TargetType="Label">
         <Setter Property="HorizontalOptions" Value="Center"></Setter>
-        <Setter Property="TextColor" Value="{AppThemeBinding Light=WhiteSmoke, Dark=Black}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=WhiteSmoke}" />
         <Setter Property="Margin" Value="0,10,0,20" />
         <Setter Property="FontSize" Value="Title" />
         <Setter Property="FontAttributes" Value="Bold" />
@@ -38,7 +39,7 @@
         <Setter Property="FontSize" Value="20" />
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=WhiteSmoke}" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=WhiteSmoke, Dark=Black}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light=WhiteSmoke, Dark=Black}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=Black, Dark=WhiteSmoke}" />
     </Style>
 </ResourceDictionary>

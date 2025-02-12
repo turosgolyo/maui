@@ -13,10 +13,10 @@
         <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
 
-    <Grid BackgroundColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}">
+    <Grid BackgroundColor="{AppThemeBinding Dark=Black, Default=WhiteSmoke}">
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0"
@@ -66,7 +66,17 @@
                         <components:MotorcycleListComponent Motorcycle="{Binding .}"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                
+                <CollectionView.Footer>
+                    <FlexLayout JustifyContent="SpaceBetween"
+                                Direction="Row"
+                                Margin="50,10">
+                        <Button Text="Previous page" 
+                                Command="{Binding PreviousPageCommand}"
+                                IsEnabled="{Binding IsPreviousButtonEnabled}"/>
+                        <Button Text="Next page" Command="{Binding NextPageCommand}"
+                                IsEnabled="{Binding IsNextButtonEnabled}" />
+                    </FlexLayout>
+                </CollectionView.Footer>
             </CollectionView>
         </ScrollView>
 

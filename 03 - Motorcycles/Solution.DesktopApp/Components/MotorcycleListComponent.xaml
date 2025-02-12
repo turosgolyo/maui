@@ -17,27 +17,27 @@
 
             <Label Grid.Column="0" 
                    Text="{Binding Motorcycle.Manufacturer.Value.Name, Source={x:Reference this}}"
-                   TextColor="{AppThemeBinding Light=WhiteSmoke, Dark=Black}" 
+                   TextColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}" 
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"/>
             <Label Grid.Column="1"
                    Text="{Binding Motorcycle.Model.Value, Source={x:Reference this}}"
-                   TextColor="{AppThemeBinding Light=WhiteSmoke, Dark=Black}"
+                   TextColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"/>
             <Label Grid.Column="2"
                    Text="{Binding Motorcycle.ReleaseYear.Value, Source={x:Reference this}}" 
-                   TextColor="{AppThemeBinding Light=WhiteSmoke, Dark=Black}"
+                   TextColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"/>
             <Label Grid.Column="3"
                    Text="{Binding Motorcycle.NumberOfCylinders.Value, Source={x:Reference this}}"
-                   TextColor="{AppThemeBinding Light=WhiteSmoke, Dark=Black}"
+                   TextColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"/>
             <Label Grid.Column="4"
                    Text="{Binding Motorcycle.Cubic.Value, Source={x:Reference this}}" 
-                   TextColor="{AppThemeBinding Light=WhiteSmoke, Dark=Black}"
+                   TextColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"/>
             <ImageButton Grid.Column="5"

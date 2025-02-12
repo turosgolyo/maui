@@ -19,25 +19,40 @@ public partial class CreateOrEditMotorcycleViewModel(
     public IRelayCommand ModelValidationCommand => new RelayCommand(() => this.Model.Validate());
     public IRelayCommand CubicValidationCommand => new RelayCommand(() => this.Cubic.Validate());
     public IRelayCommand ReleaseYearValidationCommand => new RelayCommand(() => this.ReleaseYear.Validate());
-    public IAsyncRelayCommand SaveCommand => new AsyncRelayCommand(OnSaveAsync);
-#endregion
+    public IAsyncRelayCommand SubmitCommand => new AsyncRelayCommand(OnSubmitAsync);
+    #endregion
 
+
+    private delegate Task ButtonActionDelegate();
+    ButtonActionDelegate asyncButtonAction;
+
+    [ObservableProperty]
+    private string title;
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        bool hasValue = query.TryGetValue("Motorcycle", out MotorcycleModel motorcycle);
+        await Task.Run(() => LoadManufacturers());
+
+        bool hasValue = query.TryGetValue("Motorcycle", out object result);
         
         if (!hasValue)
         {
-            await Application.Current.MainPage.DisplayAlert("Error", "Motorcycle can't be edited!", "OK");
+            asyncButtonAction = OnSaveAsync;
+            Title = "Add new motorcycle";
             return;
         }
 
+        MotorcycleModel motorcycle = result as MotorcycleModel;
+
+        this.Id = motorcycle.Id;
         this.Manufacturer.Value = motorcycle.Manufacturer.Value;
         this.Model.Value = motorcycle.Model.Value;
         this.ReleaseYear.Value = motorcycle.ReleaseYear.Value;
         this.Cubic.Value = motorcycle.Cubic.Value;
         this.NumberOfCylinders.Value = motorcycle.NumberOfCylinders.Value;
+
+        asyncButtonAction = OnUpdateAsync;
+        Title = "Update motorcycle";
     }
 
 
@@ -48,11 +63,24 @@ public partial class CreateOrEditMotorcycleViewModel(
 
 
     private async Task OnAppearingAsync()
-    {
-        await LoadManufacturers();
-    }
+    { }
     private async Task OnDisappearingAsync()
     { }
+    private async Task OnSubmitAsync() => await asyncButtonAction();
+    private async Task OnUpdateAsync()
+    {
+        if (!IsFormValid())
+        {
+            return;
+        }
+
+        var result = await motorcycleService.UpdateAsync(this);
+
+        var title = result.IsError ? "Error" : "Information";
+        var message = result.IsError ? result.FirstError.Description : "Motorcycle updated!";
+
+        await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+    }
     private async Task OnSaveAsync()
     {
         if (!IsFormValid())
@@ -72,15 +100,14 @@ public partial class CreateOrEditMotorcycleViewModel(
 
         await Application.Current.MainPage.DisplayAlert(title, message, "OK");
     }
+
+
     private async Task LoadManufacturers()
     {
-        if (!Manufacturers.Any())
-        {
-            Manufacturers = await dbContext.Manufacturers.AsNoTracking()
-                                                         .OrderBy(x => x.Name)
-                                                         .Select(x => new ManufacturerModel(x))
-                                                         .ToListAsync();
-        }
+        Manufacturers = await dbContext.Manufacturers.AsNoTracking()
+                                                     .OrderBy(x => x.Name)
+                                                     .Select(x => new ManufacturerModel(x))
+                                                     .ToListAsync();
     }
     private void ClearForm()
     {

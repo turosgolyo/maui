@@ -21,12 +21,12 @@
     </ContentPage.Resources>
 
 
-    <StackLayout Orientation="Vertical">
+    <StackLayout Orientation="Vertical" BackgroundColor="{AppThemeBinding Dark=Black, Light=WhiteSmoke}">
 
-        <Label Text="Add new motorcycle" Style="{StaticResource PageTitle}" />
+        <Label Text="{Binding Title}" Style="{StaticResource PageTitle}" />
 
         <VerticalStackLayout Style="{StaticResource FormLineContainer}">
-            <Label Text="Manufacturer"></Label>
+            <Label Text="Manufacturer" Style="{StaticResource InputLabel}"></Label>
             <Picker ItemsSource="{Binding Manufacturers}"
                     ItemDisplayBinding="{Binding Name}"
                     SelectedItem="{Binding Manufacturer.Value}">
@@ -41,7 +41,8 @@
 
         <VerticalStackLayout Style="{StaticResource FormLineContainer}">
             <Label Text="Model" Style="{StaticResource InputLabel}"/>
-            <Entry Text="{Binding Model.Value}">
+            <Entry Text="{Binding Model.Value}"
+                   >
                 <Entry.Behaviors>
                     <toolkit:EventToCommandBehavior EventName="TextChanged" Command="{Binding ModelValidationCommand}" />
                 </Entry.Behaviors>
@@ -89,7 +90,11 @@
         </VerticalStackLayout>
 
         <VerticalStackLayout Style="{StaticResource FormLineContainer}">
-            <Button Text="Save" Command="{Binding SaveCommand}" WidthRequest="250"/>
+            <Button Text="Submit" 
+                    Command="{Binding SubmitCommand}"
+                    WidthRequest="250"
+                    TextColor="WhiteSmoke"
+                    BackgroundColor="Black"/>
         </VerticalStackLayout>
         
   </StackLayout>
