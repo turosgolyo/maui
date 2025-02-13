@@ -3,6 +3,7 @@
 public class MotorcycleService(AppDbContext dbContext) : IMotorcycleService
 {
     private const int ROW_COUNT = 5;
+    
     public async Task<ErrorOr<MotorcycleModel>> CreateAsync(MotorcycleModel model)
     {
         bool exists = await dbContext.Motorcycles.AnyAsync(x => x.ManufacturerId == model.Manufacturer.Value.Id &&
@@ -24,6 +25,7 @@ public class MotorcycleService(AppDbContext dbContext) : IMotorcycleService
             Manufacturer = model.Manufacturer
         };
     }
+    
     public async Task<ErrorOr<Success>> UpdateAsync(MotorcycleModel model)
     {
         var result = await dbContext.Motorcycles.AsNoTracking()
@@ -38,6 +40,7 @@ public class MotorcycleService(AppDbContext dbContext) : IMotorcycleService
 
         return result > 0 ? Result.Success : Error.NotFound();
     }
+    
     public async Task<ErrorOr<Success>> DeleteAsync(string motorcycleId)
     {
         var motorcycle = await dbContext.Motorcycles.AsNoTracking()
@@ -58,20 +61,28 @@ public class MotorcycleService(AppDbContext dbContext) : IMotorcycleService
 
         return new MotorcycleModel(motorcycle);
     }
+    
     public async Task<ErrorOr<List<MotorcycleModel>>> GetAllAsync() => await dbContext.Motorcycles.AsNoTracking()
                                                                                                    .Include(x => x.Manufacturer)
                                                                                                    .Select(x => new MotorcycleModel(x))
                                                                                                    .ToListAsync();
-    public async Task<ErrorOr<List<MotorcycleModel>>> GetPagedAsync(int page = 0)
+    
+    public async Task<ErrorOr<PaginationModel<MotorcycleModel>>> GetPagedAsync(int page = 0)
     {
         page = page < 0 ? 0 : page - 1;
 
-        return await dbContext.Motorcycles.AsNoTracking()
-                                          .Include(x => x.Manufacturer)
-                                          .Skip(page * ROW_COUNT)
-                                          .Take(ROW_COUNT)
-                                          .Select(x => new MotorcycleModel(x))
-                                          .ToListAsync();
+        var motorcycles = await dbContext.Motorcycles.AsNoTracking()
+                                                    .Include(x => x.Manufacturer)
+                                                    .Skip(page * ROW_COUNT)
+                                                    .Take(ROW_COUNT)
+                                                    .Select(x => new MotorcycleModel(x))
+                                                    .ToListAsync();
+        var paginationModel = new PaginationModel<MotorcycleModel>
+        {
+            Items = motorcycles,
+            Count = await dbContext.Motorcycles.CountAsync()
+        };
 
+        return paginationModel;
     }
 }

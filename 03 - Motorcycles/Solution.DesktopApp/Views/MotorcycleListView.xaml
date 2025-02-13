@@ -71,10 +71,9 @@
                                 Direction="Row"
                                 Margin="50,10">
                         <Button Text="Previous page" 
-                                Command="{Binding PreviousPageCommand}"
-                                IsEnabled="{Binding IsPreviousButtonEnabled}"/>
-                        <Button Text="Next page" Command="{Binding NextPageCommand}"
-                                IsEnabled="{Binding IsNextButtonEnabled}" />
+                                Command="{Binding PreviousPageCommand}" />
+                        <Button Text="Next page" 
+                                Command="{Binding NextPageCommand}" />
                     </FlexLayout>
                 </CollectionView.Footer>
             </CollectionView>
