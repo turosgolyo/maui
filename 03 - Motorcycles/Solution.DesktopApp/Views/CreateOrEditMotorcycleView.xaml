@@ -76,7 +76,7 @@
         </VerticalStackLayout>
 
         <VerticalStackLayout Style="{StaticResource FormLineContainer}">
-            <Label Text="Cylinders"></Label>
+            <Label Text="Cylinders" Style="{StaticResource InputLabel}"></Label>
             <Picker ItemsSource="{Binding Cylinders}"
                     ItemDisplayBinding="{Binding .}"
                     SelectedItem="{Binding NumberOfCylinders.Value}">
@@ -86,6 +86,20 @@
                 </Picker.Behaviors>
             </Picker>
             <Label Text="{Binding NumberOfCylinders.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                   Style="{StaticResource ValidationErrorLabelStyle}" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Style="{StaticResource FormLineContainer}">
+            <Label Text="Motorcycle type" Style="{StaticResource InputLabel}"></Label>
+            <Picker ItemsSource="{Binding Types}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding Type.Value}">
+                <Picker.Behaviors>
+                    <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                                    Command="{Binding TypeIndexChangedCommand}" />
+                </Picker.Behaviors>
+            </Picker>
+            <Label Text="{Binding Type.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                    Style="{StaticResource ValidationErrorLabelStyle}" />
         </VerticalStackLayout>
 
