@@ -26,8 +26,11 @@ public class MotorcycleEntity
     [Required]
     public uint Cylinders { get; set; }
 
-    [ForeignKey("Manufacturer")]
+    [ForeignKey("Manufacturer")] //manufacturer kapcs
     public uint ManufacturerId { get; set; }
-
     public virtual ManufacturerEntity Manufacturer { get; set; }
+
+    [ForeignKey("Type")] //type kapcs
+    public uint TypeId { get; set; }
+    public virtual TypeEntity Type { get; set; }
 }

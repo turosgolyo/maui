@@ -3,8 +3,8 @@
 public class AppDbContext() : DbContext
 {
 	public DbSet<ManufacturerEntity> Manufacturers { get; set; }
-
-	public DbSet<MotorcycleEntity> Motorcycles { get; set; }
+    public DbSet<TypeEntity> Types { get; set; }
+    public DbSet<MotorcycleEntity> Motorcycles { get; set; }
 
 	private static string connectionString = string.Empty;
 
