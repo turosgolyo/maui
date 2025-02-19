@@ -50,7 +50,7 @@ public partial class MotorcycleListViewModel(IMotorcycleService motorcycleServic
         Motorcycles = new ObservableCollection<MotorcycleModel>(result.Value.Items);
         numberOfMotorcyclesInDB = result.Value.Count;
 
-        hasNextPage = numberOfMotorcyclesInDB - (page * 5) > 0;
+        hasNextPage = numberOfMotorcyclesInDB - (page * 10) > 0;
         isLoading = false;
 
         ((Command)PreviousPageCommand).ChangeCanExecute();

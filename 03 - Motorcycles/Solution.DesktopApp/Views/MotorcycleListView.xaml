@@ -35,6 +35,7 @@
                             <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="100" />
                         </Grid.ColumnDefinitions>
 
@@ -53,7 +54,10 @@
                         <Label Grid.Column="4"
                                Text="Cubic" 
                                Style="{x:StaticResource TableHeader}" />
-                        <Label Grid.Column="5" 
+                        <Label Grid.Column="5"
+                               Text="Type" 
+                               Style="{x:StaticResource TableHeader}" />
+                        <Label Grid.Column="6" 
                                Style="{x:StaticResource TableHeader}" />
                     </Grid>
                 </CollectionView.Header>

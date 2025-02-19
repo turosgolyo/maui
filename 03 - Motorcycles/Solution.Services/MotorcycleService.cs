@@ -2,13 +2,15 @@
 
 public class MotorcycleService(AppDbContext dbContext) : IMotorcycleService
 {
-    private const int ROW_COUNT = 5;
+    private const int ROW_COUNT = 10;
     
     public async Task<ErrorOr<MotorcycleModel>> CreateAsync(MotorcycleModel model)
     {
         bool exists = await dbContext.Motorcycles.AnyAsync(x => x.ManufacturerId == model.Manufacturer.Value.Id &&
+                                                                x.TypeId == model.Type.Value.Id &&
                                                                 x.Model.ToLower() == model.Model.Value.ToLower().Trim() &&
-                                                                x.ReleaseYear == model.ReleaseYear.Value);
+                                                                x.ReleaseYear == model.ReleaseYear.Value &&
+                                                                x.Cubic == model.Cubic.Value);
         if (exists)
         {
             return Error.Conflict(description: "Motorcycle already exists!");
@@ -22,21 +24,24 @@ public class MotorcycleService(AppDbContext dbContext) : IMotorcycleService
 
         return new MotorcycleModel(motorcycle)
         {
-            Manufacturer = model.Manufacturer
+            Manufacturer = model.Manufacturer,
+            Type = model.Type
         };
     }
     
     public async Task<ErrorOr<Success>> UpdateAsync(MotorcycleModel model)
     {
         var result = await dbContext.Motorcycles.AsNoTracking()
-                                                    .Include(x => x.Manufacturer)
-                                                    .Where(x => x.PublicId == model.Id)
-                                                    .ExecuteUpdateAsync(x => x.SetProperty(p => p.PublicId, model.Id)
-                                                                              .SetProperty(p => p.ManufacturerId, model.Manufacturer.Value.Id)
-                                                                              .SetProperty(p => p.Model, model.Model.Value)
-                                                                              .SetProperty(p => p.Cubic, model.Cubic.Value)
-                                                                              .SetProperty(p => p.ReleaseYear, model.ReleaseYear.Value)
-                                                                              .SetProperty(p => p.Cylinders, model.NumberOfCylinders.Value));
+                                                .Include(x => x.Manufacturer)
+                                                .Include(x => x.Type)
+                                                .Where(x => x.PublicId == model.Id)
+                                                .ExecuteUpdateAsync(x => x.SetProperty(p => p.PublicId, model.Id)
+                                                                           .SetProperty(p => p.ManufacturerId, model.Manufacturer.Value.Id)
+                                                                           .SetProperty(p => p.Model, model.Model.Value)
+                                                                           .SetProperty(p => p.Cubic, model.Cubic.Value)
+                                                                           .SetProperty(p => p.ReleaseYear, model.ReleaseYear.Value)
+                                                                           .SetProperty(p => p.Cylinders, model.NumberOfCylinders.Value)
+                                                                           .SetProperty(p => p.TypeId, model.Type.Value.Id));
 
         return result > 0 ? Result.Success : Error.NotFound();
     }
@@ -44,16 +49,18 @@ public class MotorcycleService(AppDbContext dbContext) : IMotorcycleService
     public async Task<ErrorOr<Success>> DeleteAsync(string motorcycleId)
     {
         var motorcycle = await dbContext.Motorcycles.AsNoTracking()
-                                                     .Include(x => x.Manufacturer)
-                                                     .Where(x => x.PublicId == motorcycleId)
-                                                     .ExecuteDeleteAsync();
+                                                    .Include(x => x.Manufacturer)
+                                                    .Include(x => x.Type)
+                                                    .Where(x => x.PublicId == motorcycleId)
+                                                    .ExecuteDeleteAsync();
         return Result.Success;
     }
 
     public async Task<ErrorOr<MotorcycleModel>> GetByIdAsync(string motorcycleId)
     {
         var motorcycle = await dbContext.Motorcycles.Include(x => x.Manufacturer)
-                                            .FirstOrDefaultAsync(x => x.PublicId == motorcycleId);
+                                                    .Include(x => x.Type)
+                                                    .FirstOrDefaultAsync(x => x.PublicId == motorcycleId);
         if (motorcycle is null)
         {
             return Error.NotFound(description: "Motorcycle not found!");
@@ -63,20 +70,22 @@ public class MotorcycleService(AppDbContext dbContext) : IMotorcycleService
     }
     
     public async Task<ErrorOr<List<MotorcycleModel>>> GetAllAsync() => await dbContext.Motorcycles.AsNoTracking()
-                                                                                                   .Include(x => x.Manufacturer)
-                                                                                                   .Select(x => new MotorcycleModel(x))
-                                                                                                   .ToListAsync();
+                                                                                                  .Include(x => x.Manufacturer)
+                                                                                                  .Include(x => x.Type)
+                                                                                                  .Select(x => new MotorcycleModel(x))
+                                                                                                  .ToListAsync();
     
     public async Task<ErrorOr<PaginationModel<MotorcycleModel>>> GetPagedAsync(int page = 0)
     {
         page = page < 0 ? 0 : page - 1;
 
         var motorcycles = await dbContext.Motorcycles.AsNoTracking()
-                                                    .Include(x => x.Manufacturer)
-                                                    .Skip(page * ROW_COUNT)
-                                                    .Take(ROW_COUNT)
-                                                    .Select(x => new MotorcycleModel(x))
-                                                    .ToListAsync();
+                                                     .Include(x => x.Manufacturer)
+                                                     .Include(x => x.Type)
+                                                     .Skip(page * ROW_COUNT)
+                                                     .Take(ROW_COUNT)
+                                                     .Select(x => new MotorcycleModel(x))
+                                                     .ToListAsync();
         var paginationModel = new PaginationModel<MotorcycleModel>
         {
             Items = motorcycles,

@@ -12,6 +12,7 @@
                 <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
 
@@ -40,7 +41,12 @@
                    TextColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"/>
-            <ImageButton Grid.Column="5"
+            <Label Grid.Column="5"
+                   Text="{Binding Motorcycle.Type.Value.Name, Source={x:Reference this}}" 
+                   TextColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"/>
+            <ImageButton Grid.Column="6"
                          Source="edit.png"
                          WidthRequest="5"
                          HeightRequest="5"

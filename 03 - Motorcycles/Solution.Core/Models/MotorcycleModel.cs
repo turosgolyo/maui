@@ -9,7 +9,7 @@ public partial class MotorcycleModel
     public ValidatableObject<uint?> Cubic { get; protected set; }
     public ValidatableObject<uint?> ReleaseYear { get; protected set; }
     public ValidatableObject<uint?> NumberOfCylinders { get; protected set; }
-    public ValidatableObject<TypeModel> Type { get; protected set; }
+    public ValidatableObject<TypeModel> Type { get; set; }
 
     public MotorcycleModel()
     {
