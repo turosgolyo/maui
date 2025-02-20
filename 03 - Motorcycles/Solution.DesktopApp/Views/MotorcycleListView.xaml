@@ -37,6 +37,7 @@
                             <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Column="0" 
@@ -59,17 +60,24 @@
                                Style="{x:StaticResource TableHeader}" />
                         <Label Grid.Column="6" 
                                Style="{x:StaticResource TableHeader}" />
+                        <Label Grid.Column="7" 
+                               Style="{x:StaticResource TableHeader}" />
                     </Grid>
+                    
                 </CollectionView.Header>
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"
                                        ItemSpacing="5" /> 
                 </CollectionView.ItemsLayout>
+                
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:MotorcycleModel">
-                        <components:MotorcycleListComponent Motorcycle="{Binding .}"/>
+                        <components:MotorcycleListComponent Motorcycle="{Binding .}"
+                                                            DeleteCommand="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MotorcycleListViewModel}}, Path=DeleteCommand}"
+                                                            CommandParameter="{Binding Id}"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+                
                 <CollectionView.Footer>
                     <FlexLayout JustifyContent="SpaceBetween"
                                 Direction="Row"
@@ -80,7 +88,9 @@
                                 Command="{Binding NextPageCommand}" />
                     </FlexLayout>
                 </CollectionView.Footer>
+                
             </CollectionView>
+            
         </ScrollView>
 
     </Grid>

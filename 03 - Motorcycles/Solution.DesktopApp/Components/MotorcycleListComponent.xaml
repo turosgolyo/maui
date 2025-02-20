@@ -14,6 +14,7 @@
                 <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" 
@@ -48,9 +49,19 @@
                    VerticalTextAlignment="Center"/>
             <ImageButton Grid.Column="6"
                          Source="edit.png"
-                         WidthRequest="5"
-                         HeightRequest="5"
+                         WidthRequest="25"
+                         HeightRequest="25"
                          Command="{Binding EditCommand, Source={x:Reference this}}"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center" />
+            <ImageButton Grid.Column="7"
+                         Source="delete.png"
+                         WidthRequest="25"
+                         HeightRequest="25"
+                         Command="{Binding DeleteCommand, Source={x:Reference this}}"
+                         CommandParameter="{Binding Motorcycle.Id, Source={x:Reference this}}"
+                         BackgroundColor="Transparent"
                          HorizontalOptions="Center"
                          VerticalOptions="Center" />
         </Grid>

@@ -17,6 +17,10 @@ public partial class MotorcycleListViewModel(IMotorcycleService motorcycleServic
     public ICommand NextPageCommand { get; private set; }
     #endregion
 
+    #region component commands
+    public IAsyncRelayCommand DeleteCommand => new AsyncRelayCommand<string>((id) => OnDeleteAsync(id));
+    #endregion
+
     [ObservableProperty]
     private ObservableCollection<MotorcycleModel> motorcycles = [];
 
@@ -30,10 +34,10 @@ public partial class MotorcycleListViewModel(IMotorcycleService motorcycleServic
         PreviousPageCommand = new Command(async () => await OnPreviousPageAsync(), () => (page > 1 && !isLoading));
         NextPageCommand = new Command(async () => await OnNextPageAsync(), () => (hasNextPage && !isLoading));
         
-        await LoadMotorcycles();
+        await LoadMotorcyclesAsync();
     }
 
-    private async Task LoadMotorcycles()
+    private async Task LoadMotorcyclesAsync()
     {
         isLoading = true;
 
@@ -65,7 +69,7 @@ public partial class MotorcycleListViewModel(IMotorcycleService motorcycleServic
         if (isLoading) return;
 
         page++;
-        await LoadMotorcycles();
+        await LoadMotorcyclesAsync();
     }
 
     private async Task OnPreviousPageAsync()
@@ -73,6 +77,27 @@ public partial class MotorcycleListViewModel(IMotorcycleService motorcycleServic
         if (isLoading) return;
 
         page = page <= 1 ? 1 : --page;
-        await LoadMotorcycles();
+        await LoadMotorcyclesAsync();
+    }
+
+    private async Task OnDeleteAsync(string? id)
+    {
+        var result = await motorcycleService.DeleteAsync(id);
+
+        var message = result.IsError ? result.FirstError.Description : "Motorcycle deleted!";
+        var title = result.IsError ? "Error" : "Information";
+
+        if (!result.IsError)
+        {
+            var motorcycle = motorcycles.SingleOrDefault(x => x.Id == id);
+            motorcycles.Remove(motorcycle);
+
+            if(motorcycles.Count == 0)
+            {
+                await LoadMotorcyclesAsync();
+            }
+
+            await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+        }
     }
 }
