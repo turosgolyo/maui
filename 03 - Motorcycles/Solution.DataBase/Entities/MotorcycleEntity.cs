@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.Design;
-
-namespace Solution.Database.Entities;
+﻿namespace Solution.Database.Entities;
 
 [Table("Motorcycle")]
 public class MotorcycleEntity
@@ -12,6 +10,12 @@ public class MotorcycleEntity
     [StringLength(128)]
     [Required]
     public string PublicId { get; set; }
+
+    [StringLength(128)]
+    public string? ImageId { get; set; }
+
+    [StringLength(512)]
+    public string? WebContentLink { get; set; }
 
     [StringLength(128)]
     [Required]
@@ -26,11 +30,12 @@ public class MotorcycleEntity
     [Required]
     public uint Cylinders { get; set; }
 
-    [ForeignKey("Manufacturer")] //manufacturer kapcs
+    [ForeignKey("Manufacturer")]
     public uint ManufacturerId { get; set; }
     public virtual ManufacturerEntity Manufacturer { get; set; }
 
-    [ForeignKey("Type")] //type kapcs
+    [ForeignKey("Type")]
     public uint TypeId { get; set; }
-    public virtual TypeEntity Type { get; set; }
+
+    public virtual MotorcycleTypeEntity Type { get; set; }
 }

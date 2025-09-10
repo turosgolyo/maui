@@ -1,102 +1,114 @@
-﻿using ErrorOr;
+﻿using FluentValidation.Results;
+using Solution.Validators;
+
 
 namespace Solution.DesktopApp.ViewModels;
 
 [ObservableObject]
 public partial class CreateOrEditMotorcycleViewModel(
-    AppDbContext dbContext, 
-    IGoogleDriveService googleDriveService,
-    IMotorcycleService motorcycleService) : MotorcycleModel(), IQueryAttributable
+    AppDbContext dbContext,
+    IMotorcycleService motorcycleService,
+    IGoogleDriveService googleDriveService) : MotorcycleModel, IQueryAttributable
 {
     #region life cycle commands
-    public IAsyncRelayCommand AppearingCommand => new AsyncRelayCommand(OnAppearingAsync);
+    public IAsyncRelayCommand AppearingCommand => new AsyncRelayCommand(OnAppearingkAsync);
     public IAsyncRelayCommand DisappearingCommand => new AsyncRelayCommand(OnDisappearingAsync);
     #endregion
 
-    #region commands
-    public IRelayCommand ManufacturerIndexChangedCommand => new RelayCommand(() => this.Manufacturer.Validate());
-    public IRelayCommand CylindersIndexChangedCommand => new RelayCommand(() => this.NumberOfCylinders.Validate());
-    public IRelayCommand TypeIndexChangedCommand => new RelayCommand(() => this.Type.Validate());
-    public IRelayCommand ModelValidationCommand => new RelayCommand(() => this.Model.Validate());
-    public IRelayCommand CubicValidationCommand => new RelayCommand(() => this.Cubic.Validate());
-    public IRelayCommand ReleaseYearValidationCommand => new RelayCommand(() => this.ReleaseYear.Validate());
+    public IRelayCommand ValidateCommand => new AsyncRelayCommand<string>(OnValidateAsync);
+
+    #region event commands
     public IAsyncRelayCommand SubmitCommand => new AsyncRelayCommand(OnSubmitAsync);
+    public IAsyncRelayCommand ImageSelectCommand => new AsyncRelayCommand(OnImageSelectAsync);
     #endregion
+    private MotorcycleModelValidator validator => new MotorcycleModelValidator();
 
+    [ObservableProperty]
+    private ValidationResult validationResult = new ValidationResult();
 
-    private delegate Task ButtonActionDelegate();
-    ButtonActionDelegate asyncButtonAction;
+    private delegate Task ButtonActionDelagate();
+    private ButtonActionDelagate asyncButtonAction;
 
     [ObservableProperty]
     private string title;
 
+    [ObservableProperty]
+    private IList<ManufacturerModel> manufacturers = [];
+
+    [ObservableProperty]
+    private IList<TypeModel> types = [];
+
+    [ObservableProperty]
+    private IList<uint> cylinders = [1, 2, 3, 4, 6, 8];
+
+    [ObservableProperty]
+    private ImageSource image;
+
+    private FileResult selectedFile = null;
+    private readonly Func<string?, Task> OnValidateAsync;
+
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        await Task.Run(() => LoadManufacturersAsync());
-        await Task.Run(() => LoadTypesAsync());
+        await Task.Run(LoadManufacturersAsync);
+        await Task.Run(LoadTypesAsync);
 
         bool hasValue = query.TryGetValue("Motorcycle", out object result);
-        
-        if (!hasValue)
+
+        if(!hasValue)
         {
             asyncButtonAction = OnSaveAsync;
-            Title = "Add new motorcycle";
+            Title = "Add new  motorcycle";
             return;
         }
 
         MotorcycleModel motorcycle = result as MotorcycleModel;
 
         this.Id = motorcycle.Id;
-        this.Manufacturer.Value = motorcycle.Manufacturer.Value;
-        this.Model.Value = motorcycle.Model.Value;
-        this.ReleaseYear.Value = motorcycle.ReleaseYear.Value;
-        this.Cubic.Value = motorcycle.Cubic.Value;
-        this.NumberOfCylinders.Value = motorcycle.NumberOfCylinders.Value;
-        this.Type.Value = motorcycle.Type.Value;
+        this.Manufacturer = motorcycle.Manufacturer;
+        this.Type = motorcycle.Type;
+        this.Model = motorcycle.Model;
+        this.ReleaseYear = motorcycle.ReleaseYear;
+        this.Cubic = motorcycle.Cubic;
+        this.NumberOfCylinders = motorcycle.NumberOfCylinders;
+        this.ImageId = motorcycle.ImageId;
+        this.WebContentLink = motorcycle.WebContentLink;
+
+        if(!string.IsNullOrEmpty(motorcycle.WebContentLink))
+        {
+            Image = new UriImageSource
+            {
+                Uri = new Uri(motorcycle.WebContentLink),
+                CacheValidity = new TimeSpan(10, 0, 0, 0)
+            };
+        }
 
         asyncButtonAction = OnUpdateAsync;
         Title = "Update motorcycle";
     }
 
+    private async Task OnAppearingkAsync()
+    {
+    }
 
-    [ObservableProperty]
-    private IList<ManufacturerModel> manufacturers = [];
-    [ObservableProperty]
-    private IList<uint> cylinders = [1, 2, 3, 4, 6, 8];
-    [ObservableProperty]
-    private IList<TypeModel> types = [];
-
-
-    private async Task OnAppearingAsync()
-    { }
     private async Task OnDisappearingAsync()
     { }
+
     private async Task OnSubmitAsync() => await asyncButtonAction();
-    private async Task OnUpdateAsync()
-    {
-        if (!IsFormValid())
-        {
-            return;
-        }
 
-        var result = await motorcycleService.UpdateAsync(this);
-
-        var title = result.IsError ? "Error" : "Information";
-        var message = result.IsError ? result.FirstError.Description : "Motorcycle updated!";
-
-        await Application.Current.MainPage.DisplayAlert(title, message, "OK");
-    }
     private async Task OnSaveAsync()
     {
-        if (!IsFormValid())
+        this.ValidationResult = await validator.ValidateAsync(this);
+
+        if (!ValidationResult.IsValid)
         {
             return;
         }
 
-        var result = await motorcycleService.CreateAsync(this);
+        await UploaImageAsync();
 
+        var result = await motorcycleService.CreateAsync(this);
+        var message = result.IsError ? result.FirstError.Description : "Motorcycle saved.";
         var title = result.IsError ? "Error" : "Information";
-        var message = result.IsError ? result.FirstError.Description : "Motorcycle saved!";
 
         if (!result.IsError)
         {
@@ -106,6 +118,57 @@ public partial class CreateOrEditMotorcycleViewModel(
         await Application.Current.MainPage.DisplayAlert(title, message, "OK");
     }
 
+    private async Task OnUpdateAsync()
+    {
+        if (!IsFormValid())
+        {
+            return;
+        }
+
+        await UploaImageAsync();
+
+        var result = await motorcycleService.UpdateAsync(this);
+
+        var message = result.IsError ? result.FirstError.Description : "Motorcycle updated.";
+        var title = result.IsError ? "Error" : "Information";
+
+        await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+    }
+
+    private async Task OnImageSelectAsync()
+    {
+        selectedFile = await FilePicker.PickAsync(new PickOptions
+        {
+            FileTypes = FilePickerFileType.Images,
+            PickerTitle = "Please select the motorcycle image"
+        });
+
+        if(selectedFile is null)
+        {
+            return;
+        }
+
+        var stream = await selectedFile.OpenReadAsync();
+        Image = ImageSource.FromStream(() => stream);
+    }
+
+    private async Task UploaImageAsync()
+    {
+        if (selectedFile is null)
+        {
+            return;
+        }
+
+        var imageUploadResult = await googleDriveService.UploadFileAsync(selectedFile);
+
+        var message = imageUploadResult.IsError ? imageUploadResult.FirstError.Description : "Motorcycle image uploaded.";
+        var title = imageUploadResult.IsError ? "Error" : "Information";
+
+        await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+
+        this.ImageId = imageUploadResult.IsError ? null : imageUploadResult.Id;
+        this.WebContentLink = imageUploadResult.IsError ? null : imageUploadResult.WebContentLink;
+    }
 
     private async Task LoadManufacturersAsync()
     {
@@ -114,6 +177,7 @@ public partial class CreateOrEditMotorcycleViewModel(
                                                      .Select(x => new ManufacturerModel(x))
                                                      .ToListAsync();
     }
+
     private async Task LoadTypesAsync()
     {
         Types = await dbContext.Types.AsNoTracking()
@@ -121,32 +185,30 @@ public partial class CreateOrEditMotorcycleViewModel(
                                      .Select(x => new TypeModel(x))
                                      .ToListAsync();
     }
+
     private void ClearForm()
     {
-        this.Manufacturer.Value = null;
-        this.Model.Value = null;
-        this.Cubic.Value = null;
-        this.ReleaseYear.Value = null;
-        this.NumberOfCylinders.Value = null;
-        this.Type.Value = null;
+        this.Manufacturer = null;
+        this.Model = null;
+        this.Cubic = 0;
+        this.ReleaseYear = 0;
+        this.NumberOfCylinders = 0;
+
+        this.Image = null;
+        this.selectedFile = null;
+        this.WebContentLink = null;
+        this.ImageId = null;
     }
 
-
-    private bool IsFormValid()
+    private async Task  ONValidateAsync(string propertyName)
     {
-        this.Manufacturer.Validate();
-        this.Model.Validate();
-        this.Cubic.Validate();
-        this.ReleaseYear.Validate();
-        this.NumberOfCylinders.Validate();
-        this.Type.Validate();
+        var result = await validator.ValidateAsync(this, optioms => Options.IncludeProperties(propertyName));
 
+        ValidationResult.Errors.Remove(ValidationResult.Errors.FirstOrDefault(x => x.PropertyName == propertyName));
 
-        return (this.Manufacturer?.IsValid ?? false) &&
-               this.Model.IsValid &&
-               this.Cubic.IsValid &&
-               this.ReleaseYear.IsValid &&
-               (this.NumberOfCylinders?.IsValid ?? false) &&
-               (this.Type?.IsValid ?? false);
+        ValidationResult.Errors.Remove(ValidationResult.Errors.FirstOrDefault(x => x.PropertyName == MotorcycleModelValidator.GlobalProperty));
+        ValidationResult.Errors.AddRange(result.Errors);
+
+        OnPropertyChanged(nameof(propertyName));
     }
 }

@@ -1,10 +1,12 @@
 ﻿namespace Solution.Core.Models;
 
-public class ManufacturerModel : IObjectValidator<uint>
+public partial class ManufacturerModel : ObservableObject
 {
-    public uint Id { get; set; }
+    [ObservableProperty]
+    private uint id;
 
-    public string Name { get; set; }
+    [ObservableProperty]
+    private string name;
 
     public ManufacturerModel()
     {
@@ -22,14 +24,8 @@ public class ManufacturerModel : IObjectValidator<uint>
         {
             return;
         }
+
         Id = entity.Id;
         Name = entity.Name;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is ManufacturerModel model &&
-            this.Id == model.Id &&
-            this.Name == model.Name;
     }
 }

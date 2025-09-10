@@ -4,11 +4,11 @@
              xmlns:viewModel="clr-namespace:Solution.DesktopApp.ViewModels"
              x:DataType="viewModel:MainViewModel"
              x:Class="Solution.DesktopApp.MainView"
-             BackgroundColor="WhiteSmoke">
+             BackgroundColor="Black">
 
     <Grid VerticalOptions="Center" HorizontalOptions="Center">
         <Label Text="Motorcycle Data Base"
-               TextColor="Black" FontSize="Title" FontAttributes="Bold" 
+               TextColor="WhiteSmoke" FontSize="Title" FontAttributes="Bold" 
                HorizontalTextAlignment="Center" 
                Margin="0,20,0,20"/>
         <Image Source="motorcycle.png" Aspect="AspectFit" Margin="100"/>

@@ -1,10 +1,12 @@
 ﻿namespace Solution.Core.Models;
 
-public class TypeModel : IObjectValidator<uint>
+public partial class TypeModel : ObservableObject
 {
-    public uint Id { get; set; }
+    [ObservableProperty]
+    private uint id;
 
-    public string Name { get; set; }
+    [ObservableProperty]
+    public string name;
 
     public TypeModel()
     {
@@ -16,20 +18,14 @@ public class TypeModel : IObjectValidator<uint>
         Name = name;
     }
 
-    public TypeModel(TypeEntity entity)
+    public TypeModel(MotorcycleTypeEntity entity)
     {
         if (entity is null)
         {
             return;
         }
+
         Id = entity.Id;
         Name = entity.Name;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is TypeModel type &&
-            this.Id == type.Id &&
-            this.Name == type.Name;
     }
 }

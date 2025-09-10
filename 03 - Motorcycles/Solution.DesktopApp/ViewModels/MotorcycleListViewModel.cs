@@ -1,8 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
-
-namespace Solution.DesktopApp.ViewModels;
+﻿namespace Solution.DesktopApp.ViewModels;
 
 [ObservableObject]
 public partial class MotorcycleListViewModel(IMotorcycleService motorcycleService)
@@ -22,7 +18,7 @@ public partial class MotorcycleListViewModel(IMotorcycleService motorcycleServic
     #endregion
 
     [ObservableProperty]
-    private ObservableCollection<MotorcycleModel> motorcycles = [];
+    private ObservableCollection<MotorcycleModel> motorcycles;
 
     private int page = 1;
     private bool isLoading = false;
@@ -31,9 +27,28 @@ public partial class MotorcycleListViewModel(IMotorcycleService motorcycleServic
 
     private async Task OnAppearingAsync()
     {
-        PreviousPageCommand = new Command(async () => await OnPreviousPageAsync(), () => (page > 1 && !isLoading));
-        NextPageCommand = new Command(async () => await OnNextPageAsync(), () => (hasNextPage && !isLoading));
-        
+        PreviousPageCommand = new Command(async () => await OnPreviousPageAsync(), () => page > 1 && !isLoading);
+        NextPageCommand = new Command(async () => await OnNextPageAsync(), () => !isLoading && hasNextPage);
+
+        await LoadMotorcyclesAsync();
+    }
+
+    private async Task OnDisappearingAsync()
+    { }
+
+    private async Task OnPreviousPageAsync()
+    {
+        if (isLoading) return;
+
+        page = page <= 1 ? 1 : --page;
+        await LoadMotorcyclesAsync();
+    }
+
+    private async Task OnNextPageAsync()
+    {
+        if (isLoading) return;
+
+        page++;
         await LoadMotorcyclesAsync();
     }
 
@@ -49,8 +64,6 @@ public partial class MotorcycleListViewModel(IMotorcycleService motorcycleServic
             return;
         }
 
-        
-
         Motorcycles = new ObservableCollection<MotorcycleModel>(result.Value.Items);
         numberOfMotorcyclesInDB = result.Value.Count;
 
@@ -61,30 +74,11 @@ public partial class MotorcycleListViewModel(IMotorcycleService motorcycleServic
         ((Command)NextPageCommand).ChangeCanExecute();
     }
 
-    private async Task OnDisappearingAsync()
-    { }
-
-    private async Task OnNextPageAsync()
-    {
-        if (isLoading) return;
-
-        page++;
-        await LoadMotorcyclesAsync();
-    }
-
-    private async Task OnPreviousPageAsync()
-    {
-        if (isLoading) return;
-
-        page = page <= 1 ? 1 : --page;
-        await LoadMotorcyclesAsync();
-    }
-
     private async Task OnDeleteAsync(string? id)
-    {
+    { 
         var result = await motorcycleService.DeleteAsync(id);
 
-        var message = result.IsError ? result.FirstError.Description : "Motorcycle deleted!";
+        var message = result.IsError ? result.FirstError.Description : "Motorcycle deleted.";
         var title = result.IsError ? "Error" : "Information";
 
         if (!result.IsError)
@@ -96,8 +90,8 @@ public partial class MotorcycleListViewModel(IMotorcycleService motorcycleServic
             {
                 await LoadMotorcyclesAsync();
             }
-
-            await Application.Current.MainPage.DisplayAlert(title, message, "OK");
         }
+
+        await Application.Current.MainPage.DisplayAlert(title, message, "OK");
     }
 }

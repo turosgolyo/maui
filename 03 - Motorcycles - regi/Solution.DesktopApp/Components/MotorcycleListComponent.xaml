@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Solution.DesktopApp.Components.MotorcycleListComponent"
+             x:Name="this">
+    <Border Margin="50,0,50,0"
+            Padding="20,10,20,10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" 
+                   Text="{Binding Motorcycle.Manufacturer.Value.Name, Source={x:Reference this}}"
+                   TextColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}" 
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"/>
+            <Label Grid.Column="1"
+                   Text="{Binding Motorcycle.Model.Value, Source={x:Reference this}}"
+                   TextColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"/>
+            <Label Grid.Column="2"
+                   Text="{Binding Motorcycle.ReleaseYear.Value, Source={x:Reference this}}" 
+                   TextColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"/>
+            <Label Grid.Column="3"
+                   Text="{Binding Motorcycle.NumberOfCylinders.Value, Source={x:Reference this}}"
+                   TextColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"/>
+            <Label Grid.Column="4"
+                   Text="{Binding Motorcycle.Cubic.Value, Source={x:Reference this}}" 
+                   TextColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"/>
+            <Label Grid.Column="5"
+                   Text="{Binding Motorcycle.Type.Value.Name, Source={x:Reference this}}" 
+                   TextColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"/>
+            <ImageButton Grid.Column="6"
+                         Source="edit.png"
+                         WidthRequest="25"
+                         HeightRequest="25"
+                         Command="{Binding EditCommand, Source={x:Reference this}}"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center" />
+            <ImageButton Grid.Column="7"
+                         Source="delete.png"
+                         WidthRequest="25"
+                         HeightRequest="25"
+                         Command="{Binding DeleteCommand, Source={x:Reference this}}"
+                         CommandParameter="{Binding Motorcycle.Id, Source={x:Reference this}}"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center" />
+        </Grid>
+    </Border>
+</ContentView>

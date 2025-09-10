@@ -56,6 +56,10 @@ namespace Solution.Database.Migrations
                     b.Property<long>("Cylinders")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("ImageId")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
                     b.Property<long>("ManufacturerId")
                         .HasColumnType("bigint");
 
@@ -75,6 +79,10 @@ namespace Solution.Database.Migrations
                     b.Property<long>("TypeId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("WebContentLink")
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ManufacturerId");
@@ -84,7 +92,7 @@ namespace Solution.Database.Migrations
                     b.ToTable("Motorcycle");
                 });
 
-            modelBuilder.Entity("Solution.Database.Entities.TypeEntity", b =>
+            modelBuilder.Entity("Solution.Database.Entities.MotorcycleTypeEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,8 +102,8 @@ namespace Solution.Database.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 
@@ -113,7 +121,7 @@ namespace Solution.Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Solution.Database.Entities.TypeEntity", "Type")
+                    b.HasOne("Solution.Database.Entities.MotorcycleTypeEntity", "Type")
                         .WithMany("Motorcycles")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -129,7 +137,7 @@ namespace Solution.Database.Migrations
                     b.Navigation("Motorcycles");
                 });
 
-            modelBuilder.Entity("Solution.Database.Entities.TypeEntity", b =>
+            modelBuilder.Entity("Solution.Database.Entities.MotorcycleTypeEntity", b =>
                 {
                     b.Navigation("Motorcycles");
                 });
