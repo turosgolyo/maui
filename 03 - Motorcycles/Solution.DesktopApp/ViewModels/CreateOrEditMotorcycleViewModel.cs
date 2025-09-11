@@ -1,10 +1,7 @@
-﻿using FluentValidation.Results;
-using Solution.Validators;
-
+﻿
 
 namespace Solution.DesktopApp.ViewModels;
 
-[ObservableObject]
 public partial class CreateOrEditMotorcycleViewModel(
     AppDbContext dbContext,
     IMotorcycleService motorcycleService,
@@ -45,7 +42,6 @@ public partial class CreateOrEditMotorcycleViewModel(
     private ImageSource image;
 
     private FileResult selectedFile = null;
-    private readonly Func<string?, Task> OnValidateAsync;
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
@@ -104,7 +100,7 @@ public partial class CreateOrEditMotorcycleViewModel(
             return;
         }
 
-        await UploaImageAsync();
+        await UploadImageAsync();
 
         var result = await motorcycleService.CreateAsync(this);
         var message = result.IsError ? result.FirstError.Description : "Motorcycle saved.";
@@ -120,12 +116,12 @@ public partial class CreateOrEditMotorcycleViewModel(
 
     private async Task OnUpdateAsync()
     {
-        if (!IsFormValid())
+        if (!ValidationResult.IsValid)
         {
             return;
         }
 
-        await UploaImageAsync();
+        await UploadImageAsync();
 
         var result = await motorcycleService.UpdateAsync(this);
 
@@ -152,7 +148,7 @@ public partial class CreateOrEditMotorcycleViewModel(
         Image = ImageSource.FromStream(() => stream);
     }
 
-    private async Task UploaImageAsync()
+    private async Task UploadImageAsync()
     {
         if (selectedFile is null)
         {
@@ -166,8 +162,8 @@ public partial class CreateOrEditMotorcycleViewModel(
 
         await Application.Current.MainPage.DisplayAlert(title, message, "OK");
 
-        this.ImageId = imageUploadResult.IsError ? null : imageUploadResult.Id;
-        this.WebContentLink = imageUploadResult.IsError ? null : imageUploadResult.WebContentLink;
+        this.ImageId = imageUploadResult.IsError ? null : imageUploadResult.Value.Id;
+        this.WebContentLink = imageUploadResult.IsError ? null : imageUploadResult.Value.WebContentLink;
     }
 
     private async Task LoadManufacturersAsync()
@@ -200,9 +196,9 @@ public partial class CreateOrEditMotorcycleViewModel(
         this.ImageId = null;
     }
 
-    private async Task  ONValidateAsync(string propertyName)
+    private async Task OnValidateAsync(string propertyName)
     {
-        var result = await validator.ValidateAsync(this, optioms => Options.IncludeProperties(propertyName));
+        var result = await validator.ValidateAsync(this, options => options.IncludeProperties(propertyName));
 
         ValidationResult.Errors.Remove(ValidationResult.Errors.FirstOrDefault(x => x.PropertyName == propertyName));
 

@@ -33,10 +33,10 @@ public partial class MotorcycleModel : ObservableObject
     {
         this.Manufacturer = new ManufacturerModel();
         this.Type = new TypeModel();
-        this.Model = new string();
-        this.Cubic = new int();
-        this.ReleaseYear = new  uint();
-        this.NumberOfCylinders = new uint();
+        this.Model = model;
+        this.Cubic = cubic;
+        this.ReleaseYear = releaseYear;
+        this.NumberOfCylinders = numberOfCylinders;
     }
 
     public MotorcycleModel(MotorcycleEntity entity)

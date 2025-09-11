@@ -7,4 +7,5 @@ global using Solution.Core.Interfaces;
 global using Solution.Core.Models.Settings;
 global using Solution.DataBase;
 global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Maui.Storage;
 global using Solution.Core.Models;

@@ -3,7 +3,7 @@
 public partial class TypeModel : ObservableObject
 {
     [ObservableProperty]
-    private uint id;
+    private int id;
 
     [ObservableProperty]
     public string name;
@@ -12,7 +12,7 @@ public partial class TypeModel : ObservableObject
     {
     }
 
-    public TypeModel(uint id, string name)
+    public TypeModel(int id, string name)
     {
         Id = id;
         Name = name;

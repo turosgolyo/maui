@@ -18,4 +18,6 @@ global using Solution.Services;
 global using System.Runtime.InteropServices;
 global using System.Collections.ObjectModel;
 global using System.Windows.Input;
-global using ErrorOr;
+global using FluentValidation.Results;
+global using FluentValidation;
+global using Solution.Validators;
