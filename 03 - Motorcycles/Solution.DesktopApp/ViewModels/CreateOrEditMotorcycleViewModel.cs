@@ -12,7 +12,7 @@ public partial class CreateOrEditMotorcycleViewModel(
     public IAsyncRelayCommand DisappearingCommand => new AsyncRelayCommand(OnDisappearingAsync);
     #endregion
 
-    public IRelayCommand ValidateCommand => new AsyncRelayCommand<string>(OnValidateAsync);
+    public ICommand ValidateCommand => new Command<string>(OnValidateAsync);
 
     #region event commands
     public IAsyncRelayCommand SubmitCommand => new AsyncRelayCommand(OnSubmitAsync);
@@ -97,6 +97,7 @@ public partial class CreateOrEditMotorcycleViewModel(
 
         if (!ValidationResult.IsValid)
         {
+            await Application.Current.MainPage.DisplayAlert("Error", "Save failed", "OK");
             return;
         }
 
@@ -196,7 +197,7 @@ public partial class CreateOrEditMotorcycleViewModel(
         this.ImageId = null;
     }
 
-    private async Task OnValidateAsync(string propertyName)
+    private async void OnValidateAsync(string propertyName)
     {
         var result = await validator.ValidateAsync(this, options => options.IncludeProperties(propertyName));
 

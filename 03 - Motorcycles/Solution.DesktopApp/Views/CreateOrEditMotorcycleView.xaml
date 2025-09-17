@@ -180,7 +180,35 @@
                     </editors:SfNumericEntry.Behaviors>
                 </editors:SfNumericEntry>
             </sf:SfTextInputLayout>
-            
+
+            <sf:SfTextInputLayout
+                 Hint="Release Year"
+                 ContainerType="Outlined"
+                 OutlineCornerRadius="8"
+                 ErrorText="{
+                     Binding ValidationResult, 
+                     Converter={StaticResource ValidationResultToErrorMessagesConverter}, 
+                     ConverterParameter={x:Static validator:MotorcycleModelValidator.ReleaseYearProperty}
+                 }"
+                 HasError="{
+                     Binding ValidationResult, 
+                     Converter={StaticResource ValidationResultToHasErrorConverter}, 
+                     ConverterParameter={x:Static validator:MotorcycleModelValidator.ReleaseYearProperty}
+                 }">
+                <editors:SfNumericEntry
+                     Value="{Binding ReleaseYear}"
+                     ShowClearButton="True"
+                     CustomFormat="N0"> 
+                    <editors:SfNumericEntry.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="ValueChanged"
+                              BindingContext="{Binding Source={x:Reference this}, Path=BindingContext}"
+                              Command="{Binding ValidateCommand}" 
+                              CommandParameter="{x:Static validator:MotorcycleModelValidator.ReleaseYearProperty}" />
+                    </editors:SfNumericEntry.Behaviors>
+                </editors:SfNumericEntry>
+            </sf:SfTextInputLayout>
+
+
             <VerticalStackLayout Style="{StaticResource FormLineContainer}">
                 <Button Text="Submit" Command="{Binding SubmitCommand}" WidthRequest="250"/>
             </VerticalStackLayout>

@@ -73,15 +73,31 @@
             },
             "Google.Apis": {
               "target": "Package",
-              "version": "[1.70.0, )"
+              "version": "[1.71.0, )"
             },
             "Google.Apis.Auth": {
               "target": "Package",
-              "version": "[1.70.0, )"
+              "version": "[1.71.0, )"
             },
             "Google.Apis.Drive.v3": {
               "target": "Package",
               "version": "[1.70.0.3893, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.3.1, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -219,15 +235,31 @@
             },
             "Google.Apis": {
               "target": "Package",
-              "version": "[1.70.0, )"
+              "version": "[1.71.0, )"
             },
             "Google.Apis.Auth": {
               "target": "Package",
-              "version": "[1.70.0, )"
+              "version": "[1.71.0, )"
             },
             "Google.Apis.Drive.v3": {
               "target": "Package",
               "version": "[1.70.0.3893, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.3.1, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -355,6 +387,10 @@
               "target": "Package",
               "version": "[8.4.0, )"
             },
+            "ErrorOr": {
+              "target": "Package",
+              "version": "[2.0.1, )"
+            },
             "FluentValidation": {
               "target": "Package",
               "version": "[12.0.0, )"
@@ -362,6 +398,22 @@
             "FluentValidation.DependencyInjectionExtensions": {
               "target": "Package",
               "version": "[12.0.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.3.1, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
             },
             "Microsoft.Maui.Essentials": {
               "target": "Package",
