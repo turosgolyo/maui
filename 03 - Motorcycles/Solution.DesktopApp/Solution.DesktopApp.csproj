@@ -64,6 +64,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Remove="Views\AddManufacturer.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <EmbeddedResource Include="Resources\Raw\appSettings.Development.json" />
 	  <EmbeddedResource Include="Resources\Raw\appSettings.Production.json" />
 	</ItemGroup>
@@ -123,6 +127,12 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Components\MotorcycleListComponent.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AddManufacturerView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AddTypeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CreateOrEditMotorcycleView.xaml">

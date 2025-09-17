@@ -1,6 +1,4 @@
-﻿
-
-namespace Solution.DesktopApp.ViewModels;
+﻿namespace Solution.DesktopApp.ViewModels;
 
 public partial class CreateOrEditMotorcycleViewModel(
     AppDbContext dbContext,
