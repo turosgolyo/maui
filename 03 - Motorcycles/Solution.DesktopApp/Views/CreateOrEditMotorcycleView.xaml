@@ -33,6 +33,7 @@
                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <Image Source="{Binding Image}" />
             </Border>
+            
             <Button Text="Please select an image"
                     Margin="0,5"
                     Command="{Binding ImageSelectCommand}" />
@@ -113,8 +114,7 @@
                         ConverterParameter={x:Static validator:MotorcycleModelValidator.ModelProperty}
                 }">
 
-                <Entry Text="{Binding Model}"
-                       WidthRequest="400">
+                <Entry Text="{Binding Model}">
                     <Entry.Behaviors>
                         <toolkit:EventToCommandBehavior
                             EventName="TextChanged"
@@ -173,10 +173,10 @@
                     CustomFormat="N0">
                     <editors:SfNumericEntry.Behaviors>
                         <toolkit:EventToCommandBehavior
-                    EventName="ValueChanged"
-                    BindingContext="{Binding Source={x:Reference this}, Path=BindingContext}"
-                    Command="{Binding ValidateCommand}"
-                    CommandParameter="{x:Static validator:MotorcycleModelValidator.NumberOfCylindersProperty}" />
+                            EventName="ValueChanged"
+                            BindingContext="{Binding Source={x:Reference this}, Path=BindingContext}"
+                            Command="{Binding ValidateCommand}"
+                            CommandParameter="{x:Static validator:MotorcycleModelValidator.NumberOfCylindersProperty}" />
                     </editors:SfNumericEntry.Behaviors>
                 </editors:SfNumericEntry>
             </sf:SfTextInputLayout>
@@ -207,7 +207,6 @@
                     </editors:SfNumericEntry.Behaviors>
                 </editors:SfNumericEntry>
             </sf:SfTextInputLayout>
-
 
             <VerticalStackLayout Style="{StaticResource FormLineContainer}">
                 <Button Text="Submit" Command="{Binding SubmitCommand}" WidthRequest="250"/>

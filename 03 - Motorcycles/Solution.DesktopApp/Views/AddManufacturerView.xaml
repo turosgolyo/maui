@@ -30,8 +30,7 @@
                     ConverterParameter={x:Static validator:ManufacturerModelValidator.NameProperty}
             }">
 
-            <Entry Text="{Binding Name}"
-                   WidthRequest="400">
+            <Entry Text="{Binding Name}">
                 <Entry.Behaviors>
                     <toolkit:EventToCommandBehavior
                         EventName="TextChanged"

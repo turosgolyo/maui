@@ -1,14 +1,13 @@
-﻿using Solution.Core.Interfaces;
-using Solution.Services;
-
-namespace Solution.Api.Configurations;
+﻿namespace Solution.Api.Configurations;
 
 public static class DIConfigurations
 {
-    public static WebApplicationBuilder ConfigureDI(WebApplicationBuilder builder)
+    public static WebApplicationBuilder ConfigureDI(this WebApplicationBuilder builder)
     {
         builder.Services.AddHttpContextAccessor();
+
         builder.Services.AddTransient<IMotorcycleService, MotorcycleService>();
+        builder.Services.AddTransient<IValidatorInterceptor, FluentValidationInterceptor>();
 
         return builder;
     }

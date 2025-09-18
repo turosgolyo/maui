@@ -1,10 +1,4 @@
-﻿using Solution.Database;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore.Proxies;
-using Solution.DataBase; // Add this
-
-namespace Solution.Api.Configurations;
+﻿namespace Solution.Api.Configurations;
 
 public static class DatabaseConfiguration
 {
@@ -17,7 +11,7 @@ public static class DatabaseConfiguration
             options.UseLazyLoadingProxies()
                    .UseSqlServer(connectionString, options =>
                    {
-                       //options.MigrationsAssembly(Solution.Database.AssemblyReference.Assembly);
+                       options.MigrationsAssembly(Database.AssemblyReference.Assembly);
                        options.EnableRetryOnFailure();
                        options.CommandTimeout(300);
                    })

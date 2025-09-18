@@ -2,11 +2,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.LoadAppSettingsVariables();
-builder.ConfigureDatabase();
+builder.LoadAppSettingsVariables()
+       .ConfigureDI()
+       .ConfigureDatabase()
+       .ConfigureFluentValidation();
+
+
 
 builder.Services.AddControllers();
-builder.ConfigureDatabase();
 
 var app = builder.Build();
 

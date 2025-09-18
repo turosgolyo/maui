@@ -30,10 +30,10 @@ public class MotorcycleService(AppDbContext dbContext) : IMotorcycleService
     public async Task<ErrorOr<Success>> UpdateAsync(MotorcycleModel model)
     {
         var result = await dbContext.Motorcycles.AsNoTracking()
-                                                .Include(x => x.Manufacturer)
                                                 .Where(x => x.PublicId == model.Id)
                                                 .ExecuteUpdateAsync(x => x.SetProperty(p => p.PublicId, model.Id)
                                                                           .SetProperty(p => p.ManufacturerId, model.Manufacturer.Id)
+                                                                          .SetProperty(p => p.TypeId, model.Type.Id)
                                                                           .SetProperty(p => p.Model, model.Model)
                                                                           .SetProperty(p => p.Cubic, model.Cubic)
                                                                           .SetProperty(p => p.ReleaseYear, model.ReleaseYear)
