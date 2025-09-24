@@ -18,4 +18,37 @@ public class ManufacturerService(AppDbContext dbContext) : IManufacturerService
 
         return new ManufacturerModel(manufacturer);
     }
+
+    public async Task<ErrorOr<Success>> DeleteAsync(int id)
+    {
+        var result = await dbContext.Manufacturers.AsNoTracking()
+                                                  .Where(x => x.Id == id)
+                                                  .ExecuteDeleteAsync();
+
+        return result > 0 ? Result.Success : Error.NotFound();
+    }
+
+    public async Task<ErrorOr<List<ManufacturerModel>>> GetAllAsync() => await dbContext.Manufacturers.Select(x => new ManufacturerModel(x))
+                                                                                                      .ToListAsync();
+
+    public async Task<ErrorOr<ManufacturerModel>> GetByIdAsync(int id)
+    {
+        var manufacturer = await dbContext.Manufacturers.FirstOrDefaultAsync(x => x.Id == id);
+
+        if(manufacturer is null)
+        {
+                       return Error.NotFound(description: "Manufacturer not found!");
+        }
+
+        return new ManufacturerModel(manufacturer);
+    }
+
+    public async Task<ErrorOr<Success>> UpdateAsync(ManufacturerModel model)
+    {
+        var result = await dbContext.Manufacturers.AsNoTracking()
+                                                  .Where(x => x.Id == model.Id)
+                                                  .ExecuteUpdateAsync(x => x.SetProperty(p => p.Name, model.Name));
+
+        return result > 0 ? Result.Success : Error.NotFound();
+    }
 }

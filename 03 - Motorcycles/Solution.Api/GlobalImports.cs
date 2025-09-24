@@ -8,4 +8,3 @@ global using System.ComponentModel.DataAnnotations;
 global using FluentValidation;
 global using FluentValidation.AspNetCore;
 global using Solution.Services;
-global using Solution.Validators.Interceptors;

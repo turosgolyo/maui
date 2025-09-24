@@ -2,5 +2,6 @@
 
 public static class HttpContextItemKeys
 {
-    public static object Errors { get; set; }
+    public const string Errors = "Errors";
 }
+

@@ -74,7 +74,7 @@ public class MotorcycleService(AppDbContext dbContext) : IMotorcycleService
 
     public async Task<ErrorOr<PaginationModel<MotorcycleModel>>> GetPagedAsync(int page = 0)
     {
-        page = page < 0 ? 0 : page - 1;
+        page = page <= 0 ? 1 : page - 1;
 
         var motorcycles = await dbContext.Motorcycles.AsNoTracking()
                                                      .Include(x => x.Manufacturer)
