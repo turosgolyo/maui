@@ -2,6 +2,7 @@
 
 public class ManufacturerService(AppDbContext dbContext) : IManufacturerService
 {
+    private const int ROW_COUNT = 10;
     public async Task<ErrorOr<ManufacturerModel>> CreateAsync(ManufacturerModel model)
     {
         bool exists = await dbContext.Manufacturers.AnyAsync(x => x.Name == model.Name);
@@ -50,5 +51,23 @@ public class ManufacturerService(AppDbContext dbContext) : IManufacturerService
                                                   .ExecuteUpdateAsync(x => x.SetProperty(p => p.Name, model.Name));
 
         return result > 0 ? Result.Success : Error.NotFound();
+    }
+    public async Task<ErrorOr<PaginationModel<ManufacturerModel>>> GetPagedAsync(int page = 0)
+    {
+        page = page <= 0 ? 1 : page - 1;
+
+        var manufacturers = await dbContext.Manufacturers.AsNoTracking()
+                                                       .Skip(page * ROW_COUNT)
+                                                       .Take(ROW_COUNT)
+                                                       .Select(x => new ManufacturerModel(x))
+                                                       .ToListAsync();
+
+        var paginationModel = new PaginationModel<ManufacturerModel>
+        {
+            Items = manufacturers,
+            Count = await dbContext.Manufacturers.CountAsync()
+        };
+
+        return paginationModel;
     }
 }

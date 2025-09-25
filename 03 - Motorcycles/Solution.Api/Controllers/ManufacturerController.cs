@@ -26,6 +26,18 @@ public class ManufacturerController(IManufacturerService manufacturerService) : 
         );
     }
 
+    //get paged
+    [HttpGet]
+    [Route("api/manufacturers/page/{page}")]
+    public async Task<IActionResult> GetPagedAsync([FromRoute][Required] int page)
+    {
+        var result = await manufacturerService.GetPagedAsync(page);
+        return result.Match(
+            result => Ok(result),
+            errors => Problem(errors)
+        );
+    }
+
     //create
     [HttpPost]
     [Route("api/manufacturers/create")]

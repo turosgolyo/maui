@@ -1,4 +1,6 @@
-﻿namespace Solution.Api.Controllers;
+﻿using Solution.Services;
+
+namespace Solution.Api.Controllers;
 
 public class TypeController(ITypeService typeService) : BaseController
 {
@@ -22,6 +24,18 @@ public class TypeController(ITypeService typeService) : BaseController
         return result.Match(
             result => Ok(result),
             errors => Problem(errors));
+    }
+
+    //get paged
+    [HttpGet]
+    [Route("api/types/page/{page}")]
+    public async Task<IActionResult> GetPagedAsync([FromRoute][Required] int page)
+    {
+        var result = await typeService.GetPagedAsync(page);
+        return result.Match(
+            result => Ok(result),
+            errors => Problem(errors)
+        );
     }
 
     //create

@@ -35,7 +35,7 @@ public partial class AddManufacturerViewModel(
 
         if (!ValidationResult.IsValid)
         {
-            await Application.Current.MainPage.DisplayAlert("Error", "Save failed", "OK");
+            //await Application.Current.MainPage.DisplayAlert("Error", "Save failed", "OK");
             return;
         }
 

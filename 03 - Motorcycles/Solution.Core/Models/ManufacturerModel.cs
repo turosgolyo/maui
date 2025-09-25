@@ -45,4 +45,11 @@ public partial class ManufacturerModel : ObservableObject
         entity.Name = Name;
         entity.Id = Id;
     }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is ManufacturerModel model &&
+            this.Id == model.Id &&
+            this.Name == model.Name;
+    }
 }

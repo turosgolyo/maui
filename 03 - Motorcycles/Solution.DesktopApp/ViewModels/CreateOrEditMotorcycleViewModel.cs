@@ -95,7 +95,7 @@ public partial class CreateOrEditMotorcycleViewModel(
 
         if (!ValidationResult.IsValid)
         {
-            await Application.Current.MainPage.DisplayAlert("Error", "Save failed", "OK");
+            //await Application.Current.MainPage.DisplayAlert("Error", "Save failed", "OK");
             return;
         }
 
@@ -183,7 +183,8 @@ public partial class CreateOrEditMotorcycleViewModel(
 
     private void ClearForm()
     {
-        this.Manufacturer = null;
+        this.Manufacturer = new ManufacturerModel();
+        this.Type = new TypeModel();
         this.Model = null;
         this.Cubic = 0;
         this.ReleaseYear = 0;

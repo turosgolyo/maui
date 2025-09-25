@@ -8,4 +8,5 @@ public interface ITypeService
     Task<ErrorOr<TypeModel>> CreateAsync(TypeModel model);
     Task<ErrorOr<Success>> UpdateAsync(TypeModel model);
     Task<ErrorOr<Success>> DeleteAsync(int id);
+    Task<ErrorOr<PaginationModel<TypeModel>>> GetPagedAsync (int page);
 }

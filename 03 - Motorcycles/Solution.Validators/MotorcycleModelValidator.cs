@@ -23,14 +23,18 @@ public class MotorcycleModelValidator : BaseValidator<MotorcycleModel>
         RuleFor(x => x.Cubic).NotNull().WithMessage("Cubic is required")
                              .GreaterThan(0).WithMessage("Cubic has to be greater then 0");
 
-        RuleFor(x => x.Manufacturer).NotNull().WithMessage("Manufacturer is required");
-
-        RuleFor(x => x.Manufacturer.Id).GreaterThan(0).WithMessage("Manufacturer ID has to be greater than 0");
+        RuleFor(x => x.Manufacturer).NotNull().WithMessage("Manufacturer must not be null.")
+                                    .DependentRules(() =>
+                                    {
+                                        RuleFor(x => x.Manufacturer.Id).GreaterThan(0).WithMessage("Manufacturer id must be greater than 0");
+                                    });
         //validalni hogy a Manufacturer ID letezik-e az adatbazisban
 
-        RuleFor(x => x.Type).NotNull().WithMessage("Type is required");
-
-        RuleFor(x => x.Type.Id).GreaterThan(0).WithMessage("Type ID has to be greater than 0");
+        RuleFor(x => x.Type).NotNull().WithMessage("Type is required")
+                                      .DependentRules(() =>
+                                      {
+                                          RuleFor(x => x.Type.Id).GreaterThan(0).WithMessage("Type id must be greater than 0");
+                                      });
         //validalni hogy a type ID letezik-e az adatbazisban
 
         RuleFor(x => x.NumberOfCylinders).NotNull().WithMessage("Number of cylinders is required")

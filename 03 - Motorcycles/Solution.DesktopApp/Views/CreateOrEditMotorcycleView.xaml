@@ -185,16 +185,16 @@
                  Hint="Release Year"
                  ContainerType="Outlined"
                  OutlineCornerRadius="8"
-                 ErrorText="{
-                     Binding ValidationResult, 
-                     Converter={StaticResource ValidationResultToErrorMessagesConverter}, 
-                     ConverterParameter={x:Static validator:MotorcycleModelValidator.ReleaseYearProperty}
-                 }"
-                 HasError="{
-                     Binding ValidationResult, 
-                     Converter={StaticResource ValidationResultToHasErrorConverter}, 
-                     ConverterParameter={x:Static validator:MotorcycleModelValidator.ReleaseYearProperty}
-                 }">
+                ErrorText="{
+                    Binding ValidationResult,
+                    Converter={StaticResource ValidationResultToErrorMessagesConverter},
+                    ConverterParameter={x:Static validator:MotorcycleModelValidator.ReleaseYearProperty}
+                }"
+                HasError="{
+                    Binding ValidationResult,
+                    Converter={StaticResource ValidationResultHasErrorConverter},
+                    ConverterParameter={x:Static validator:MotorcycleModelValidator.ReleaseYearProperty}
+                }">
                 <editors:SfNumericEntry
                      Value="{Binding ReleaseYear}"
                      ShowClearButton="True"

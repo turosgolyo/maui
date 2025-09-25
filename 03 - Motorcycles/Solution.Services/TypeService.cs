@@ -2,6 +2,7 @@
 
 public class TypeService(AppDbContext dbContext) : ITypeService
 {
+    private int ROW_COUNT = 10;
     public async Task<ErrorOr<TypeModel>> CreateAsync(TypeModel model)
     {
         bool exists = await dbContext.Types.AnyAsync(x => x.Name == model.Name);
@@ -51,4 +52,22 @@ public class TypeService(AppDbContext dbContext) : ITypeService
     public async Task<ErrorOr<List<TypeModel>>> GetAllAsync() => await dbContext.Types.Select(x => new TypeModel(x))
                                                                                       .ToListAsync();
 
+    public async Task<ErrorOr<PaginationModel<TypeModel>>> GetPagedAsync(int page = 0)
+    {
+        page = page <= 0 ? 1 : page - 1;
+
+        var types = await dbContext.Types.AsNoTracking()
+                                         .Skip(page * ROW_COUNT)
+                                         .Take(ROW_COUNT)
+                                         .Select(x => new TypeModel(x))
+                                         .ToListAsync();
+
+        var paginationModel = new PaginationModel<TypeModel>
+        {
+            Items = types,
+            Count = await dbContext.Types.CountAsync()
+        };
+
+        return paginationModel;
+    }
 }
