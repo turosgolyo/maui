@@ -1,29 +1,28 @@
 namespace Solution.DesktopApp.Components;
 
-public partial class ManufacturerListComponent : ContentView
+public partial class TypeListComponent : ContentView
 {
-    public static readonly BindableProperty ManufacturerProperty = BindableProperty.Create(
-         propertyName: nameof(Manufacturer),
-         returnType: typeof(ManufacturerModel),
-         declaringType: typeof(ManufacturerListComponent),
+    public static readonly BindableProperty TypeProperty = BindableProperty.Create(
+         propertyName: nameof(Type),
+         returnType: typeof(TypeModel),
+         declaringType: typeof(TypeListComponent),
          defaultValue: null,
          defaultBindingMode: BindingMode.OneWay
     );
 
-    public ManufacturerModel Manufacturer
+    public TypeModel Type
     {
-        get => (ManufacturerModel)GetValue(ManufacturerProperty);
-        set => SetValue(ManufacturerProperty, value);
+        get => (TypeModel)GetValue(TypeProperty);
+        set => SetValue(TypeProperty, value);
     }
 
     public static readonly BindableProperty DeleteCommandProperty = BindableProperty.Create(
          propertyName: nameof(DeleteCommand),
          returnType: typeof(IAsyncRelayCommand),
-         declaringType: typeof(ManufacturerListComponent),
+         declaringType: typeof(TypeListComponent),
          defaultValue: null,
          defaultBindingMode: BindingMode.OneWay
     );
-
     public IAsyncRelayCommand DeleteCommand
     {
         get => (IAsyncRelayCommand)GetValue(DeleteCommandProperty);
@@ -33,7 +32,7 @@ public partial class ManufacturerListComponent : ContentView
     public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(
          propertyName: nameof(CommandParameter),
          returnType: typeof(string),
-         declaringType: typeof(ManufacturerListComponent),
+         declaringType: typeof(TypeListComponent),
          defaultValue: null,
          defaultBindingMode: BindingMode.TwoWay
         );
@@ -50,14 +49,15 @@ public partial class ManufacturerListComponent : ContentView
     {
         ShellNavigationQueryParameters navigationQueryParameter = new ShellNavigationQueryParameters
         {
-            { "Manufacturer", this.Manufacturer}
+            { "Type", this.Type}
         };
 
         Shell.Current.ClearNavigationStack();
-        await Shell.Current.GoToAsync(AddManufacturerView.Name, navigationQueryParameter);
+        await Shell.Current.GoToAsync(AddTypeView.Name, navigationQueryParameter);
     }
-    public ManufacturerListComponent()
-    {
-        InitializeComponent();
-    }
+
+    public TypeListComponent()
+	{
+		InitializeComponent();
+	}
 }

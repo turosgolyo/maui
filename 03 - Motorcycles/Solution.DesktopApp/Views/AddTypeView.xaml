@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Solution.DesktopApp.Views.AddTypeView"
-             xmlns:viewModels="clr-namespace:Solution.DesktopApp.ViewModels"
-             xmlns:sf="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
-             xmlns:editors="clr-namespace:Syncfusion.Maui.Toolkit.NumericEntry;assembly=Syncfusion.Maui.Toolkit"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:editors="clr-namespace:Syncfusion.Maui.Toolkit.NumericEntry;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:viewModels="clr-namespace:Solution.DesktopApp.ViewModels"
+             xmlns:models="clr-namespace:Solution.Core.Models;assembly=Solution.Core"
+             xmlns:sf="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:behaviors="clr-namespace:Solution.DesktopApp.Behaviors"
              xmlns:validator="clr-namespace:Solution.Validators;assembly=Solution.Validators"
-             Title="AddTypeView">
+             x:Class="Solution.DesktopApp.Views.AddTypeView"
+             x:DataType="viewModels:AddTypeViewModel">
     <VerticalStackLayout>
-        <Label 
-            Text="Add new type"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="{Binding Title}" Style="{StaticResource PageTitle}" />
 
         <sf:SfTextInputLayout 
             Hint="Type"

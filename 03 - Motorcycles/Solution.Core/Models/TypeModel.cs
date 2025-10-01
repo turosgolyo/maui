@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-namespace Solution.Core.Models;
+﻿namespace Solution.Core.Models;
 
 public partial class TypeModel : ObservableObject
 {
@@ -12,12 +10,7 @@ public partial class TypeModel : ObservableObject
 
     public TypeModel()
     {
-    }
-
-    public TypeModel(int id, string name)
-    {
-        Id = id;
-        Name = name;
+        this.Name = name;
     }
 
     public TypeModel(MotorcycleTypeEntity entity)
@@ -43,12 +36,5 @@ public partial class TypeModel : ObservableObject
     {
         entity.Name = Name;
         entity.Id = Id;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is TypeModel model &&
-            this.Id == model.Id &&
-            this.Name == model.Name;
     }
 }

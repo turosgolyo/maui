@@ -43,10 +43,20 @@
                     <FontImageSource Glyph="&#x25B6;" FontFamily="Arial" Color="Black"/>
                 </MenuFlyoutItem.IconImageSource>
             </MenuFlyoutItem>
+            <MenuFlyoutItem Text="List all" Command="{Binding ListAllManufacturersCommand}" >
+                <MenuFlyoutItem.IconImageSource>
+                    <FontImageSource Glyph="&#x25B6;" FontFamily="Arial" Color="Black"/>
+                </MenuFlyoutItem.IconImageSource>
+            </MenuFlyoutItem>
         </MenuBarItem>
 
         <MenuBarItem Text="Type">
             <MenuFlyoutItem Text="Add New" Command="{Binding AddNewTypesCommand}" >
+                <MenuFlyoutItem.IconImageSource>
+                    <FontImageSource Glyph="&#x25B6;" FontFamily="Arial" Color="Black"/>
+                </MenuFlyoutItem.IconImageSource>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Text="List all" Command="{Binding ListAllTypesCommand}" >
                 <MenuFlyoutItem.IconImageSource>
                     <FontImageSource Glyph="&#x25B6;" FontFamily="Arial" Color="Black"/>
                 </MenuFlyoutItem.IconImageSource>
