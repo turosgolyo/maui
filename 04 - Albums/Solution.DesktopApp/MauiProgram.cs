@@ -7,7 +7,10 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
+
         var builder = MauiApp.CreateBuilder();
+        var cs = builder.Configuration.GetConnectionString("DefaultConnection");
+        Console.WriteLine($"Using DB connection: {cs}");
         builder.UseMauiApp<App>()
                .UseMauiCommunityToolkit(options =>
                {
@@ -19,11 +22,11 @@ public static class MauiProgram
                .UseFontConfiguration()
                .UseAppConfigurations()
                .UseAppSettingsMapping()
-               .UseMsSqlServer()
-               .UseDIConfiguration();
+               .UseDIConfiguration()
+               .UseMsSqlServer();
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
         return builder.Build();

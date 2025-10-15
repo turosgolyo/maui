@@ -15,6 +15,10 @@ public partial class AlbumModel : ObservableObject
     private string webContentLink;
 
     [ObservableProperty]
+    [JsonPropertyName("name")]
+    private string name;
+
+    [ObservableProperty]
     [JsonPropertyName("artist")]
     private ArtistModel artist;
 

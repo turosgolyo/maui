@@ -15,20 +15,15 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<ArtistEntity>().HasMany(x => x.Songs).WithOne(x => x.Artist);
-        builder.Entity<ArtistEntity>().HasMany(x => x.Albums).WithOne(x => x.Artist);
-        builder.Entity<AlbumEntity>().HasOne(x => x.Artist).WithMany(x => x.Albums);
-        builder.Entity<AlbumEntity>().HasMany(x => x.Songs).WithOne(x => x.Album);
-        builder.Entity<SongEntity>().HasOne(x => x.Artist).WithMany(x => x.Songs);
-        builder.Entity<SongEntity>().HasOne(x => x.Album).WithMany(x => x.Songs);
+        builder.Entity<ArtistEntity>().HasMany(x => x.Songs).WithOne(x => x.Artist).OnDelete(DeleteBehavior.NoAction);
+        builder.Entity<ArtistEntity>().HasMany(x => x.Albums).WithOne(x => x.Artist).OnDelete(DeleteBehavior.NoAction);
+        builder.Entity<AlbumEntity>().HasOne(x => x.Artist).WithMany(x => x.Albums).OnDelete(DeleteBehavior.NoAction);
+        builder.Entity<AlbumEntity>().HasMany(x => x.Songs).WithOne(x => x.Album).OnDelete(DeleteBehavior.NoAction);
+        builder.Entity<SongEntity>().HasOne(x => x.Artist).WithMany(x => x.Songs).OnDelete(DeleteBehavior.NoAction);
+        builder.Entity<SongEntity>().HasOne(x => x.Album).WithMany(x => x.Songs).OnDelete(DeleteBehavior.NoAction);
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-
         base.OnConfiguring(optionsBuilder);
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseSqlServer("Server=(LocalDB)\\MSSQLLocalDB;Database=MotorcycleDB;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True;");
-        }
     }
 }

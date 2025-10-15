@@ -9,6 +9,9 @@ public static class ConfigureDI
         builder.Services.AddTransient<MainView>();
 
         builder.Services.AddScoped<IGoogleDriveService, GoogleDriveService>();
+        builder.Services.AddTransient<IAlbumService, AlbumService>();
+        builder.Services.AddTransient<IArtistService, ArtistService>();
+        builder.Services.AddTransient<ISongService, SongService>();
 
         return builder;
 	}
