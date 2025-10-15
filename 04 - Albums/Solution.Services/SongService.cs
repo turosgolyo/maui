@@ -9,7 +9,7 @@ public class SongService(AppDbContext dbContext) : ISongService
 
         if (exists)
         {
-            return Error.Conflict(description: "Type already exists!");
+            return Error.Conflict(description: "Song already exists!");
         }
 
         var song = model.ToEntity();
@@ -31,14 +31,14 @@ public class SongService(AppDbContext dbContext) : ISongService
 
     public async Task<ErrorOr<SongModel>> GetByIdAsync(int id)
     {
-        var type = await dbContext.Songs.FirstOrDefaultAsync(x => x.Id == id);
+        var song = await dbContext.Songs.FirstOrDefaultAsync(x => x.Id == id);
 
-        if(type is null)
+        if(song is null)
         {
-            return Error.NotFound(description: "Type not found");
+            return Error.NotFound(description: "Song not found");
         }
 
-        return new SongModel(type);
+        return new SongModel(song);
     }
 
     public async Task<ErrorOr<Success>> UpdateAsync(SongModel model)
@@ -56,7 +56,7 @@ public class SongService(AppDbContext dbContext) : ISongService
     {
         page = page <= 0 ? 1 : page - 1;
 
-        var types = await dbContext.Songs.AsNoTracking()
+        var songs = await dbContext.Songs.AsNoTracking()
                                          .Skip(page * ROW_COUNT)
                                          .Take(ROW_COUNT)
                                          .Select(x => new SongModel(x))
@@ -64,7 +64,7 @@ public class SongService(AppDbContext dbContext) : ISongService
 
         var paginationModel = new PaginationModel<SongModel>
         {
-            Items = types,
+            Items = songs,
             Count = await dbContext.Songs.CountAsync()
         };
 

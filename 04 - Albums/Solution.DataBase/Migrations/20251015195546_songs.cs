@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Solution.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class songs : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,7 +48,7 @@ namespace Solution.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Type",
+                name: "Song",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -60,14 +60,14 @@ namespace Solution.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Type", x => x.Id);
+                    table.PrimaryKey("PK_Song", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Type_Album_AlbumId",
+                        name: "FK_Song_Album_AlbumId",
                         column: x => x.AlbumId,
                         principalTable: "Album",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Type_Artist_ArtistId",
+                        name: "FK_Song_Artist_ArtistId",
                         column: x => x.ArtistId,
                         principalTable: "Artist",
                         principalColumn: "Id");
@@ -85,18 +85,18 @@ namespace Solution.Database.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Type_AlbumId",
-                table: "Type",
+                name: "IX_Song_AlbumId",
+                table: "Song",
                 column: "AlbumId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Type_ArtistId",
-                table: "Type",
+                name: "IX_Song_ArtistId",
+                table: "Song",
                 column: "ArtistId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Type_Name",
-                table: "Type",
+                name: "IX_Song_Name",
+                table: "Song",
                 column: "Name",
                 unique: true);
         }
@@ -105,7 +105,7 @@ namespace Solution.Database.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Type");
+                name: "Song");
 
             migrationBuilder.DropTable(
                 name: "Album");

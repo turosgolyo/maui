@@ -12,8 +12,8 @@ using Solution.Database;
 namespace Solution.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251015073602_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251015195546_songs")]
+    partial class songs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,7 +120,7 @@ namespace Solution.Database.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Type");
+                    b.ToTable("Song");
                 });
 
             modelBuilder.Entity("Solution.Database.Entities.AlbumEntity", b =>

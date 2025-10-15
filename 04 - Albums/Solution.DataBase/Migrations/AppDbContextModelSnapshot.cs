@@ -117,7 +117,7 @@ namespace Solution.Database.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Type");
+                    b.ToTable("Song");
                 });
 
             modelBuilder.Entity("Solution.Database.Entities.AlbumEntity", b =>

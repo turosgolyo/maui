@@ -121,13 +121,40 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Components\SongListComponent.xaml.cs">
+	    <DependentUpon>SongListComponent.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\CreateOrEditSongView.xaml.cs">
+	    <DependentUpon>CreateOrEditSongView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\CreateOrEditAlbumView.xaml.cs">
+	    <DependentUpon>CreateOrEditAlbumView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\MainView.xaml.cs">
 	    <DependentUpon>MainView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\SongListView.xaml.cs">
+	    <DependentUpon>SongListView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Components\SongListComponent.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\AddManufacturerView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CreateOrEditSongView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CreateOrEditAlbumView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CreateOrEditArtistView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SongListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

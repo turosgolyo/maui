@@ -26,8 +26,6 @@ public partial class ArtistModel : ObservableObject
     {
         Id = id;
         Name = name;
-        Albums = new List<AlbumModel>();
-        Songs = new List<SongModel>();
     }
 
     public ArtistModel(ArtistEntity entity)
@@ -39,8 +37,6 @@ public partial class ArtistModel : ObservableObject
 
         Id = entity.Id;
         Name = entity.Name;
-        Albums = new List<AlbumModel>(entity.Albums.Select(a => new AlbumModel(a)));
-        Songs = new List<SongModel>(entity.Songs.Select(s => new SongModel(s)));
     }
 
     public ArtistEntity ToEntity()
@@ -49,8 +45,6 @@ public partial class ArtistModel : ObservableObject
         {
             Name = Name,
             Id = Id,
-            Albums = new List<AlbumEntity>(Albums.Select(a => a.ToEntity())),
-            Songs = new List<SongEntity>(Songs.Select(s => s.ToEntity()))
         };
     }
 
@@ -58,8 +52,6 @@ public partial class ArtistModel : ObservableObject
     {
         entity.Name = Name;
         entity.Id = Id;
-        entity.Albums = new List<AlbumEntity>(Albums.Select(a => a.ToEntity()));
-        entity.Songs = new List<SongEntity>(Songs.Select(s => s.ToEntity()));
     }
 
     public override bool Equals(object? obj)

@@ -1,7 +1,4 @@
-﻿using Solution.Database.Entities;
-using Microsoft.EntityFrameworkCore;
-
-namespace Solution.Database;
+﻿namespace Solution.Database;
 
 public class AppDbContext : DbContext
 {

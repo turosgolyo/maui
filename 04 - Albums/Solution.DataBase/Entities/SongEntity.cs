@@ -1,6 +1,6 @@
 ﻿namespace Solution.Database.Entities;
 
-[Table("Type")]
+[Table("Song")]
 [Index(nameof(Name), IsUnique = true)]
 public class SongEntity
 {

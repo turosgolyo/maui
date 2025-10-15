@@ -43,8 +43,6 @@ public partial class SongModel : ObservableObject
         Id = entity.Id;
         Name = entity.Name;
         Duration = entity.Duration;
-        Artist = new ArtistModel(entity.Artist);
-        Album = new AlbumModel(entity.Album);
     }
 
     public SongEntity ToEntity()

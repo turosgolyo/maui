@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:editors="clr-namespace:Syncfusion.Maui.Toolkit.NumericEntry;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:viewModels="clr-namespace:Solution.DesktopApp.ViewModels"
+             xmlns:models="clr-namespace:Solution.Core.Models;assembly=Solution.Core"
+             xmlns:sf="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:behaviors="clr-namespace:Solution.DesktopApp.Behaviors"
+             xmlns:validator="clr-namespace:Solution.Validators;assembly=Solution.Validators"
+             x:Class="Solution.DesktopApp.Views.CreateOrEditAlbumView"
+             x:DataType="viewModels:CreateOrEditAlbumViewModel">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        
+
+        <StackLayout Orientation="Vertical"
+              Grid.Column="0"
+              Style="{StaticResource FormLineContainer}"
+              Margin="40">
+            <Border Stroke="{AppThemeBinding Light=Black, Dark=White}"
+                 StrokeThickness="2"
+                 Background="Transparent"
+                 Padding="0"
+                 HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Image Source="{Binding Image}" />
+            </Border>
+
+            <Button Text="Please select an image"
+             Margin="0,5"
+             Command="{Binding ImageSelectCommand}" />
+        </StackLayout>
+
+
+        <StackLayout Grid.Column="1"
+             Orientation="Vertical"
+             Style="{StaticResource FormLineContainer}"
+             Margin="40"
+             VerticalOptions="Center">
+            <Label Text="{Binding Title}" Style="{StaticResource PageTitle}" />
+
+
+            <!-- name -->
+            <sf:SfTextInputLayout 
+                Hint="Album title"
+                ContainerType="Outlined"
+                OutlineCornerRadius="8"
+                ErrorText="{
+                        Binding ValidationResult,
+                        Converter={StaticResource ValidationResultToErrorMessagesConverter},
+                        ConverterParameter={x:Static validator:AlbumModelValidator.NameProperty}
+                }"
+                HasError="{
+                        Binding ValidationResult,
+                        Converter={StaticResource ValidationResultHasErrorConverter},
+                        ConverterParameter={x:Static validator:AlbumModelValidator.NameProperty}
+                }">
+
+                <Entry Text="{Binding Name}">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged"
+                            BindingContext="{Binding Source={x:Reference this}, Path=BindingContext}"
+                            Command="{Binding ValidateCommand}"
+                            CommandParameter="{x:Static validator:AlbumModelValidator.NameProperty}" />
+                    </Entry.Behaviors>
+                </Entry>
+            </sf:SfTextInputLayout>
+            
+            <!-- Artist -->
+            <sf:SfTextInputLayout 
+                 Hint="Artist"
+                 ContainerType="Outlined"
+                 OutlineCornerRadius="8"
+                 ErrorText="{
+                             Binding ValidationResult,
+                             Converter={StaticResource ValidationResultToErrorMessagesConverter},
+                             ConverterParameter={x:Static validator:AlbumModelValidator.ArtistProperty}
+                 }"
+                 HasError="{
+                             Binding ValidationResult,
+                             Converter={StaticResource ValidationResultHasErrorConverter},
+                             ConverterParameter={x:Static validator:AlbumModelValidator.ArtistProperty}
+                 }">
+
+                <Picker ItemsSource="{Binding Artists}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding Artist}">
+                    <Picker.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                                     BindingContext="{Binding Source={x:Reference this}, Path=BindingContext}"
+                                                     Command="{Binding ValidateCommand}"
+                                                     CommandParameter="{x:Static validator:AlbumModelValidator.ArtistProperty}" />
+
+                    </Picker.Behaviors>
+                </Picker>
+            </sf:SfTextInputLayout>
+            <!-- genre -->
+            <sf:SfTextInputLayout 
+                Hint="Album genre"
+                ContainerType="Outlined"
+                OutlineCornerRadius="8"
+                ErrorText="{
+                        Binding ValidationResult,
+                        Converter={StaticResource ValidationResultToErrorMessagesConverter},
+                        ConverterParameter={x:Static validator:AlbumModelValidator.GenreProperty}
+                }"
+                HasError="{
+                        Binding ValidationResult,
+                        Converter={StaticResource ValidationResultHasErrorConverter},
+                        ConverterParameter={x:Static validator:AlbumModelValidator.GenreProperty}
+                }">
+
+                <Entry Text="{Binding Genre}">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                                    EventName="TextChanged"
+                                    BindingContext="{Binding Source={x:Reference this}, Path=BindingContext}"
+                                    Command="{Binding ValidateCommand}"
+                                    CommandParameter="{x:Static validator:AlbumModelValidator.GenreProperty}" />
+                    </Entry.Behaviors>
+                </Entry>
+            </sf:SfTextInputLayout>
+
+            <!-- Release Date -->
+            <sf:SfTextInputLayout 
+                 Hint="Release Date"
+                 ContainerType="Outlined"
+                 OutlineCornerRadius="8"
+                 ErrorText="{
+                             Binding ValidationResult,
+                             Converter={StaticResource ValidationResultToErrorMessagesConverter},
+                             ConverterParameter={x:Static validator:AlbumModelValidator.ReleaseDateProperty}
+                 }"
+                 HasError="{
+                             Binding ValidationResult,
+                             Converter={StaticResource ValidationResultHasErrorConverter},
+                             ConverterParameter={x:Static validator:AlbumModelValidator.ArtistProperty}
+                 }">
+
+
+
+                <DatePicker Date="{Binding ReleaseDate, Mode=TwoWay}">
+                    <DatePicker.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="DateSelected"
+                                                        BindingContext="{Binding Source={x:Reference this}, Path=BindingContext}"
+                                                        Command="{Binding ValidateCommand}"
+                                                        CommandParameter="{x:Static validator:AlbumModelValidator.ReleaseDateProperty}" />
+                    </DatePicker.Behaviors>
+                </DatePicker>
+            </sf:SfTextInputLayout>
+
+            <Button Text="Submit" Command="{Binding SubmitCommand}" WidthRequest="250"/>
+        </StackLayout>
+    </Grid>
+    
+</ContentPage>

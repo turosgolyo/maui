@@ -38,6 +38,7 @@ public partial class AlbumModel : ObservableObject
     {
         this.Artist = new ArtistModel();
         this.Songs = new List<SongModel>();
+        this.Name = name;
         this.ReleaseDate = new DateTime();
         this.Genre = genre;
     }
@@ -47,6 +48,7 @@ public partial class AlbumModel : ObservableObject
         this.Id = entity.Id;
         this.ImageId = entity.ImageId;
         this.WebContentLink = entity.WebContentLink;
+        this.Name = entity.Name;
         this.Artist = new ArtistModel(entity.Artist);
         this.Songs = new List<SongModel>(entity.Songs.Select(s => new SongModel(s)));
         this.ReleaseDate = entity.ReleaseDate;
@@ -60,6 +62,7 @@ public partial class AlbumModel : ObservableObject
             Id = Id,
             ImageId = ImageId,
             WebContentLink = WebContentLink,
+            Name = Name,
             ArtistId = Artist.Id,
             Songs = new List<SongEntity>(Songs.Select(s => s.ToEntity())),
             ReleaseDate = ReleaseDate,
@@ -72,6 +75,7 @@ public partial class AlbumModel : ObservableObject
         entity.Id = Id;
         entity.ImageId = ImageId;
         entity.WebContentLink = WebContentLink;
+        entity.Name = Name;
         entity.ArtistId = Artist.Id;
         entity.Songs = new List<SongEntity>(Songs.Select(s => s.ToEntity()));
         entity.ReleaseDate = ReleaseDate;
