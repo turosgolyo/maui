@@ -1,4 +1,6 @@
-﻿namespace Solution.DesktopApp.ViewModels;
+﻿using Solution.Services;
+
+namespace Solution.DesktopApp.ViewModels;
 
 public partial class CreateOrEditArtistViewModel(
     AppDbContext dbContext, 
@@ -40,7 +42,6 @@ public partial class CreateOrEditArtistViewModel(
 
         if (!ValidationResult.IsValid)
         {
-            //await Application.Current.MainPage.DisplayAlert("Error", "Save failed", "OK");
             return;
         }
 

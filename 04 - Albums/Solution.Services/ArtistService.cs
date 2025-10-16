@@ -5,12 +5,12 @@ public class ArtistService(AppDbContext dbContext) : IArtistService
     private int ROW_COUNT = 10;
     public async Task<ErrorOr<ArtistModel>> CreateAsync(ArtistModel model)
     {
-        bool exists = await dbContext.Artists.AnyAsync(x => x.Name == model.Name);
+        //bool exists = await dbContext.Artists.AnyAsync(x => x.Name == model.Name);
 
-        if (exists)
-        {
-            return Error.Conflict(description: "Artist already exists!");
-        }
+        //if (exists)
+        //{
+        //    return Error.Conflict(description: "Artist already exists!");
+        //}
 
         var artist = model.ToEntity();
 

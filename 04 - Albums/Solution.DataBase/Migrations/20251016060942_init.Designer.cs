@@ -12,8 +12,8 @@ using Solution.Database;
 namespace Solution.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251015195546_songs")]
-    partial class songs
+    [Migration("20251016060942_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

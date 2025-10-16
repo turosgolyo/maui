@@ -20,5 +20,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(CreateOrEditAlbumView.Name, typeof(CreateOrEditAlbumView));
         Routing.RegisterRoute(CreateOrEditSongView.Name, typeof(CreateOrEditSongView));
         Routing.RegisterRoute(SongListView.Name, typeof(SongListView));
+        Routing.RegisterRoute(AlbumListView.Name, typeof(AlbumListView));
+        Routing.RegisterRoute(ArtistListView.Name, typeof(ArtistListView));
     }
 }

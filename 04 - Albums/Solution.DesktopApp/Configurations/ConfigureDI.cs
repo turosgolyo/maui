@@ -9,12 +9,16 @@ public static class ConfigureDI
         builder.Services.AddTransient<CreateOrEditAlbumViewModel>();
         builder.Services.AddTransient<CreateOrEditSongViewModel>();
         builder.Services.AddTransient<SongListViewModel>();
+        builder.Services.AddTransient<AlbumListViewModel>();
+        builder.Services.AddTransient<ArtistListViewModel>();
 
         builder.Services.AddTransient<MainView>();
         builder.Services.AddTransient<CreateOrEditArtistView>();
         builder.Services.AddTransient<CreateOrEditAlbumView>();
         builder.Services.AddTransient<CreateOrEditSongView>();
         builder.Services.AddTransient<SongListView>();
+        builder.Services.AddTransient<AlbumListView>(); 
+        builder.Services.AddTransient<ArtistListView>();
 
         builder.Services.AddScoped<IGoogleDriveService, GoogleDriveService>();
         builder.Services.AddTransient<IAlbumService, AlbumService>();

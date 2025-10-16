@@ -16,7 +16,7 @@ public class AlbumService(AppDbContext dbContext) : IAlbumService
         }
 
         var album = model.ToEntity();
-        
+
         await dbContext.Albums.AddAsync(album);
         await dbContext.SaveChangesAsync();
 
@@ -88,7 +88,7 @@ public class AlbumService(AppDbContext dbContext) : IAlbumService
     {
         page = page <= 0 ? 1 : page - 1;
 
-        var motorcycles = await dbContext.Albums.AsNoTracking()
+        var albums = await dbContext.Albums.AsNoTracking()
                                                      .Include(x => x.Artist)
                                                      .Include(x => x.Songs)
                                                      .Skip(page * ROW_COUNT)
@@ -98,7 +98,7 @@ public class AlbumService(AppDbContext dbContext) : IAlbumService
 
         var paginationModel = new PaginationModel<AlbumModel>
         {
-            Items = motorcycles,
+            Items = albums,
             Count = await dbContext.Albums.CountAsync()
         };
 

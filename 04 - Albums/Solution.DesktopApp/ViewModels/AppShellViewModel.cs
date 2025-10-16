@@ -10,6 +10,8 @@ public partial class AppShellViewModel
     public IAsyncRelayCommand AddAlbumCommand => new AsyncRelayCommand(OnAddAlbumAsync);
     public IAsyncRelayCommand AddSongCommand => new AsyncRelayCommand(OnAddSongAsync);
     public IAsyncRelayCommand ViewSongCommand => new AsyncRelayCommand(OnListSongs);
+    public IAsyncRelayCommand ViewAlbumCommand => new AsyncRelayCommand(OnListAlbums);
+    public IAsyncRelayCommand ViewArtistCommand => new AsyncRelayCommand(OnListArtists);
 
     private async Task OnAddArtistAsync()
     {
@@ -30,6 +32,16 @@ public partial class AppShellViewModel
     {
         Shell.Current.ClearNavigationStack();
         await Shell.Current.GoToAsync(nameof(SongListView));
+    }
+    private async Task OnListAlbums()
+    {
+        Shell.Current.ClearNavigationStack();
+        await Shell.Current.GoToAsync(nameof(AlbumListView));
+    }
+    private async Task OnListArtists()
+    {
+        Shell.Current.ClearNavigationStack();
+        await Shell.Current.GoToAsync(nameof(ArtistListView));
     }
 
     private async Task OnExitAsync() => Application.Current.Quit();

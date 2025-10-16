@@ -15,27 +15,27 @@
         <Label Text="{Binding Title}" Style="{StaticResource PageTitle}" />
 
         <sf:SfTextInputLayout 
-        Hint="Artist"
-        ContainerType="Outlined"
-        OutlineCornerRadius="8"
-        ErrorText="{
-                Binding ValidationResult,
-                Converter={StaticResource ValidationResultToErrorMessagesConverter},
-                ConverterParameter={x:Static validator:ArtistModelValidator.NameProperty}
-        }"
-        HasError="{
-                Binding ValidationResult,
-                Converter={StaticResource ValidationResultHasErrorConverter},
-                ConverterParameter={x:Static validator:ArtistModelValidator.NameProperty}
-        }">
+            Hint="Name"
+            ContainerType="Outlined"
+            OutlineCornerRadius="8"
+            ErrorText="{
+                    Binding ValidationResult,
+                    Converter={StaticResource ValidationResultToErrorMessagesConverter},
+                    ConverterParameter={x:Static validator:ArtistModelValidator.NameProperty}
+            }"
+            HasError="{
+                    Binding ValidationResult,
+                    Converter={StaticResource ValidationResultHasErrorConverter},
+                    ConverterParameter={x:Static validator:ArtistModelValidator.NameProperty}
+            }">
 
             <Entry Text="{Binding Name}">
                 <Entry.Behaviors>
                     <toolkit:EventToCommandBehavior
-                    EventName="TextChanged"
-                    BindingContext="{Binding Source={x:Reference this}, Path=BindingContext}"
-                    Command="{Binding ValidateCommand}"
-                    CommandParameter="{x:Static validator:ArtistModelValidator.NameProperty}" />
+                        EventName="TextChanged"
+                        BindingContext="{Binding Source={x:Reference this}, Path=BindingContext}"
+                        Command="{Binding ValidateCommand}"
+                        CommandParameter="{x:Static validator:ArtistModelValidator.NameProperty}" />
                 </Entry.Behaviors>
             </Entry>
         </sf:SfTextInputLayout>

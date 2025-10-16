@@ -37,6 +37,19 @@ public partial class ArtistModel : ObservableObject
 
         Id = entity.Id;
         Name = entity.Name;
+        Songs = entity.Songs.Select(s => new SongModel { 
+            Name = s.Name,
+            Id = s.Id,
+            Duration = s.Duration
+        }).ToList();
+        Albums = entity.Albums.Select(a => new AlbumModel { 
+            Genre = a.Genre,
+            Id = a.Id,
+            ImageId = a.ImageId,
+            WebContentLink = a.WebContentLink,
+            Name = a.Name,
+            ReleaseDate = a.ReleaseDate,
+        }).ToList();
     }
 
     public ArtistEntity ToEntity()
@@ -45,6 +58,8 @@ public partial class ArtistModel : ObservableObject
         {
             Name = Name,
             Id = Id,
+            Songs = Songs.Select(s => s.ToEntity()).ToList(),
+            Albums = Albums.Select(a => a.ToEntity()).ToList()
         };
     }
 

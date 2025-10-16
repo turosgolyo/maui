@@ -98,7 +98,7 @@ public partial class CreateOrEditAlbumViewModel(
 
         var imageUploadResult = await googleDriveService.UploadFileAsync(selectedFile);
 
-        var message = imageUploadResult.IsError ? imageUploadResult.FirstError.Description : "Motorcycle image uploaded.";
+        var message = imageUploadResult.IsError ? imageUploadResult.FirstError.Description : "Album cover uploaded.";
         var title = imageUploadResult.IsError ? "Error" : "Information";
 
         await Application.Current.MainPage.DisplayAlert(title, message, "OK");
@@ -112,7 +112,7 @@ public partial class CreateOrEditAlbumViewModel(
         selectedFile = await FilePicker.PickAsync(new PickOptions
         {
             FileTypes = FilePickerFileType.Images,
-            PickerTitle = "Please select the motorcycle image"
+            PickerTitle = "Please select the album cover"
         });
 
         if (selectedFile is null)
@@ -141,7 +141,7 @@ public partial class CreateOrEditAlbumViewModel(
     {
         await Task.Run(LoadArtistsAsync);
 
-        bool hasValue = query.TryGetValue("Artist", out object result);
+        bool hasValue = query.TryGetValue("Album", out object result);
 
         if (!hasValue)
         {

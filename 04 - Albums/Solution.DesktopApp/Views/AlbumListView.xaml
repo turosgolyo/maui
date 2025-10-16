@@ -2,11 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="Solution.DesktopApp.Views.SongListView"
+             x:Class="Solution.DesktopApp.Views.AlbumListView"
              xmlns:viewModels="clr-namespace:Solution.DesktopApp.ViewModels"
              xmlns:components="clr-namespace:Solution.DesktopApp.Components"
              xmlns:models="clr-namespace:Solution.Core.Models;assembly=Solution.Core"
-             x:DataType="viewModels:SongListViewModel"
+             x:DataType="viewModels:AlbumListViewModel"
              x:Name="this">
 
     <ContentPage.Behaviors>
@@ -25,11 +25,11 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0"
-           Text="Songs"
+           Text="Albums"
            Style="{x:StaticResource PageTitle}" />
 
         <ScrollView Grid.Row="1">
-            <CollectionView ItemsSource="{Binding Songs}" Margin="50,0,50,0">
+            <CollectionView ItemsSource="{Binding Albums}" Margin="50,0,50,0">
                 <CollectionView.Header>
                     <Grid BackgroundColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"
                       Padding="10,0,10,0">
@@ -38,35 +38,39 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="80" />
                             <ColumnDefinition Width="80" />
                         </Grid.ColumnDefinitions>
-
                         <Label Grid.Column="0"
-                           Text="Name"
-                           HorizontalTextAlignment="Center"
-                           Style="{x:StaticResource TableHeader}" />
+                               Text="Cover"
+                               HorizontalTextAlignment="Center"
+                               Style="{x:StaticResource TableHeader}" />
                         <Label Grid.Column="1"
-                           Text="Artist"
-                           HorizontalTextAlignment="Center"
-                           Style="{x:StaticResource TableHeader}" />
+                               Text="Name"
+                               HorizontalTextAlignment="Center"
+                               Style="{x:StaticResource TableHeader}" />
                         <Label Grid.Column="2"
-                           Text="Album"
-                           HorizontalTextAlignment="Center"
-                           Style="{x:StaticResource TableHeader}" />
+                               Text="Artist"
+                               HorizontalTextAlignment="Center"
+                               Style="{x:StaticResource TableHeader}" />
                         <Label Grid.Column="3"
-                           Text="Duration"
-                           HorizontalTextAlignment="Center"
-                           Style="{x:StaticResource TableHeader}" />
+                               Text="Genre"
+                               HorizontalTextAlignment="Center"
+                               Style="{x:StaticResource TableHeader}" />
+                        <Label Grid.Column="4"
+                               Text="Song Count"
+                               HorizontalTextAlignment="Center"
+                               Style="{x:StaticResource TableHeader}" />
                     </Grid>
                 </CollectionView.Header>
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:SongModel">
-                        <components:SongListComponent Song="{Binding .}"
-                                                      DeleteCommand="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SongListViewModel}}, Path=DeleteCommand}"
+                    <DataTemplate x:DataType="models:AlbumModel">
+                        <components:AlbumListComponent Album="{Binding .}"
+                                                      DeleteCommand="{Binding Source={RelativeSource AncestorType={x:Type viewModels:AlbumListViewModel}}, Path=DeleteCommand}"
                                                       CommandParameter="{Binding Id}"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
