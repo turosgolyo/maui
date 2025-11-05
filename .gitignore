@@ -89,3 +89,12 @@
 04 - Albums/Solution.PdfGenerator/bin
 04 - Albums/Solution.DesktopApp/obj
 /04 - Albums/Solution.Api/obj
+05 - Bills/Bills/.vs
+05 - Bills/Bills/Bills.Api/bin
+05 - Bills/Bills/Bills.Api/obj
+05 - Bills/Bills/Bills.Core/bin
+05 - Bills/Bills/Bills.Database/bin
+05 - Bills/Bills/Bills.Database/obj
+05 - Bills/Bills/Bills.DesktopApp/bin
+05 - Bills/Bills/Bills.Core/obj
+05 - Bills/Bills/Bills.DesktopApp/obj
