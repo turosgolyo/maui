@@ -34,7 +34,7 @@ public partial class BillModel : ObservableObject
         this.Id = entity.Id;
         this.Number = entity.Number;
         this.Date = entity.Date;
-        this.Items = entity.Items as List<ItemModel>;
+        this.Items = entity.Items.Select(x => new ItemModel(x)).ToList();
     }
 
     public BillEntity ToEntity()
@@ -44,7 +44,7 @@ public partial class BillModel : ObservableObject
             Id = this.Id,
             Number = this.Number,
             Date = this.Date,
-            Items = this.Items.Select(x => x.ToEntity()) as ICollection<ItemEntity>
+            Items = this.Items.Select(x => x.ToEntity()).ToList()
         };
     }
 

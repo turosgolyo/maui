@@ -37,6 +37,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Bills.Core\Bills.Core.csproj" />
     <ProjectReference Include="..\Bills.Database\Bills.Database.csproj" />
+    <ProjectReference Include="..\Bills.Services\Bills.Services.csproj" />
   </ItemGroup>
 
 </Project>
