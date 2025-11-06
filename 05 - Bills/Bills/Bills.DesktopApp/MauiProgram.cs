@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-namespace Bills.DesktopApp
+﻿namespace Bills.DesktopApp
 {
     public static class MauiProgram
     {
@@ -9,6 +7,7 @@ namespace Bills.DesktopApp
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseDIConfiguration()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

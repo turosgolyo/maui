@@ -8,7 +8,7 @@ public class BillEntity
     public int Id { get; set; }
 
     [Required]
-    public int Number { get; set; }
+    public string Number { get; set; }
 
     [Required]
     public DateTime Date { get; set; }
