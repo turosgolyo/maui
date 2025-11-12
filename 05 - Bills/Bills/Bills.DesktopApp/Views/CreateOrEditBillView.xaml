@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bills.DesktopApp.Views.CreateOrEditBillView">
+    <VerticalStackLayout Padding="30,0"
+                         Spacing="25">
+        <Label Text="Create New Bill"
+               Style="{StaticResource SubHeadline}"
+               FontAttributes="Bold"
+               Margin="0, 20, 0, 20"/>
+        <Grid ColumnDefinitions="1*, 2*">
+            <VerticalStackLayout Grid.Column="0"
+                                 Margin="0,0,10,0">
+                <Label Text="Bill Number" 
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Start"/>
+                <Entry Placeholder="Enter bill number"/>
+                <Label Text="Bill Date" 
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Start"/>
+                <Entry Placeholder="Enter bill date"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="0"
+                                 Margin="0,60,10,0">
+                <Label Text="Bill Date" 
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Start"/>
+                <Entry Placeholder="Enter bill date"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="0"
+                                 Margin="0,0,10,0">
+                <Label Text="Bill Date" 
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Start"/>
+                <Entry Placeholder="Enter bill date"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="0"
+         Margin="0,0,10,0">
+                <Label Text="Bill Date" 
+           VerticalOptions="Center" 
+           HorizontalOptions="Start"/>
+                <Entry Placeholder="Enter bill date"/>
+            </VerticalStackLayout>
+
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>
