@@ -53,6 +53,6 @@ public partial class BillModel : ObservableObject
         entity.Id = this.Id;
         entity.Number = this.Number;
         entity.Date = this.Date;
-        entity.Items = this.Items.Select(x => x.ToEntity()) as ICollection<ItemEntity>;
+        entity.Items = this.Items?.Select(x => x.ToEntity()) as ICollection<ItemEntity>;
     }
 }

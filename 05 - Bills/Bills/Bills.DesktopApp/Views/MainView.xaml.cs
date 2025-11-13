@@ -1,10 +1,12 @@
-﻿namespace Bills.DesktopApp.Views
+﻿namespace Bills.DesktopApp.Views;
+
+public partial class MainView : ContentPage
 {
-    public partial class MainView : ContentPage
+    public MainViewModel ViewModel => this.BindingContext as MainViewModel;
+    public static string Name => nameof(MainView);
+    public MainView(MainViewModel viewModel)
     {
-        public MainView()
-        {
-            InitializeComponent();
-        }
+        this.BindingContext = viewModel;
+        InitializeComponent();
     }
 }

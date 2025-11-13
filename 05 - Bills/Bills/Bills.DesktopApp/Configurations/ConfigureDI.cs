@@ -10,6 +10,7 @@ public static class ConfigureDI
         builder.Services.AddTransient<ListBillsView>();
 
         //VIEWMODELS
+        builder.Services.AddTransient<MainViewModel>();
         builder.Services.AddTransient<CreateOrEditBillViewModel>();
         builder.Services.AddTransient<ListBillsViewModel>();
 
