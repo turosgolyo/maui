@@ -1,6 +1,6 @@
 ﻿using Bills.Core.Models;
-using Bills.Database;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 
 namespace Bills.DesktopApp.ViewModels;
 
@@ -10,9 +10,20 @@ public partial class CreateOrEditBillViewModel(
     IItemService itemService) : BillModel, IQueryAttributable
 {
     public IAsyncRelayCommand SaveCommand => new AsyncRelayCommand(OnSaveAsync);
+    public IAsyncRelayCommand AddItemCommand => new AsyncRelayCommand(OnAddItemAsync);
 
     [ObservableProperty]
-    private IList<ItemModel> items = [];
+    private ObservableCollection<ItemModel> items = [];
+
+    [ObservableProperty]
+    private string itemName;
+
+    [ObservableProperty]
+    private double itemPrice;
+
+    [ObservableProperty]
+    private int itemAmount;
+
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
@@ -27,18 +38,20 @@ public partial class CreateOrEditBillViewModel(
 
         this.Id = bill.Id;
         this.Number = bill.Number;
-        this.Items = bill.Items;
+        this.Items = new ObservableCollection<ItemModel>(bill.Items);
     }
-    
-    //private async Task OnAddItemAsync()
-    //{
-    //    var newItem = new ItemModel
-    //    {
-    //        Name = 
-    //    };
-    //    this.Items.Add(newItem);
-    //    await Task.CompletedTask;
-    //}
+
+    private async Task OnAddItemAsync()
+    {
+        var newItem = new ItemModel
+        {
+            Name = this.ItemName,
+            Price = this.ItemPrice,
+            Amount = this.ItemAmount
+        };
+        this.Items.Add(newItem);
+        await Task.CompletedTask;
+    }
     private async Task OnSaveAsync()
     {
         var result = await billService.CreateAsync(this);

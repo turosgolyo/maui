@@ -19,7 +19,7 @@ public partial class BillModel : ObservableObject
 
     [ObservableProperty]
     [JsonPropertyName("items")]
-    private List<ItemModel> items;
+    private List<ItemModel>? items;
 
     public BillModel()
     {
@@ -44,7 +44,7 @@ public partial class BillModel : ObservableObject
             Id = this.Id,
             Number = this.Number,
             Date = this.Date,
-            Items = this.Items.Select(x => x.ToEntity()).ToList()
+            Items = this.Items?.Select(x => x.ToEntity()).ToList()
         };
     }
 
