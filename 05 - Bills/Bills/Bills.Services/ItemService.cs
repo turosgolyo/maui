@@ -24,6 +24,7 @@ public class ItemService(AppDbContext dbContext) : IItemService
     public async Task<ErrorOr<List<ItemModel>>> GetAllAsync() => await dbContext.Items.Select(x => new ItemModel(x))
                                                                                       .ToListAsync();
 
+
     public async Task<ErrorOr<ItemModel>> GetByIdAsync(int id)
     {
         var item = await dbContext.Items.FirstOrDefaultAsync(x => x.Id == id);

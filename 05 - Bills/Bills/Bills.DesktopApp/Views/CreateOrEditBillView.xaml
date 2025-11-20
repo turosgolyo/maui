@@ -8,112 +8,134 @@
              x:DataType="viewModels:CreateOrEditBillViewModel"
              x:Name="this">
     
-    <Grid ColumnDefinitions="1*, 2*">
+    <Grid ColumnDefinitions="1*, 2*"
+          RowDefinitions="1*">
     
         <Label Text="Add new bill"
-           Style="{StaticResource SubHeadline}"
-           FontAttributes="Bold"
-           Margin="0, 20, 0, 20"
-           FontFamily="Franklin Gothic"/>
+               Style="{StaticResource SubHeadline}"
+               FontAttributes="Bold"
+               Margin="0, 20, 0, 20"
+               FontFamily="Franklin Gothic"/>
 
         <VerticalStackLayout Grid.Column="0"
+                             Grid.Row="1"
                              Margin="50,50,50,50">
-            
-            <Label Text="Bill" 
-                       FontSize="Medium"
-                       FontAttributes="Bold"
-                       Margin="0, 0, 0, 30"/>
-            <Label Text="Number" 
-                       VerticalOptions="Center" 
-                       HorizontalOptions="Start"/>
-            <Entry Placeholder="Enter bill number"
-                       Text="{Binding Number}"/>
-            <Label Text="Date" 
-                       VerticalOptions="Center" 
-                       HorizontalOptions="Start"/>
-            <Entry Placeholder="Enter bill date"
-                       Text="{Binding Date}"/>
+                    <Label Text="Bill" 
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           Margin="0, 0, 0, 30"/>
+                    <Label Text="Number" 
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Start"/>
+                    <Entry Placeholder="Enter bill number"
+                           Text="{Binding Number}"/>
+                    
+                    <Label Text="Date" 
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Start"/>
+                    <Entry Placeholder="Enter bill date"
+                            Text="{Binding Date}"/>
+                
+                    <Label Text="Item" 
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           Margin="0,300, 0, 30"/>
+                    <Label Text="Name" 
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Start"/>
+                    <Entry Placeholder="Enter item name"
+                           Text="{Binding ItemName}"/>
 
+                    <Label Text="Price" 
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Start"/>
+                    <Entry Placeholder="Enter item price"
+                           Text="{Binding ItemPrice}"/>
 
-            <Label Text="Item" 
-                       FontSize="Medium"
-                       FontAttributes="Bold"
-                       Margin="0,320, 0, 30"/>
-            <Label Text="Name" 
-                       VerticalOptions="Center" 
-                       HorizontalOptions="Start"/>
-            <Entry Placeholder="Enter item name"
-                       Text="{Binding ItemName}"/>
+                    <Label Text="Amount" 
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Start"/>
+                    <Entry Placeholder="Enter item amount" 
+                           Text="{Binding ItemAmount}"/>
 
-            <Label Text="Price" 
-                       VerticalOptions="Center" 
-                       HorizontalOptions="Start"/>
-            <Entry Placeholder="Enter item price"
-                       Text="{Binding ItemPrice}"/>
+                    <Button Text="Add item"
+                            WidthRequest="250"
+                            Margin="0, 60, 0, 50"
+                            FontAttributes="Bold"
+                            Command="{Binding AddItemCommand}"/>
 
-            <Label Text="Amount" 
-                       VerticalOptions="Center" 
-                       HorizontalOptions="Start"/>
-            <Entry Placeholder="Enter item amount" 
-                       Text="{Binding ItemAmount}"/>
-
-            <Button Text="Add item"
-                        WidthRequest="250"
-                        Margin="0, 60, 0, 50"
-                        FontAttributes="Bold"
-                        Command="{Binding AddItemCommand}"/>
         </VerticalStackLayout>
 
-        <ScrollView Grid.Column="1" Margin="50">
-            <StackLayout>
-            <Label Text="Bill items" 
+        <StackLayout Grid.Column="2"
+                     Grid.Row="1"
+                     Margin="50, 0, 50, 0">
+                <Label Text="Bill items" 
                        HorizontalOptions="Center"
                        FontSize="Medium"
                        FontAttributes="Bold"/>
 
-            <CollectionView ItemsSource="{Binding Items}" Grid.Column="1">
-                <CollectionView.Header>
+                <Border Stroke="Grey" 
+                        StrokeShape="RoundRectangle 30"
+                        HeightRequest="800">
+                    <CollectionView ItemsSource="{Binding AddedItems}" 
+                                    Grid.Column="1">
+                        <CollectionView.Header>
 
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="80"/>
-                        </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="80"/>
+                                </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="0" 
-                                           Text="Name"
-                                           HorizontalOptions="Center" />
-                        <Label Grid.Column="1" 
-                                           Text="Price"
-                                           HorizontalOptions="Center" />
-                        <Label Grid.Column="2" 
-                                           Text="Amount"
-                                           HorizontalOptions="Center" />
-                    </Grid>
-                </CollectionView.Header>
+                                <Label Grid.Column="0" 
+                                       Text="Name"
+                                       Margin="10"
+                                       HorizontalOptions="Center" 
+                                       FontAttributes="Bold"/>
+                                <Label Grid.Column="1" 
+                                       Text="Price"
+                                       Margin="10"
+                                       HorizontalOptions="Center"
+                                       FontAttributes="Bold" />
+                                <Label Grid.Column="2" 
+                                       Text="Amount"
+                                       Margin="10"
+                                       HorizontalOptions="Center" 
+                                       FontAttributes="Bold"/>
+                                <Label Grid.Column="3" 
+                                       Text="Total Price"
+                                       Margin="10"
+                                       HorizontalOptions="Center" 
+                                       FontAttributes="Bold"/>
+                        </Grid>
+                        </CollectionView.Header>
 
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical"
-                                                   ItemSpacing="5" />
-                </CollectionView.ItemsLayout>
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:ItemModel">
-                        <components:ItemListComponent Item="{Binding .}" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <Button Text="Save bill"
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical"
+                                               ItemSpacing="5" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:ItemModel">
+                                <components:ItemListComponent Item="{Binding .}" 
+                                                              DeleteCommand="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateOrEditBillViewModel}}, Path=DeleteCommand}"
+                                                              CommandParameter="{Binding .}"/>
+                        </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Border>
+                <Button Text="Save bill"
                         HorizontalOptions="End"
                         WidthRequest="250"
                         Margin="0, 20, 0, 20"
                         FontAttributes="Bold"
                         Command="{Binding SaveCommand}"/>
             </StackLayout>
-        </ScrollView>
 
     </Grid>
 </ContentPage>

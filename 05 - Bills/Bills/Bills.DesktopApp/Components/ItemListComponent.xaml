@@ -10,6 +10,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="80" />
                 <ColumnDefinition Width="80" />
             </Grid.ColumnDefinitions>
@@ -29,22 +30,29 @@
                    HorizontalTextAlignment ="Center"
                    VerticalTextAlignment="Center"/>
 
-            <ImageButton Grid.Column="3" 
+            <Label Grid.Column ="3" 
+                   Text="{Binding Item.Total, Source={x:Reference this}}"
+                   HorizontalTextAlignment ="Center"
+                   VerticalTextAlignment="Center"/>
+
+            <ImageButton Grid.Column="4" 
                          Source="pencil.png"
+                         Margin="0, 0, 20, 0"
                          Command="{Binding EditCommand, Source={x:Reference this}}"
                          HorizontalOptions="End"
                          VerticalOptions="Center"
-                         WidthRequest="10"
-                         HeightRequest="10"/>
+                         WidthRequest="5"
+                         HeightRequest="5"/>
 
-            <ImageButton Grid.Column="4" 
+            <ImageButton Grid.Column="5" 
                          Source="trash.png"
+                         Margin="10, 0, 30, 0"
                          Command="{Binding DeleteCommand, Source={x:Reference this}}"
                          CommandParameter="{Binding Item.Id, Source={x:Reference this}}"
                          HorizontalOptions="End"
                          VerticalOptions="Center"
-                         WidthRequest="10"
-                         HeightRequest="10"/>
+                         WidthRequest="5"
+                         HeightRequest="5"/>
         </Grid>
     </Border>
 </ContentView>

@@ -1,4 +1,5 @@
 using Bills.Core.Models;
+using Bills.DesktopApp.Extensions;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Bills.DesktopApp.Components;
@@ -23,7 +24,11 @@ public partial class ItemListComponent : ContentView
 		set => SetValue(DeleteCommandProperty, value);
     }
 
-	public IAsyncRelayCommand EditCommand => new AsyncRelayCommand(OnEditAsync);
+    public IAsyncRelayCommand EditCommand
+    {
+        get => (IAsyncRelayCommand)GetValue(EditCommandProperty);
+        set => SetValue(EditCommandProperty, value);
+    }
 
     #region Bindable Properties
 
@@ -43,7 +48,15 @@ public partial class ItemListComponent : ContentView
 		defaultBindingMode: BindingMode.OneWay
     );
 
-	public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(
+	public static readonly BindableProperty EditCommandProperty = BindableProperty.Create(
+		propertyName: nameof(EditCommand),
+		returnType: typeof(IAsyncRelayCommand),
+		declaringType: typeof(ItemListComponent),
+		defaultValue: null,
+		defaultBindingMode: BindingMode.OneWay
+	);
+
+    public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(
 		propertyName: nameof(CommandParameter),
 		returnType: typeof(string),
 		declaringType: typeof(ItemListComponent),
@@ -52,10 +65,6 @@ public partial class ItemListComponent : ContentView
 	);
 
     #endregion
-
-	private async Task OnEditAsync()
-	{
-	}
 
     public ItemListComponent()
 	{

@@ -1,8 +1,4 @@
-﻿using Bills.Database.Entities;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.Text.Json.Serialization;
-
-namespace Bills.Core.Models;
+﻿namespace Bills.Core.Models;
 public partial class ItemModel : ObservableObject
 {
     [ObservableProperty]
@@ -20,6 +16,9 @@ public partial class ItemModel : ObservableObject
     [ObservableProperty]
     [JsonPropertyName("amount")]
     private int amount;
+
+    [JsonPropertyName("total")]
+    public double Total => Amount * Price;
 
     public ItemModel()
     {

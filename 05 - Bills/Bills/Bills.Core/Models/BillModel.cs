@@ -1,8 +1,4 @@
-﻿using Bills.Database.Entities;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.Text.Json.Serialization;
-
-namespace Bills.Core.Models;
+﻿namespace Bills.Core.Models;
 public partial class BillModel : ObservableObject
 {
     [ObservableProperty]

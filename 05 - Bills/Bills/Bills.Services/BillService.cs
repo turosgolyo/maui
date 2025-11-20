@@ -8,8 +8,12 @@ public class BillService(AppDbContext dbContext) : IBillService
         {
             return Error.Conflict(description: "Bill already exists");
         }
-        var newBill = bill.ToEntity();
 
+        foreach (var item in bill.Items)
+        {
+            item.Id = 0;
+        }
+        var newBill = bill.ToEntity();
         await dbContext.Bills.AddAsync(newBill);
         await dbContext.SaveChangesAsync();
 

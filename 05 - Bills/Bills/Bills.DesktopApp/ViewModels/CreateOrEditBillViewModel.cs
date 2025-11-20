@@ -11,9 +11,10 @@ public partial class CreateOrEditBillViewModel(
 {
     public IAsyncRelayCommand SaveCommand => new AsyncRelayCommand(OnSaveAsync);
     public IAsyncRelayCommand AddItemCommand => new AsyncRelayCommand(OnAddItemAsync);
+    public IAsyncRelayCommand DeleteCommand => new AsyncRelayCommand<ItemModel>((item) => OnDeleteItemAsync(item));
 
     [ObservableProperty]
-    private ObservableCollection<ItemModel> items = [];
+    private ObservableCollection<ItemModel> addedItems = [];
 
     [ObservableProperty]
     private string itemName;
@@ -38,7 +39,7 @@ public partial class CreateOrEditBillViewModel(
 
         this.Id = bill.Id;
         this.Number = bill.Number;
-        this.Items = new ObservableCollection<ItemModel>(bill.Items);
+        this.Items = bill.Items;
     }
 
     private async Task OnAddItemAsync()
@@ -49,17 +50,45 @@ public partial class CreateOrEditBillViewModel(
             Price = this.ItemPrice,
             Amount = this.ItemAmount
         };
-        this.Items.Add(newItem);
+
+        this.AddedItems.Add(newItem);
         await Task.CompletedTask;
     }
     private async Task OnSaveAsync()
     {
+        this.Items = this.AddedItems.ToList();
+
         var result = await billService.CreateAsync(this);
         var message = result .IsError ? result.FirstError.Description : "Bill saved successfully.";
         var title = result.IsError ? "Error" : "Success";
 
         await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+        //await LoadItemsByBillAsync(this.Id);
     }
 
+    private async Task OnDeleteItemAsync(ItemModel item)
+    {
+        //var addedItem = addedItems.SingleOrDefault(i => i.Id == id);
+        //addedItems.Remove(addedItem);
 
+        //var result = await itemService.DeleteAsync(id);
+
+        //var message = result.IsError ? result.FirstError.Description : "Item deleted successfully.";
+        //var title = result.IsError ? "Error" : "Success";
+
+        //await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+    }
+
+    private async Task LoadItemsByBillAsync(int id)
+    {
+        var billResult = await billService.GetByIdAsync(id);
+        if (billResult.IsError)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", billResult.FirstError.Description, "OK");
+            return;
+        }
+        var bill = billResult.Value;
+        var items = bill.Items ?? new List<ItemModel>();
+        this.AddedItems = new ObservableCollection<ItemModel>(items);
+    }
 }
