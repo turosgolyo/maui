@@ -1,4 +1,6 @@
-﻿namespace Bills.Core.Models;
+﻿using System.Numerics;
+
+namespace Bills.Core.Models;
 public partial class ItemModel : ObservableObject
 {
     [ObservableProperty]
@@ -16,10 +18,9 @@ public partial class ItemModel : ObservableObject
     [ObservableProperty]
     [JsonPropertyName("amount")]
     private int amount;
-
-    [JsonPropertyName("total")]
     public double Total => Amount * Price;
 
+    public Guid TempId { get; set; } = Guid.NewGuid();
     public ItemModel()
     {
         this.Id = id;
@@ -53,5 +54,15 @@ public partial class ItemModel : ObservableObject
         entity.Name = this.Name;
         entity.Price = this.Price;
         entity.Amount = this.Amount;
+    }
+
+    partial void OnAmountChanged(int oldValue, int newValue)
+    {
+        OnPropertyChanged(nameof(Total));
+    }
+
+    partial void OnPriceChanged(double oldValue, double newValue)
+    {
+        OnPropertyChanged(nameof(Total));
     }
 }

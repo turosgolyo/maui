@@ -123,6 +123,7 @@
                             <DataTemplate x:DataType="models:ItemModel">
                                 <components:ItemListComponent Item="{Binding .}" 
                                                               DeleteCommand="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateOrEditBillViewModel}}, Path=DeleteCommand}"
+                                                              EditCommand="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateOrEditBillViewModel}}, Path=EditCommand}"
                                                               CommandParameter="{Binding .}"/>
                         </DataTemplate>
                         </CollectionView.ItemTemplate>

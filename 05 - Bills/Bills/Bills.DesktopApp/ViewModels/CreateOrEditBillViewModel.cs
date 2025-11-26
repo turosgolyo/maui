@@ -31,7 +31,7 @@ public partial class CreateOrEditBillViewModel(
     private ObservableCollection<ItemModel> addedItems = [];
 
     [ObservableProperty]
-    private ItemModel item;
+    private ItemModel item = new();
 
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -58,9 +58,16 @@ public partial class CreateOrEditBillViewModel(
 
     private async Task OnAddItemAsync()
     {
-        var newItem = this.Item;
+        var newItem = new ItemModel
+        {
+            TempId = Guid.NewGuid(),
+            Name = this.Item.Name,
+            Price = this.Item.Price,
+            Amount = this.Item.Amount
+        };
 
         this.AddedItems.Add(newItem);
+        ClearItemForm();
         await Task.CompletedTask;
     }
     private async Task OnSaveAsync()
@@ -88,7 +95,14 @@ public partial class CreateOrEditBillViewModel(
     }
     private async Task OnClickUpdateItemAsync(ItemModel item)
     {
-        this.Item = item;
+        this.Item = new ItemModel
+        {
+            Id = item.Id,
+            TempId = item.TempId,
+            Name = item.Name,
+            Price = item.Price,
+            Amount = item.Amount
+        };
 
         asyncItemButtonAction = OnUpdateItemAsync;
     }
@@ -96,6 +110,16 @@ public partial class CreateOrEditBillViewModel(
     private async Task OnUpdateItemAsync()
     {
         var updatedItem = this.Item;
+
+        var existingItem = addedItems.FirstOrDefault(item => item.TempId == updatedItem.TempId);
+
+        if (existingItem != null)
+        {
+            existingItem.Name = updatedItem.Name;
+            existingItem.Price = updatedItem.Price;
+            existingItem.Amount = updatedItem.Amount;
+        }
+
 
         if (updatedItem.Id != 0)
         {
@@ -105,6 +129,7 @@ public partial class CreateOrEditBillViewModel(
             await Application.Current.MainPage.DisplayAlert(title, message, "OK");
         }
 
+        ClearItemForm();
         asyncItemButtonAction = OnAddItemAsync;
     }
 
@@ -126,8 +151,11 @@ public partial class CreateOrEditBillViewModel(
         this.Date = DateTime.Now;
         this.Items = null;
         this.AddedItems = null;
-        this.Item.Name = null;
-        this.Item.Price = 0;
-        this.Item.Amount = 0;
+        ClearItemForm();
+    }
+
+    private void ClearItemForm()
+    {
+        this.Item = new ItemModel();
     }
 }
