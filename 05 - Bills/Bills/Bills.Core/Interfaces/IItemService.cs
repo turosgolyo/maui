@@ -5,5 +5,5 @@ public interface IItemService
     Task<ErrorOr<ItemModel>> GetByIdAsync(int id);
     Task<ErrorOr<ItemModel>> CreateAsync(ItemModel item);
     Task<ErrorOr<Success>> UpdateAsync(ItemModel item);
-    Task<ErrorOr<Success>> DeleteAsync(int id);
+    Task<ErrorOr<Success>> DeleteAsync(ItemModel item);
 }

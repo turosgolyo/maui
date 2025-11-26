@@ -12,10 +12,10 @@ public class ItemService(AppDbContext dbContext) : IItemService
         return new ItemModel(newItem);
     }
 
-    public async Task<ErrorOr<Success>> DeleteAsync(int id)
+    public async Task<ErrorOr<Success>> DeleteAsync(ItemModel item)
     {
         var result = await dbContext.Items.AsNoTracking()
-                                          .Where(x => x.Id == id)
+                                          .Where(x => x == item.ToEntity())
                                           .ExecuteDeleteAsync();
 
         return result > 0 ? Result.Success : Error.NotFound();

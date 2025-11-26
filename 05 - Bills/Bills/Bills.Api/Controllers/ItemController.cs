@@ -56,10 +56,10 @@ public class ItemController(IItemService itemService) : BaseController
 
     //DELETE
     [HttpDelete]
-    [Route("api/items/{id}")]
-    public async Task<IActionResult> DeleteAsync([FromRoute][Required] int id)
+    [Route("api/items/delete")]
+    public async Task<IActionResult> DeleteAsync([FromBody][Required] ItemModel item)
     {
-        var result = await itemService.DeleteAsync(id);
+        var result = await itemService.DeleteAsync(item);
         return result.Match(
             result => Ok(result),
             errors => Problem(errors)

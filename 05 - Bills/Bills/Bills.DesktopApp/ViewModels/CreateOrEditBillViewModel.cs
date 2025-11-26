@@ -1,6 +1,8 @@
 ﻿using Bills.Core.Models;
 using CommunityToolkit.Mvvm.Input;
+using Nest;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Bills.DesktopApp.ViewModels;
 
@@ -9,33 +11,45 @@ public partial class CreateOrEditBillViewModel(
     IBillService billService,
     IItemService itemService) : BillModel, IQueryAttributable
 {
-    public IAsyncRelayCommand SaveCommand => new AsyncRelayCommand(OnSaveAsync);
-    public IAsyncRelayCommand AddItemCommand => new AsyncRelayCommand(OnAddItemAsync);
+    public IAsyncRelayCommand BillButtonCommand => new AsyncRelayCommand(OnSubmitBillAsync);
+    public IAsyncRelayCommand ItemButtonCommand => new AsyncRelayCommand(OnSubmitItemAsync);
     public IAsyncRelayCommand DeleteCommand => new AsyncRelayCommand<ItemModel>((item) => OnDeleteItemAsync(item));
+    public IAsyncRelayCommand EditCommand => new AsyncRelayCommand<ItemModel>((item) => OnClickUpdateItemAsync(item));
 
+
+    private async Task OnSubmitBillAsync() => await asyncBillButtonAction();
+    private async Task OnSubmitItemAsync() => await asyncItemButtonAction();
+
+    [ObservableProperty]
+    private string title;
+
+    private delegate Task ButtonActionDelagate();
+    private ButtonActionDelagate asyncBillButtonAction;
+    private ButtonActionDelagate asyncItemButtonAction;
+    
     [ObservableProperty]
     private ObservableCollection<ItemModel> addedItems = [];
 
     [ObservableProperty]
-    private string itemName;
-
-    [ObservableProperty]
-    private double itemPrice;
-
-    [ObservableProperty]
-    private int itemAmount;
+    private ItemModel item;
 
 
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        bool hasValue = query.TryGetValue("Bill", out object result);
 
+
+        bool hasValue = query.TryGetValue("Bill", out object result);
         if (!hasValue)
         {
+            asyncBillButtonAction = OnSaveAsync;
+            asyncItemButtonAction = OnAddItemAsync;
+            Title = "Add new  bills";
             return;
         }
 
         BillModel bill = result as BillModel;
+
+        await LoadItemsByBillAsync(bill.Id);
 
         this.Id = bill.Id;
         this.Number = bill.Number;
@@ -44,12 +58,7 @@ public partial class CreateOrEditBillViewModel(
 
     private async Task OnAddItemAsync()
     {
-        var newItem = new ItemModel
-        {
-            Name = this.ItemName,
-            Price = this.ItemPrice,
-            Amount = this.ItemAmount
-        };
+        var newItem = this.Item;
 
         this.AddedItems.Add(newItem);
         await Task.CompletedTask;
@@ -63,20 +72,40 @@ public partial class CreateOrEditBillViewModel(
         var title = result.IsError ? "Error" : "Success";
 
         await Application.Current.MainPage.DisplayAlert(title, message, "OK");
-        //await LoadItemsByBillAsync(this.Id);
+        ClearForm();
     }
-
     private async Task OnDeleteItemAsync(ItemModel item)
     {
-        //var addedItem = addedItems.SingleOrDefault(i => i.Id == id);
-        //addedItems.Remove(addedItem);
+        addedItems.Remove(item);
 
-        //var result = await itemService.DeleteAsync(id);
+        if(item.Id != 0)
+        {
+            var result = await itemService.DeleteAsync(item);
+            var message = result.IsError ? result.FirstError.Description : "Item deleted successfully.";
+            var title = result.IsError ? "Error" : "Success";
+            await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+        }
+    }
+    private async Task OnClickUpdateItemAsync(ItemModel item)
+    {
+        this.Item = item;
 
-        //var message = result.IsError ? result.FirstError.Description : "Item deleted successfully.";
-        //var title = result.IsError ? "Error" : "Success";
+        asyncItemButtonAction = OnUpdateItemAsync;
+    }
 
-        //await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+    private async Task OnUpdateItemAsync()
+    {
+        var updatedItem = this.Item;
+
+        if (updatedItem.Id != 0)
+        {
+            var result = await itemService.UpdateAsync(updatedItem);
+            var message = result.IsError ? result.FirstError.Description : "Item updated.";
+            var title = result.IsError ? "Error" : "Information";
+            await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+        }
+
+        asyncItemButtonAction = OnAddItemAsync;
     }
 
     private async Task LoadItemsByBillAsync(int id)
@@ -90,5 +119,15 @@ public partial class CreateOrEditBillViewModel(
         var bill = billResult.Value;
         var items = bill.Items ?? new List<ItemModel>();
         this.AddedItems = new ObservableCollection<ItemModel>(items);
+    }
+
+    private void ClearForm() {
+        this.Number = null;
+        this.Date = DateTime.Now;
+        this.Items = null;
+        this.AddedItems = null;
+        this.Item.Name = null;
+        this.Item.Price = 0;
+        this.Item.Amount = 0;
     }
 }

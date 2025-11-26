@@ -8,6 +8,8 @@ global using CommunityToolkit.Mvvm.ComponentModel;
 global using Bills.Database;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Configuration;
+global using FluentValidation.Results;
+global using System.Globalization;
 
 
 

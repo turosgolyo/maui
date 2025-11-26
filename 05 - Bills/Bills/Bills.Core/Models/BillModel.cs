@@ -11,7 +11,7 @@ public partial class BillModel : ObservableObject
 
     [ObservableProperty]
     [JsonPropertyName("date")]
-    private DateTime date;
+    private DateTime date = DateTime.Now;
 
     [ObservableProperty]
     [JsonPropertyName("items")]
