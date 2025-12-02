@@ -1,8 +1,4 @@
-﻿using Bills.Core.Models;
-using CommunityToolkit.Mvvm.Input;
-using Nest;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System.Windows.Input;
 
 namespace Bills.DesktopApp.ViewModels;
 
@@ -15,7 +11,7 @@ public partial class CreateOrEditBillViewModel(
     public IAsyncRelayCommand ItemButtonCommand => new AsyncRelayCommand(OnSubmitItemAsync);
     public IAsyncRelayCommand DeleteCommand => new AsyncRelayCommand<ItemModel>((item) => OnDeleteItemAsync(item));
     public IAsyncRelayCommand EditCommand => new AsyncRelayCommand<ItemModel>((item) => OnClickUpdateItemAsync(item));
-
+    public ICommand ValidateCommand => new Command<string>(OnValidateAsync);
 
     private async Task OnSubmitBillAsync() => await asyncBillButtonAction();
     private async Task OnSubmitItemAsync() => await asyncItemButtonAction();
@@ -157,5 +153,22 @@ public partial class CreateOrEditBillViewModel(
     private void ClearItemForm()
     {
         this.Item = new ItemModel();
+    }
+
+    private BillModelValidator billValidator => new BillModelValidator();
+
+    [ObservableProperty]
+    private ValidationResult validationResult = new ValidationResult();
+
+    private async void OnValidateAsync(string propertyName)
+    {
+        var result = await billValidator.ValidateAsync(this, options => options.IncludeProperties(propertyName));
+
+        ValidationResult.Errors.Remove(ValidationResult.Errors.FirstOrDefault(x => x.PropertyName == propertyName));
+
+        ValidationResult.Errors.Remove(ValidationResult.Errors.FirstOrDefault(x => x.PropertyName == BillModelValidator.GlobalProperty));
+        ValidationResult.Errors.AddRange(result.Errors);
+
+        OnPropertyChanged(nameof(propertyName));
     }
 }

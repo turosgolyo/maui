@@ -14,6 +14,6 @@ public class BillModelValidator : BaseValidator<BillModel>
         RuleFor(x => x.Number).NotEmpty().WithMessage("Number is required!")
                               .MinimumLength(2).MaximumLength(32).WithMessage("Number must be in between 2 and 32 characters!");
 
-        RuleFor(x => x.Date).InclusiveBetween(1900, DateTime.Now).WithMessage("Invalid release year");
+        //RuleFor(x => x.Date).InclusiveBetween(1900, DateTime.Now).WithMessage("Invalid release year");
     }
 }

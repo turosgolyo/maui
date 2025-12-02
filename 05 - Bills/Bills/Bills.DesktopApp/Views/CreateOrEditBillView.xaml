@@ -1,141 +1,172 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:Bills.DesktopApp.ViewModels"
-             xmlns:components="clr-namespace:Bills.DesktopApp.Components"
-             xmlns:models="clr-namespace:Bills.Core.Models;assembly=Bills.Core" 
-             x:Class="Bills.DesktopApp.Views.CreateOrEditBillView"
-             x:DataType="viewModels:CreateOrEditBillViewModel"
-             x:Name="this">
-    
-    <Grid ColumnDefinitions="1*, 2*"
-          RowDefinitions="1*">
-    
-        <Label Text="Add new bill"
-               Style="{StaticResource SubHeadline}"
-               FontAttributes="Bold"
-               Margin="0, 20, 0, 20"
-               FontFamily="Franklin Gothic"/>
+<ContentPage
+    x:Class="Bills.DesktopApp.Views.CreateOrEditBillView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:Bills.DesktopApp.Behaviors"
+    xmlns:components="clr-namespace:Bills.DesktopApp.Components"
+    xmlns:inputLayout="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
+    xmlns:models="clr-namespace:Bills.Core.Models;assembly=Bills.Core"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:validator="clr-namespace:Bills.Validators;assembly=Bills.Validators"
+    xmlns:viewModels="clr-namespace:Bills.DesktopApp.ViewModels"
+    x:Name="this"
+    x:DataType="viewModels:CreateOrEditBillViewModel">
 
-        <VerticalStackLayout Grid.Column="0"
-                             Grid.Row="1"
-                             Margin="50,50,50,50">
-                    <Label Text="Bill" 
-                           FontSize="Medium"
-                           FontAttributes="Bold"
-                           Margin="0, 0, 0, 30"/>
-                    <Label Text="Number" 
-                           VerticalOptions="Center" 
-                           HorizontalOptions="Start"/>
-                    <Entry Placeholder="Enter bill number"
-                           Text="{Binding Number}"/>
-                    
-                    <Label Text="Date" 
-                           VerticalOptions="Center" 
-                           HorizontalOptions="Start"/>
-                    <DatePicker Date="{Binding Date}"/>
+    <Grid ColumnDefinitions="1*, 2*" RowDefinitions="1*">
 
-                    <Label Text="Item" 
-                           FontSize="Medium"
-                           FontAttributes="Bold"
-                           Margin="0,300, 0, 30"/>
-                    <Label Text="Name" 
-                           VerticalOptions="Center" 
-                           HorizontalOptions="Start"/>
-                    <Entry Placeholder="Enter item name"
-                           Text="{Binding Item.Name}"/>
+        <Label
+            Margin="0,20,0,20"
+            FontAttributes="Bold"
+            FontFamily="Franklin Gothic"
+            Style="{StaticResource SubHeadline}"
+            Text="Add new bill" />
 
-                    <Label Text="Price" 
-                           VerticalOptions="Center" 
-                           HorizontalOptions="Start"/>
-                    <Entry Placeholder="Enter item price"
-                           Text="{Binding Item.Price}"/>
+        <VerticalStackLayout
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="50,50,50,50">
+            <Label
+                Margin="0,0,0,30"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                Text="Bill" />
 
-                    <Label Text="Amount" 
-                           VerticalOptions="Center" 
-                           HorizontalOptions="Start"/>
-                    <Entry Placeholder="Enter item amount" 
-                           Text="{Binding Item.Amount}"/>
 
-                    <Button Text="Save item"
-                            WidthRequest="250"
-                            Margin="0, 60, 0, 50"
-                            FontAttributes="Bold"
-                            Command="{Binding ItemButtonCommand}"/>
+            <inputLayout:SfTextInputLayout
+                ContainerType="Outlined"
+                ErrorText="{Binding ValidationResult, Converter={StaticResource ValidationResultToErrorMessagesConverter}, ConverterParameter={x:Static validator:BillModelValidator.NumberProperty}}"
+                HasError="{Binding ValidationResult, Converter={StaticResource ValidationResultHasErrorConverter}, ConverterParameter={x:Static validator:BillModelValidator.NumberProperty}}"
+                Hint="Number"
+                OutlineCornerRadius="8">
+                <Entry Placeholder="Enter bill number here" Text="{Binding Number}">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            BindingContext="{Binding Source={x:Reference this}}"
+                            Command="{Binding ValidateCommand}"
+                            CommandParameter="{x:Static validator:BillModelValidator.NumberProperty}"
+                            EventName="TextChanged" />
+                    </Entry.Behaviors>
+                </Entry>
+
+            </inputLayout:SfTextInputLayout>
+
+            <Label
+                HorizontalOptions="Start"
+                Text="Date"
+                VerticalOptions="Center" />
+            <DatePicker Date="{Binding Date}" />
+
+            <Label
+                Margin="0,300,0,30"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                Text="Item" />
+            <Label
+                HorizontalOptions="Start"
+                Text="Name"
+                VerticalOptions="Center" />
+            <Entry Placeholder="Enter item name" Text="{Binding Item.Name}" />
+
+            <Label
+                HorizontalOptions="Start"
+                Text="Price"
+                VerticalOptions="Center" />
+            <Entry Placeholder="Enter item price" Text="{Binding Item.Price}" />
+
+            <Label
+                HorizontalOptions="Start"
+                Text="Amount"
+                VerticalOptions="Center" />
+            <Entry Placeholder="Enter item amount" Text="{Binding Item.Amount}" />
+
+            <Button
+                Margin="0,60,0,50"
+                Command="{Binding ItemButtonCommand}"
+                FontAttributes="Bold"
+                Text="Save item"
+                WidthRequest="250" />
 
         </VerticalStackLayout>
 
-        <StackLayout Grid.Column="2"
-                     Grid.Row="1"
-                     Margin="50, 0, 50, 0">
-                <Label Text="Bill items" 
-                       HorizontalOptions="Center"
-                       FontSize="Medium"
-                       FontAttributes="Bold"/>
+        <StackLayout
+            Grid.Row="1"
+            Grid.Column="2"
+            Margin="50,0,50,0">
+            <Label
+                FontAttributes="Bold"
+                FontSize="Medium"
+                HorizontalOptions="Center"
+                Text="Bill items" />
 
-                <Border Stroke="Grey" 
-                        StrokeShape="RoundRectangle 30"
-                        HeightRequest="800">
-                    <CollectionView ItemsSource="{Binding AddedItems}" 
-                                    Grid.Column="1">
-                        <CollectionView.Header>
+            <Border
+                HeightRequest="800"
+                Stroke="Grey"
+                StrokeShape="RoundRectangle 30">
+                <CollectionView Grid.Column="1" ItemsSource="{Binding AddedItems}">
+                    <CollectionView.Header>
 
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="80"/>
-                                    <ColumnDefinition Width="80"/>
-                                </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="80" />
+                            </Grid.ColumnDefinitions>
 
-                                <Label Grid.Column="0" 
-                                       Text="Name"
-                                       Margin="10"
-                                       HorizontalOptions="Center" 
-                                       FontAttributes="Bold"/>
-                                <Label Grid.Column="1" 
-                                       Text="Price"
-                                       Margin="10"
-                                       HorizontalOptions="Center"
-                                       FontAttributes="Bold" />
-                                <Label Grid.Column="2" 
-                                       Text="Amount"
-                                       Margin="10"
-                                       HorizontalOptions="Center" 
-                                       FontAttributes="Bold"/>
-                                <Label Grid.Column="3" 
-                                       Text="Total Price"
-                                       Margin="10"
-                                       HorizontalOptions="Center" 
-                                       FontAttributes="Bold"/>
+                            <Label
+                                Grid.Column="0"
+                                Margin="10"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="Name" />
+                            <Label
+                                Grid.Column="1"
+                                Margin="10"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="Price" />
+                            <Label
+                                Grid.Column="2"
+                                Margin="10"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="Amount" />
+                            <Label
+                                Grid.Column="3"
+                                Margin="10"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="Total Price" />
                         </Grid>
-                        </CollectionView.Header>
+                    </CollectionView.Header>
 
 
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Vertical"
-                                               ItemSpacing="5" />
-                        </CollectionView.ItemsLayout>
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
 
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="models:ItemModel">
-                                <components:ItemListComponent Item="{Binding .}" 
-                                                              DeleteCommand="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateOrEditBillViewModel}}, Path=DeleteCommand}"
-                                                              EditCommand="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateOrEditBillViewModel}}, Path=EditCommand}"
-                                                              CommandParameter="{Binding .}"/>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:ItemModel">
+                            <components:ItemListComponent
+                                CommandParameter="{Binding .}"
+                                DeleteCommand="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateOrEditBillViewModel}}, Path=DeleteCommand}"
+                                EditCommand="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateOrEditBillViewModel}}, Path=EditCommand}"
+                                Item="{Binding .}" />
                         </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </Border>
-                <Button Text="Save bill"
-                        HorizontalOptions="End"
-                        WidthRequest="250"
-                        Margin="0, 20, 0, 20"
-                        FontAttributes="Bold"
-                        Command="{Binding BillButtonCommand}"/>
-            </StackLayout>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+            <Button
+                Margin="0,20,0,20"
+                Command="{Binding BillButtonCommand}"
+                FontAttributes="Bold"
+                HorizontalOptions="End"
+                Text="Save bill"
+                WidthRequest="250" />
+        </StackLayout>
 
     </Grid>
 </ContentPage>
