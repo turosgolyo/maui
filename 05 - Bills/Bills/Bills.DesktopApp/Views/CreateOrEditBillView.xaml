@@ -3,15 +3,25 @@
     x:Class="Bills.DesktopApp.Views.CreateOrEditBillView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:behaviors="clr-namespace:Bills.DesktopApp.Behaviors"
     xmlns:components="clr-namespace:Bills.DesktopApp.Components"
     xmlns:inputLayout="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
+    xmlns:picker="clr-namespace:Syncfusion.Maui.Toolkit.Picker;assembly=Syncfusion.Maui.Toolkit"
     xmlns:models="clr-namespace:Bills.Core.Models;assembly=Bills.Core"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:validator="clr-namespace:Bills.Validators;assembly=Bills.Validators"
     xmlns:viewModels="clr-namespace:Bills.DesktopApp.ViewModels"
+    xmlns:converters="clr-namespace:Bills.DesktopApp.Converters"
     x:Name="this"
     x:DataType="viewModels:CreateOrEditBillViewModel">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ValidationResultHasErrorConverter x:Key="ValidationResultHasErrorConverter" />
+            <converters:ValidationResultToErrorMessagesConverter x:Key="ValidationResultToErrorMessagesConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
 
     <Grid ColumnDefinitions="1*, 2*" RowDefinitions="1*">
 
@@ -35,54 +45,131 @@
 
             <inputLayout:SfTextInputLayout
                 ContainerType="Outlined"
-                ErrorText="{Binding ValidationResult, Converter={StaticResource ValidationResultToErrorMessagesConverter}, ConverterParameter={x:Static validator:BillModelValidator.NumberProperty}}"
-                HasError="{Binding ValidationResult, Converter={StaticResource ValidationResultHasErrorConverter}, ConverterParameter={x:Static validator:BillModelValidator.NumberProperty}}"
                 Hint="Number"
-                OutlineCornerRadius="8">
-                <Entry Placeholder="Enter bill number here" Text="{Binding Number}">
+                OutlineCornerRadius="15"
+                ErrorText="{
+                    Binding ValidationResult, 
+                    Converter={StaticResource ValidationResultToErrorMessagesConverter}, 
+                    ConverterParameter={x:Static validator:BillModelValidator.NumberProperty}}"
+                HasError="{
+                    Binding ValidationResult, 
+                    Converter={StaticResource ValidationResultHasErrorConverter}, 
+                    ConverterParameter={x:Static validator:BillModelValidator.NumberProperty}}">
+                <Entry Placeholder="Enter bill number here" Text="{Binding Number, Mode=TwoWay}">
                     <Entry.Behaviors>
                         <toolkit:EventToCommandBehavior
-                            BindingContext="{Binding Source={x:Reference this}}"
+                            EventName="TextChanged" 
+                            BindingContext="{x:Reference this}"
                             Command="{Binding ValidateCommand}"
-                            CommandParameter="{x:Static validator:BillModelValidator.NumberProperty}"
-                            EventName="TextChanged" />
+                            CommandParameter="{x:Static validator:BillModelValidator.NumberProperty}"/>
                     </Entry.Behaviors>
                 </Entry>
 
             </inputLayout:SfTextInputLayout>
 
-            <Label
-                HorizontalOptions="Start"
-                Text="Date"
-                VerticalOptions="Center" />
-            <DatePicker Date="{Binding Date}" />
+            <inputLayout:SfTextInputLayout
+                Hint="Date"
+                ContainerType="Outlined"
+                OutlineCornerRadius="15"
+                HasError="{
+                    Binding ValidationResult,
+                    Converter={StaticResource ValidationResultHasErrorConverter},
+                    ConverterParameter={x:Static validator:BillModelValidator.DateProperty}}"
+                ErrorText="{
+                    Binding ValidationResult,
+                    Converter={StaticResource ValidationResultToErrorMessagesConverter},
+                    ConverterParameter={x:Static validator:BillModelValidator.DateProperty}}">
 
+                <picker:SfDatePicker x:Name="{Binding Date}"
+                                     SelectionChanged="Date_SelectionChanged">
+                    
+                </picker:SfDatePicker>
+
+            </inputLayout:SfTextInputLayout>
+            
             <Label
-                Margin="0,300,0,30"
+                Margin="0,100,0,30"
                 FontAttributes="Bold"
                 FontSize="Medium"
                 Text="Item" />
-            <Label
-                HorizontalOptions="Start"
-                Text="Name"
-                VerticalOptions="Center" />
-            <Entry Placeholder="Enter item name" Text="{Binding Item.Name}" />
 
-            <Label
-                HorizontalOptions="Start"
-                Text="Price"
-                VerticalOptions="Center" />
-            <Entry Placeholder="Enter item price" Text="{Binding Item.Price}" />
+            <inputLayout:SfTextInputLayout
+                ContainerType="Outlined"
+                Hint="Name"
+                OutlineCornerRadius="15"
+                ErrorText="{
+                    Binding ValidationResult, 
+                    Converter={StaticResource ValidationResultToErrorMessagesConverter}, 
+                    ConverterParameter={x:Static validator:ItemModelValidator.NameProperty}}"
+                HasError="{
+                    Binding ValidationResult, 
+                    Converter={StaticResource ValidationResultHasErrorConverter}, 
+                    ConverterParameter={x:Static validator:ItemModelValidator.NameProperty}}">
+                
+                <Entry Placeholder="Enter item name here" Text="{Binding Item.Name}">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged" 
+                            Command="{Binding ValidateCommand}"
+                            CommandParameter="{x:Static validator:ItemModelValidator.NameProperty}"/>
+                    </Entry.Behaviors>
+                </Entry>
 
-            <Label
-                HorizontalOptions="Start"
-                Text="Amount"
-                VerticalOptions="Center" />
-            <Entry Placeholder="Enter item amount" Text="{Binding Item.Amount}" />
+            </inputLayout:SfTextInputLayout>
+
+            <inputLayout:SfTextInputLayout
+                ContainerType="Outlined"
+                Hint="Amount"
+                OutlineCornerRadius="15"
+                ErrorText="{
+                    Binding ValidationResult, 
+                    Converter={StaticResource ValidationResultToErrorMessagesConverter}, 
+                    ConverterParameter={x:Static validator:ItemModelValidator.AmountProperty}}"
+                HasError="{
+                    Binding ValidationResult, 
+                    Converter={StaticResource ValidationResultHasErrorConverter}, 
+                    ConverterParameter={x:Static validator:ItemModelValidator.AmountProperty}}">
+                
+                <Entry Placeholder="Enter item amount here" Text="{Binding Item.Amount}">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged" 
+                            Command="{Binding ValidateCommand}"
+                            CommandParameter="{x:Static validator:ItemModelValidator.AmountProperty}"/>
+                    </Entry.Behaviors>
+                </Entry>
+
+            </inputLayout:SfTextInputLayout>
+
+            <inputLayout:SfTextInputLayout
+                ContainerType="Outlined"
+                Hint="Amount"
+                OutlineCornerRadius="15"
+                ErrorText="{
+                    Binding ValidationResult, 
+                    Converter={StaticResource ValidationResultToErrorMessagesConverter}, 
+                    ConverterParameter={x:Static validator:ItemModelValidator.PriceProperty}}"
+                HasError="{
+                    Binding ValidationResult, 
+                    Converter={StaticResource ValidationResultHasErrorConverter}, 
+                    ConverterParameter={x:Static validator:ItemModelValidator.PriceProperty}}">
+
+                <Entry Placeholder="Enter item price here" Text="{Binding Item.Price}">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged" 
+                            Command="{Binding ValidateCommand}"
+                            CommandParameter="{x:Static validator:ItemModelValidator.PriceProperty}"/>
+                    </Entry.Behaviors>
+                </Entry>
+
+            </inputLayout:SfTextInputLayout>
+
 
             <Button
                 Margin="0,60,0,50"
                 Command="{Binding ItemButtonCommand}"
+                IsEnabled="{Binding CanAddItem}"
                 FontAttributes="Bold"
                 Text="Save item"
                 WidthRequest="250" />

@@ -6,7 +6,7 @@ public class ValidationResultHasErrorConverter : IValueConverter
     {
         if (value is not ValidationResult validationResult || parameter == null)
         {
-            return null;
+            return false;
         }
 
         if (validationResult.IsValid)

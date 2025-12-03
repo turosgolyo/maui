@@ -6,12 +6,12 @@ public class ValidationResultToErrorMessagesConverter : IValueConverter
     {
         if (value is not ValidationResult validationResult || validationResult.IsValid)
         {
-            return null;
+            return string.Empty;
         }
 
         if (parameter == null)
         {
-            return null;
+            return string.Empty;
         }
 
         var property = parameter as string;

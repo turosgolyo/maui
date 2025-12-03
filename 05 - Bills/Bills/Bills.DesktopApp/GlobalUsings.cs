@@ -20,5 +20,7 @@ global using Bills.Core.Models;
 global using Bills.Validators;
 global using System.Collections.ObjectModel;
 global using FluentValidation;
+global using System.Windows.Input;
+
 
 

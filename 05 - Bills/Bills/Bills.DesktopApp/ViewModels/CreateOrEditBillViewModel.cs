@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-
+﻿
 namespace Bills.DesktopApp.ViewModels;
 
 public partial class CreateOrEditBillViewModel(
@@ -7,33 +6,39 @@ public partial class CreateOrEditBillViewModel(
     IBillService billService,
     IItemService itemService) : BillModel, IQueryAttributable
 {
+    #region commands
     public IAsyncRelayCommand BillButtonCommand => new AsyncRelayCommand(OnSubmitBillAsync);
     public IAsyncRelayCommand ItemButtonCommand => new AsyncRelayCommand(OnSubmitItemAsync);
     public IAsyncRelayCommand DeleteCommand => new AsyncRelayCommand<ItemModel>((item) => OnDeleteItemAsync(item));
     public IAsyncRelayCommand EditCommand => new AsyncRelayCommand<ItemModel>((item) => OnClickUpdateItemAsync(item));
     public ICommand ValidateCommand => new Command<string>(OnValidateAsync);
+    #endregion
 
+    #region buttons
     private async Task OnSubmitBillAsync() => await asyncBillButtonAction();
     private async Task OnSubmitItemAsync() => await asyncItemButtonAction();
+
+    private delegate Task ButtonActionDelagate();
+
+    private ButtonActionDelagate asyncBillButtonAction;
+
+    private ButtonActionDelagate asyncItemButtonAction;
+    #endregion
 
     [ObservableProperty]
     private string title;
 
-    private delegate Task ButtonActionDelagate();
-    private ButtonActionDelagate asyncBillButtonAction;
-    private ButtonActionDelagate asyncItemButtonAction;
-    
     [ObservableProperty]
     private ObservableCollection<ItemModel> addedItems = [];
 
     [ObservableProperty]
     private ItemModel item = new();
 
+    [ObservableProperty]
+    private bool canAddItem;
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-
-
         bool hasValue = query.TryGetValue("Bill", out object result);
         if (!hasValue)
         {
@@ -54,6 +59,14 @@ public partial class CreateOrEditBillViewModel(
 
     private async Task OnAddItemAsync()
     {
+        this.ValidationResult = await itemValidator.ValidateAsync(this.Item);
+
+        if (!ValidationResult.IsValid)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "Add item failed", "OK");
+            return;
+        }
+
         var newItem = new ItemModel
         {
             TempId = Guid.NewGuid(),
@@ -68,6 +81,14 @@ public partial class CreateOrEditBillViewModel(
     }
     private async Task OnSaveAsync()
     {
+        this.ValidationResult = await billValidator.ValidateAsync(this);
+
+        if (!ValidationResult.IsValid)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "Save failed", "OK");
+            return;
+        }
+
         this.Items = this.AddedItems.ToList();
 
         var result = await billService.CreateAsync(this);
@@ -105,6 +126,14 @@ public partial class CreateOrEditBillViewModel(
 
     private async Task OnUpdateItemAsync()
     {
+        this.ValidationResult = await itemValidator.ValidateAsync(this.Item);
+
+        if (!ValidationResult.IsValid)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "Add item failed", "OK");
+            return;
+        }
+
         var updatedItem = this.Item;
 
         var existingItem = addedItems.FirstOrDefault(item => item.TempId == updatedItem.TempId);
@@ -155,10 +184,15 @@ public partial class CreateOrEditBillViewModel(
         this.Item = new ItemModel();
     }
 
+
+    #region validation
     private BillModelValidator billValidator => new BillModelValidator();
+    private ItemModelValidator itemValidator => new ItemModelValidator();
 
     [ObservableProperty]
     private ValidationResult validationResult = new ValidationResult();
+    [ObservableProperty]
+    private ValidationResult itemValidationResult = new ValidationResult();
 
     private async void OnValidateAsync(string propertyName)
     {
@@ -169,6 +203,12 @@ public partial class CreateOrEditBillViewModel(
         ValidationResult.Errors.Remove(ValidationResult.Errors.FirstOrDefault(x => x.PropertyName == BillModelValidator.GlobalProperty));
         ValidationResult.Errors.AddRange(result.Errors);
 
-        OnPropertyChanged(nameof(propertyName));
+        OnPropertyChanged(nameof(ValidationResult));
+
+        CanAddItem = !string.IsNullOrEmpty(Number) && 
+                     Date != default && 
+                     !ValidationResult.Errors.Any(e => e.PropertyName == BillModelValidator.NumberProperty || 
+                                                       e.PropertyName == BillModelValidator.DateProperty);
     }
+    #endregion
 }
