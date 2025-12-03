@@ -198,9 +198,9 @@ public partial class CreateOrEditBillViewModel(
     {
         var result = await billValidator.ValidateAsync(this, options => options.IncludeProperties(propertyName));
 
-        ValidationResult.Errors.Remove(ValidationResult.Errors.FirstOrDefault(x => x.PropertyName == propertyName));
+        ValidationResult.Errors.RemoveAll(x => x.PropertyName == propertyName);
 
-        ValidationResult.Errors.Remove(ValidationResult.Errors.FirstOrDefault(x => x.PropertyName == BillModelValidator.GlobalProperty));
+        ValidationResult.Errors.RemoveAll(x => x.PropertyName == BillModelValidator.GlobalProperty);
         ValidationResult.Errors.AddRange(result.Errors);
 
         OnPropertyChanged(nameof(ValidationResult));

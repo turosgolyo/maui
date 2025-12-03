@@ -19,4 +19,12 @@ public partial class CreateOrEditBillView : ContentPage
             viewModel.ValidateCommand.Execute(BillModelValidator.DateProperty);
         }
     }
+
+    private void NumberEntry_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (BindingContext is CreateOrEditBillViewModel viewModel)
+        {
+            viewModel.ValidateCommand.Execute(BillModelValidator.NumberProperty);
+        }
+    }
 }

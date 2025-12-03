@@ -55,16 +55,7 @@
                     Binding ValidationResult, 
                     Converter={StaticResource ValidationResultHasErrorConverter}, 
                     ConverterParameter={x:Static validator:BillModelValidator.NumberProperty}}">
-                <Entry Placeholder="Enter bill number here" Text="{Binding Number, Mode=TwoWay}">
-                    <Entry.Behaviors>
-                        <toolkit:EventToCommandBehavior
-                            EventName="TextChanged" 
-                            BindingContext="{x:Reference this}"
-                            Command="{Binding ValidateCommand}"
-                            CommandParameter="{x:Static validator:BillModelValidator.NumberProperty}"/>
-                    </Entry.Behaviors>
-                </Entry>
-
+                <Entry Placeholder="Enter bill number here" Text="{Binding Number, Mode=TwoWay}" TextChanged="NumberEntry_TextChanged"/>
             </inputLayout:SfTextInputLayout>
 
             <inputLayout:SfTextInputLayout

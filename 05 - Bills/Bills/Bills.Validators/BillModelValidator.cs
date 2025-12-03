@@ -12,7 +12,8 @@ public class BillModelValidator : BaseValidator<BillModel>
     public BillModelValidator(IHttpContextAccessor httpContextAccessor = null) : base(httpContextAccessor)
     {
         RuleFor(x => x.Number).NotEmpty().WithMessage("Number is required!")
-                              .MinimumLength(2).MaximumLength(32).WithMessage("Number must be in between 2 and 32 characters!");
+                              .MinimumLength(2).WithMessage("Number must be more than 2 characters!")
+                              .MaximumLength(32).WithMessage("Number must be less than 32 characters!");
 
         RuleFor(x => x.Date).NotEmpty().WithMessage("Date is required!")
                             .LessThanOrEqualTo(DateTime.Today).WithMessage("Date cannot be in the future.");
