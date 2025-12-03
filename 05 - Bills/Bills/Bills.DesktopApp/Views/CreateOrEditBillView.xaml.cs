@@ -11,4 +11,12 @@ public partial class CreateOrEditBillView : ContentPage
 		this.BindingContext = viewModel;
 		InitializeComponent();
 	}
+
+    private void BillDatePicker_DateSelected(object sender, DateChangedEventArgs e)
+    {
+        if (BindingContext is CreateOrEditBillViewModel viewModel)
+        {
+            viewModel.ValidateCommand.Execute(BillModelValidator.DateProperty);
+        }
+    }
 }

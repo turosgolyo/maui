@@ -80,10 +80,8 @@
                     Converter={StaticResource ValidationResultToErrorMessagesConverter},
                     ConverterParameter={x:Static validator:BillModelValidator.DateProperty}}">
 
-                <picker:SfDatePicker x:Name="{Binding Date}"
-                                     SelectionChanged="Date_SelectionChanged">
-                    
-                </picker:SfDatePicker>
+                <DatePicker Date="{Binding Date, Mode=TwoWay}"
+                            DateSelected="BillDatePicker_DateSelected"/>
 
             </inputLayout:SfTextInputLayout>
             
