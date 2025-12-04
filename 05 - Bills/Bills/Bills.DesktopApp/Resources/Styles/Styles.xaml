@@ -30,7 +30,7 @@
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="BorderWidth" Value="2"/>
-        <Setter Property="BorderColor" Value="#9DC08B"/>
+        <Setter Property="BorderColor" Value="#A376A2"/>
         <Setter Property="CornerRadius" Value="8"/>
         <Setter Property="Padding" Value="14,10"/>
         <Setter Property="MinimumHeightRequest" Value="44"/>

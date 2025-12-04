@@ -27,4 +27,14 @@ public partial class CreateOrEditBillView : ContentPage
             viewModel.ValidateCommand.Execute(BillModelValidator.NumberProperty);
         }
     }
+
+    private void ItemNameEntry_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (BindingContext is CreateOrEditBillViewModel viewModel)
+        {
+            viewModel.ValidateCommand.Execute(ItemModelValidator.NameProperty);
+        }
+    }
+
+
 }

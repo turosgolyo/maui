@@ -7,6 +7,7 @@ public class BillModelValidator : BaseValidator<BillModel>
 {
     public static string NumberProperty => nameof(BillModel.Number);
     public static string DateProperty => nameof(BillModel.Date);
+    public static string ItemsProperty => nameof(BillModel.Items);
     public static string GlobalProperty => "Global";
 
     public BillModelValidator(IHttpContextAccessor httpContextAccessor = null) : base(httpContextAccessor)
@@ -16,6 +17,8 @@ public class BillModelValidator : BaseValidator<BillModel>
                               .MaximumLength(32).WithMessage("Number must be less than 32 characters!");
 
         RuleFor(x => x.Date).NotEmpty().WithMessage("Date is required!")
-                            .LessThanOrEqualTo(DateTime.Today).WithMessage("Date cannot be in the future.");
+                            .LessThanOrEqualTo(DateTime.Now).WithMessage("Date cannot be in the future.");
+
+        RuleFor(x => x.Items).NotEmpty().WithMessage("Items are required!");
     }
 }

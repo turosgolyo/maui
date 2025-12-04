@@ -1,4 +1,6 @@
-﻿namespace Bills.Core.Models;
+﻿using System.Collections.ObjectModel;
+
+namespace Bills.Core.Models;
 public partial class BillModel : ObservableObject
 {
     [ObservableProperty]
@@ -15,7 +17,9 @@ public partial class BillModel : ObservableObject
 
     [ObservableProperty]
     [JsonPropertyName("items")]
-    private List<ItemModel>? items;
+    private ObservableCollection<ItemModel>? items;
+
+    public double? Total => Items?.Sum(x => x.Total);
 
     public BillModel()
     {
@@ -30,7 +34,9 @@ public partial class BillModel : ObservableObject
         this.Id = entity.Id;
         this.Number = entity.Number;
         this.Date = entity.Date;
-        this.Items = entity.Items.Select(x => new ItemModel(x)).ToList();
+        this.Items = new ObservableCollection<ItemModel>(
+            entity.Items?.Select(x => new ItemModel(x))
+        );
     }
 
     public BillEntity ToEntity()

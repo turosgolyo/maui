@@ -5,9 +5,6 @@ global using Bills.DesktopApp.ViewModels;
 global using Bills.DesktopApp.Views;
 global using Bills.Services;
 global using CommunityToolkit.Maui;
-global using CommunityToolkit.Maui.Alerts;
-global using CommunityToolkit.Maui.Core;
-global using CommunityToolkit.Maui.Markup;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
 global using FluentValidation.Results;
@@ -21,6 +18,7 @@ global using Bills.Validators;
 global using System.Collections.ObjectModel;
 global using FluentValidation;
 global using System.Windows.Input;
+global using Bills.DesktopApp.Extensions;
 
 
 

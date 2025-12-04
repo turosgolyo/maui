@@ -29,9 +29,6 @@ public partial class CreateOrEditBillViewModel(
     private string title;
 
     [ObservableProperty]
-    private ObservableCollection<ItemModel> addedItems = [];
-
-    [ObservableProperty]
     private ItemModel item = new();
 
     [ObservableProperty]
@@ -45,6 +42,9 @@ public partial class CreateOrEditBillViewModel(
             asyncBillButtonAction = OnSaveAsync;
             asyncItemButtonAction = OnAddItemAsync;
             Title = "Add new  bills";
+
+            this.Items = new ObservableCollection<ItemModel>();
+
             return;
         }
 
@@ -63,7 +63,6 @@ public partial class CreateOrEditBillViewModel(
 
         if (!ValidationResult.IsValid)
         {
-            await Application.Current.MainPage.DisplayAlert("Error", "Add item failed", "OK");
             return;
         }
 
@@ -75,32 +74,32 @@ public partial class CreateOrEditBillViewModel(
             Amount = this.Item.Amount
         };
 
-        this.AddedItems.Add(newItem);
+        this.Items.Add(newItem);
         ClearItemForm();
         await Task.CompletedTask;
     }
+
     private async Task OnSaveAsync()
     {
         this.ValidationResult = await billValidator.ValidateAsync(this);
 
         if (!ValidationResult.IsValid)
         {
-            await Application.Current.MainPage.DisplayAlert("Error", "Save failed", "OK");
             return;
         }
-
-        this.Items = this.AddedItems.ToList();
 
         var result = await billService.CreateAsync(this);
         var message = result .IsError ? result.FirstError.Description : "Bill saved successfully.";
         var title = result.IsError ? "Error" : "Success";
 
         await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+
         ClearForm();
     }
+
     private async Task OnDeleteItemAsync(ItemModel item)
     {
-        addedItems.Remove(item);
+        this.Items.Remove(item);
 
         if(item.Id != 0)
         {
@@ -109,6 +108,8 @@ public partial class CreateOrEditBillViewModel(
             var title = result.IsError ? "Error" : "Success";
             await Application.Current.MainPage.DisplayAlert(title, message, "OK");
         }
+
+        ClearItemForm();
     }
     private async Task OnClickUpdateItemAsync(ItemModel item)
     {
@@ -130,21 +131,18 @@ public partial class CreateOrEditBillViewModel(
 
         if (!ValidationResult.IsValid)
         {
-            await Application.Current.MainPage.DisplayAlert("Error", "Add item failed", "OK");
             return;
         }
 
         var updatedItem = this.Item;
 
-        var existingItem = addedItems.FirstOrDefault(item => item.TempId == updatedItem.TempId);
+        var existingItem = Items.FirstOrDefault(i => i.TempId == updatedItem.TempId);
 
         if (existingItem != null)
         {
-            existingItem.Name = updatedItem.Name;
-            existingItem.Price = updatedItem.Price;
-            existingItem.Amount = updatedItem.Amount;
+            var index = Items.IndexOf(existingItem);
+            Items[index] = updatedItem;
         }
-
 
         if (updatedItem.Id != 0)
         {
@@ -167,15 +165,13 @@ public partial class CreateOrEditBillViewModel(
             return;
         }
         var bill = billResult.Value;
-        var items = bill.Items ?? new List<ItemModel>();
-        this.AddedItems = new ObservableCollection<ItemModel>(items);
+        var items = bill.Items ?? new ObservableCollection<ItemModel>();
     }
 
     private void ClearForm() {
         this.Number = null;
         this.Date = DateTime.Now;
-        this.Items = null;
-        this.AddedItems = null;
+        this.Items = [];
         ClearItemForm();
     }
 
@@ -187,10 +183,12 @@ public partial class CreateOrEditBillViewModel(
 
     #region validation
     private BillModelValidator billValidator => new BillModelValidator();
+
     private ItemModelValidator itemValidator => new ItemModelValidator();
 
     [ObservableProperty]
     private ValidationResult validationResult = new ValidationResult();
+
     [ObservableProperty]
     private ValidationResult itemValidationResult = new ValidationResult();
 
@@ -201,6 +199,7 @@ public partial class CreateOrEditBillViewModel(
         ValidationResult.Errors.RemoveAll(x => x.PropertyName == propertyName);
 
         ValidationResult.Errors.RemoveAll(x => x.PropertyName == BillModelValidator.GlobalProperty);
+
         ValidationResult.Errors.AddRange(result.Errors);
 
         OnPropertyChanged(nameof(ValidationResult));

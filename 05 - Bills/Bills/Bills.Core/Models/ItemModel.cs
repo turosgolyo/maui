@@ -18,9 +18,11 @@ public partial class ItemModel : ObservableObject
     [ObservableProperty]
     [JsonPropertyName("amount")]
     private int amount;
-    public double Total => Amount * Price;
 
+    public double Total => Amount * Price;
+    
     public Guid TempId { get; set; } = Guid.NewGuid();
+    
     public ItemModel()
     {
         this.Id = id;
