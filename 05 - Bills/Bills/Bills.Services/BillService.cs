@@ -1,5 +1,5 @@
 ﻿namespace Bills.Services;
-public class BillService(AppDbContext dbContext) : IBillService
+public class BillService(AppDbContext dbContext, IItemService itemService) : IBillService
 {
     public async Task<ErrorOr<BillModel>> CreateAsync(BillModel bill)
     {

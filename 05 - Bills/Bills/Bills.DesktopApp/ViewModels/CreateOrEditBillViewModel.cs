@@ -36,11 +36,12 @@ public partial class CreateOrEditBillViewModel(
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
+        asyncItemButtonAction = OnAddItemAsync;
+
         bool hasValue = query.TryGetValue("Bill", out object result);
         if (!hasValue)
         {
             asyncBillButtonAction = OnSaveAsync;
-            asyncItemButtonAction = OnAddItemAsync;
             Title = "Add new  bills";
 
             this.Items = new ObservableCollection<ItemModel>();
@@ -51,6 +52,8 @@ public partial class CreateOrEditBillViewModel(
         BillModel bill = result as BillModel;
 
         await LoadItemsByBillAsync(bill.Id);
+
+        asyncBillButtonAction = OnUpdateBillAsync;
 
         this.Id = bill.Id;
         this.Number = bill.Number;
@@ -77,6 +80,27 @@ public partial class CreateOrEditBillViewModel(
         this.Items.Add(newItem);
         ClearItemForm();
         await Task.CompletedTask;
+    }
+
+    private async Task OnUpdateBillAsync()
+    {
+        this.ValidationResult = await billValidator.ValidateAsync(this);
+
+        if (!ValidationResult.IsValid)
+        {
+            return;
+        }
+
+        var result = await billService.UpdateAsync(this);
+        var message = result.IsError ? result.FirstError.Description : "Bill updated successfully.";
+        var title = result.IsError ? "Error" : "Success";
+
+        await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+
+        ClearForm();
+
+        Shell.Current.ClearNavigationStack();
+        await Shell.Current.GoToAsync(ListBillsView.Name);
     }
 
     private async Task OnSaveAsync()
