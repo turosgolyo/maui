@@ -49,10 +49,12 @@ public partial class CreateOrEditBillViewModel(
             return;
         }
 
+
         BillModel bill = result as BillModel;
 
         await LoadItemsByBillAsync(bill.Id);
 
+        Title = "Update bill";
         asyncBillButtonAction = OnUpdateBillAsync;
 
         this.Id = bill.Id;

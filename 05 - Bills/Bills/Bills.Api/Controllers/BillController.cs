@@ -32,6 +32,19 @@ public class BillController(IBillService billService) :BaseController
         );
     }
 
+    //PAGED
+    [HttpGet]
+    [Route("api/bills/page/{page}")]
+    public async Task<IActionResult> GetPageAsync([FromRoute] int page = 0)
+    {
+        var result = await billService.GetPagedAsync(page);
+
+        return result.Match(
+            result => Ok(result),
+            errors => Problem(errors)
+        );
+    }
+
     //CREATE
     [HttpPost]
     [Route("api/bills/create")]

@@ -28,22 +28,23 @@
         <Grid ColumnDefinitions="1*, 2*">
 
             <Label
-                Margin="0,20,0,20"
                 FontAttributes="Bold"
                 FontFamily="Franklin Gothic"
                 Style="{StaticResource SubHeadline}"
-                Text="Add new bill" 
+                FontSize="Large"
+                Margin="0, 20, 0, 0"
+                Text="{Binding Title}" 
                 HorizontalOptions="Center"/>
 
             <VerticalStackLayout
                 Grid.Column="0"
-                Margin="50,50,50,50">
+                Margin="50, 100, 0, 0">
+                
                 <Label
                     Margin="0,0,0,30"
                     FontAttributes="Bold"
                     FontSize="Medium"
                     Text="Bill" />
-
 
                 <inputLayout:SfTextInputLayout
                     ContainerType="Outlined"
@@ -57,7 +58,9 @@
                         Binding ValidationResult, 
                         Converter={StaticResource ValidationResultHasErrorConverter}, 
                         ConverterParameter={x:Static validator:BillModelValidator.NumberProperty}}">
+                    
                     <Entry Placeholder="Enter bill number here" Text="{Binding Number, Mode=TwoWay}" TextChanged="NumberEntry_TextChanged"/>
+                    
                 </inputLayout:SfTextInputLayout>
 
                 <inputLayout:SfTextInputLayout
@@ -79,7 +82,7 @@
                 </inputLayout:SfTextInputLayout>
             
                 <Label
-                    Margin="0,100,0,30"
+                    Margin="0,50,0,30"
                     FontAttributes="Bold"
                     FontSize="Medium"
                     Text="Item" />
@@ -157,7 +160,7 @@
 
 
                 <Button
-                    Margin="0,120,0,50"
+                    Margin="0,110,0,50"
                     Command="{Binding ItemButtonCommand}"
                     IsEnabled="{Binding CanAddItem}"
                     FontAttributes="Bold"
@@ -172,13 +175,14 @@
             
                 <Label
                     FontAttributes="Bold"
-                    FontSize="Medium"
+                    FontSize="Large"
                     HorizontalOptions="Center"
-                    Text="Bill items" />
+                    Text="Bill items" 
+                    Margin="15"/>
 
                 <inputLayout:SfTextInputLayout
                     ContainerType="Outlined"
-                    HeightRequest="800"
+                    HeightRequest="750"
                     OutlineCornerRadius="15"
                     ErrorText="{
                         Binding ValidationResult, 
@@ -192,42 +196,56 @@
                     <CollectionView Grid.Column="1" ItemsSource="{Binding Items}">
                     
                         <CollectionView.Header>
+                            
+                            <Border Stroke="DimGrey"
+                                    StrokeThickness="2"
+                                    StrokeShape="RoundRectangle 30"
+                                    Margin="0, 0, 0, 10"
+                                    Padding="5">
+                                
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="80" />
+                                    </Grid.ColumnDefinitions>
 
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="80" />
-                                    <ColumnDefinition Width="80" />
-                                </Grid.ColumnDefinitions>
 
-                                <Label
-                                    Grid.Column="0"
-                                    Margin="10"
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="Center"
-                                    Text="Name" />
-                                <Label
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="Center"
-                                    Text="Price" />
-                                <Label
-                                    Grid.Column="2"
-                                    Margin="10"
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="Center"
-                                    Text="Amount" />
-                                <Label
-                                    Grid.Column="3"
-                                    Margin="10"
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="Center"
-                                    Text="Total Price" />
-                            </Grid>
+                                    <Label
+                                        Grid.Column="0"
+                                        Margin="10"
+                                        FontSize="Small"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"
+                                        Text="Name" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Margin="10"
+                                        FontSize="Small"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"
+                                        Text="Price" />
+                                    <Label
+                                        Grid.Column="2"
+                                        Margin="10"
+                                        FontSize="Small"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"
+                                        Text="Amount" />
+                                    <Label
+                                        Grid.Column="3"
+                                        Margin="10"
+                                        FontSize="Small"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"
+                                        Text="Total Price" />
+                                </Grid>
+                                
+                            </Border>
+                            
                         </CollectionView.Header>
 
 

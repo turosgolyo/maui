@@ -6,4 +6,5 @@ public interface IBillService
     Task<ErrorOr<BillModel>> CreateAsync(BillModel bill);
     Task<ErrorOr<Success>> UpdateAsync(BillModel bill);
     Task<ErrorOr<Success>> DeleteAsync(int id);
+    Task<ErrorOr<PaginationModel<BillModel>>> GetPagedAsync(int page = 0);
 }
