@@ -1,4 +1,5 @@
-﻿using Bills.Core.Interfaces;
+﻿using Bills.Core.DTO.Requests;
+using Bills.Core.Interfaces;
 using Bills.Core.Models;
 using System.ComponentModel.DataAnnotations;
 
@@ -33,7 +34,7 @@ public class ItemController(IItemService itemService) : BaseController
     //CREATE
     [HttpPost]
     [Route("api/items/create")]
-    public async Task<IActionResult> CreateAsync([FromBody][Required] ItemModel item)
+    public async Task<IActionResult> CreateAsync([FromBody][Required] ItemModelRequest item)
     {
         var result = await itemService.CreateAsync(item);
         return result.Match(
@@ -45,7 +46,7 @@ public class ItemController(IItemService itemService) : BaseController
     //UPDATE
     [HttpPut]
     [Route("api/items/update")]
-    public async Task<IActionResult> UpdateAsync([FromBody][Required] ItemModel item)
+    public async Task<IActionResult> UpdateAsync([FromBody][Required] ItemModelRequest item)
     {
         var result = await itemService.UpdateAsync(item);
         return result.Match(
@@ -57,7 +58,7 @@ public class ItemController(IItemService itemService) : BaseController
     //DELETE
     [HttpDelete]
     [Route("api/items/delete")]
-    public async Task<IActionResult> DeleteAsync([FromBody][Required] ItemModel item)
+    public async Task<IActionResult> DeleteAsync([FromBody][Required] ItemModelRequest item)
     {
         var result = await itemService.DeleteAsync(item);
         return result.Match(

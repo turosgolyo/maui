@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace Bills.Core.Models;
+﻿namespace Bills.Core.Models;
 public partial class ItemModel : ObservableObject
 {
     [ObservableProperty]
