@@ -3,12 +3,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.LoadEnvironmentVariables()
-       .ConfigureDatabase();
+builder.ConfigureDI()
+       .LoadEnvironmentVariables()
+       .ConfigureDatabase()
+       .LoadSettings()
+       .UseSecurity()
+       .UseIdentity();
 
 var app = builder.Build();
 app.UseHttpsRedirection();
-app.UseAuthorization();
+app.UseRouting();
+app.UseSecurity();
 app.MapControllers();
 
 
