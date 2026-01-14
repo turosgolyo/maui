@@ -2,6 +2,6 @@
 
 public interface ISecurityService
 {
-    Task<ErrorOr<TokenResponseModel>> LoginAsnyc(LoginRequestModel model);
-    Task<ErrorOr<Success>> RegisterAsnyc(RegisterRequestModel model);
+    Task<ErrorOr<TokenResponseModel>> LoginAsync(LoginRequestModel model);
+    Task<ErrorOr<Success>> RegisterAsync(RegisterRequestModel model);
 }

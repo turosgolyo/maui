@@ -1,5 +1,4 @@
 <Solution>
-  <Folder Name="/Authentification Items/" />
   <Project Path="Authentification.Domain/Authentification.Domain.csproj" />
   <Project Path="Authentification.Services/Authentification.Services.csproj" />
   <Project Path="Authentification.Shared/Authentification.Shared.csproj" />

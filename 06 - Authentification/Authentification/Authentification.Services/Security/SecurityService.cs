@@ -11,7 +11,7 @@ namespace Authentification.Services.Security;
 
 public class SecurityService(UserManager<UserEntity> userManager, IOptions<JWTSettingsModel> settings) : ISecurityService
 {
-    public async Task<ErrorOr<Success>> RegisterAsnyc(RegisterRequestModel model)
+    public async Task<ErrorOr<Success>> RegisterAsync(RegisterRequestModel model)
     {
         //TODO: Add validation
         var result = await userManager.CreateAsync(new UserEntity
@@ -28,7 +28,7 @@ public class SecurityService(UserManager<UserEntity> userManager, IOptions<JWTSe
         return result.Succeeded ? Result.Success: Error.Failure(description:string.Join(", ", errors));
     }
 
-    public async Task<ErrorOr<TokenResponseModel>> LoginAsnyc(LoginRequestModel model)
+    public async Task<ErrorOr<TokenResponseModel>> LoginAsync(LoginRequestModel model)
     {
         //TODO: Add validation
         

@@ -2,7 +2,7 @@
 
 public class UserService(UserManager<UserEntity> userManager) : IUserService
 {
-    async Task<ErrorOr<ICollection<UserModel>>> GetAllUsers()
+    public async Task<ErrorOr<ICollection<UserModel>>> GetAllUsers()
     {
         return await userManager.Users.Select(x => new UserModel
         {
