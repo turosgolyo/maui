@@ -17,5 +17,8 @@ global using ErrorOr;
 global using Authentification.Services.User;
 global using Microsoft.OpenApi;
 global using Scalar.AspNetCore;
-
+global using Authentification.WebAPI.Transformers;
+global using Microsoft.AspNetCore.Authentication;
+global using Microsoft.AspNetCore.OpenApi;
+global using System.Reflection;
 

@@ -8,13 +8,19 @@ builder.ConfigureDI()
        .ConfigureDatabase()
        .LoadSettings()
        .UseSecurity()
-       .UseIdentity();
+       .UseIdentity()
+       .UseScalarOpenAPI()
+       .UseSwashbuckleOpenAPI()
+       .UseScalarOpenAPI();
 
 var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseSecurity();
 app.MapControllers();
+app.UseScalarOpenAPI();
+//app.UseSwashbuckleOpenAPI();
+//app.UseReDocOpenAPI();
 
 
 await app.RunAsync();

@@ -1,10 +1,17 @@
-﻿namespace Authentification.WebAPI.Controllers;
+﻿using Authentification.Domain.Models.Responses;
+using Swashbuckle.AspNetCore.Annotations;
+using System.ComponentModel;
+
+namespace Authentification.WebAPI.Controllers;
 
 [ApiController]
+[ProducesResponseType(statusCode: 400, type: typeof(BadRequestObjectResult))]
 public class SecurityController(ISecurityService securityService) : ControllerBase
 {
     [HttpPost]
     [Route("api/security/register")]
+    [ProducesResponseType(type: typeof(Success), statusCode: 200)]
+    [EndpointDescription("Register a user using email and password")]
     public async Task<IActionResult> RegisterAsync([FromBody][Required] RegisterRequestModel model)
     {
         var result = await securityService.RegisterAsync(model);
@@ -16,6 +23,8 @@ public class SecurityController(ISecurityService securityService) : ControllerBa
 
     [HttpPost]
     [Route("api/security/login")]
+    [ProducesResponseType(type: typeof(TokenResponseModel), statusCode: 200)]
+    [EndpointDescription("Login a user using email and password")]
     public async Task<IActionResult> LoginAsync([FromBody][Required] LoginRequestModel model)
     {
         var result = await securityService.LoginAsync(model);

@@ -1,4 +1,6 @@
-﻿namespace Authentification.WebAPI.Configurations;
+﻿namespace Microsoft.AspNetCore.Builder;
+
+//https://guides.scalar.com/scalar/scalar-api-references/integrations/net-aspnet-core/integration
 
 public static class ConfigureOpenAPI
 {
@@ -11,7 +13,7 @@ public static class ConfigureOpenAPI
                 options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_1;
                 options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
             });
-
+            
             builder.Services.AddEndpointsApiExplorer();
 
             return builder;
@@ -23,9 +25,10 @@ public static class ConfigureOpenAPI
         public IApplicationBuilder UseScalarOpenAPI()
         {
             app.MapOpenApi();
+
             app.MapScalarApiReference(options =>
             {
-                options.WithTitle("Authentification WebAPI")
+                options.WithTitle("WeatherForecast API Documentation")
                        .WithTheme(ScalarTheme.Default)
                        .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient)
                        .WithClassicLayout()
